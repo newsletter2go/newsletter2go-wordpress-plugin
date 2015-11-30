@@ -40,6 +40,11 @@
         border-radius: 10px;
     }
 
+    .widgetField {
+        display: table;
+        cursor: move;
+    }
+
     #widgetSourceCode {
         font-family: Consolas, Monaco, monospace;
         font-size: 13px;
@@ -55,9 +60,21 @@
         margin-top: 10px;
     }
 
-    .n2go-container ul label {
+    .n2go-editable-label {
+        margin-left: 10px;
         display: inline-block;
-        margin-top: -4px;
+        font-weight: bold;
+        cursor: text;
+        transition: padding 0.2s ease;
+        border: solid 1px transparent;
+        padding: 2px;
+    }
+
+    .n2go-editable-label:hover {
+        background-color: #ffffff;
+        padding: 4px;
+        border: solid 1px #5b9dd9;
+        border-radius: 4px;
     }
 
     #n2goWidget {
@@ -97,19 +114,35 @@
         color: red;
     }
 
-    .widgetField label {
-        cursor: move;
-    }
-
     .n2go-error {
         margin: 15px 0;
         color: #b94a48;
         background-color: #f2dede;
-        border-color: #eed3d7;
         padding: 10px;
         border: 1px solid #b94a48;
         display: inline-block;
     }
+
+    .widgetField label {
+        float:left;
+        text-align: right;
+        overflow: hidden;
+        width: 150px;
+        display: inline-block;
+        font-weight: bold;
+        margin: 0 5px 0 5px;
+        padding: 3px;
+    }
+
+    .n2go-table-header {
+        font-size: 14px;
+        width: 150px;
+        display: inline-block;
+        margin: 0 5px;
+        font-weight: bold;
+        color: #2ea2cc;
+    }
+
 </style>
 <div class="wrap">
     <?php if ($curl_error != null) { ?>
@@ -162,6 +195,10 @@
                 <h3>Which data fields should be visible in your subscription form?</h3>
                 <div class="alert alert-info">Attention: In germany, according to german law, it's only allowed to set email-address as required</div>
                 <ul id="widgetFields">
+                    <li>
+                        <span class="n2go-table-header" style="text-align: right;">Newsletter2Go field</span>
+                        <span class="n2go-table-header" style="padding-left: 30px;">Title label</span>
+                    </li>
                     <?php
                     $i = 1;
                     foreach ($attributes as $value) {
@@ -171,8 +208,12 @@
                                    name="attributes[]" title="<?= $value['title']; ?>" class="js-n2go-widget-field <?php echo $value['required'] ? 'n2go-required' : ''?>"
                                    value="<?= $value['id']; ?>" <?= $value['checked']; ?> />
                             <input type="hidden" value="<?= $i++; ?>" name="<?= $value['id']; ?>Sort"/>
-                            <label for="<?= $value['id']; ?>"><?= $value['title']; ?><?php echo $value['required'] ? ' (required)' : ''?></label>
+                            <label for="<?= $value['id']; ?>"><?= $value['label']; ?>: </label>
+                            <div class="n2go-editable-label">
+                                <?= $value['title']; ?><?php echo $value['required'] ? ' (required)' : ''?>
+                            </div>
                             <input type="hidden" value="<?= $value['required']; ?>" name="<?= $value['id']; ?>Required"/>
+                            <input type="hidden" value="<?= $value['title']; ?>" name="fieldTitles[<?= $value['id']; ?>]"/>
                         </li>
                     <?php } ?>
                 </ul>
@@ -324,12 +365,12 @@
                     for (i = 0; i < fields.length; i++) {
                         if (fields[i]['name'] === 'Gender') {
                             sourceCode += '\n    ' + fields[i]['name'] + '<br />\n    ' + '<select ' + inputStyle + 'name="' + fields[i]['id'] + '" ' + fields[i]['required'] + '>';
-                            sourceCode += '\n      <option value=" "></option>';
+                            sourceCode += '\n      <option disabled selected label=" -- select an option -- "></option>';
                             sourceCode += '\n      <option value="m">Male</option>';
                             sourceCode += '\n      <option value="f">Female</option>';
                             sourceCode += '\n    </select><br>';
                         } else {
-                            sourceCode += '\n    ' + fields[i]['name'] + '<br />\n    ' + '<input ' + inputStyle + 'type="text" name="' + fields[i]['id'] + '"' +  fields[i]['required'] + ' /><br />';
+                            sourceCode += '\n    ' + fields[i]['name'] + '<br />\n    ' + '<input ' + inputStyle + 'type="text" name="' + fields[i]['id'] + '" ' +  fields[i]['required'] + ' /><br />';
                         }
                     }
 
@@ -360,7 +401,8 @@
                     checked: elem.children[0].checked,
                     disabled: elem.children[0].disabled,
                     label: elem.children[2].innerHTML,
-                    required: elem.children[3].value
+                    required: elem.children[4].value,
+                    displayTitle: elem.children[3].innerHTML
                 };
             }
 
@@ -374,8 +416,11 @@
                 elem.children[1].name = values.value + 'Sort';
                 elem.children[2].innerHTML = values.label;
                 elem.children[2].htmlFor = values.id;
-                elem.children[3].name = values.value + 'Required';
-                elem.children[3].value = values.required;
+                elem.children[3].innerHTML = values.displayTitle;
+                elem.children[4].name = values.value + 'Required';
+                elem.children[4].value = values.required;
+                elem.children[5].value = values.title;
+                elem.children[5].name = 'fieldTitles[' + values.id + ']';
             }
 
             function handleDragStart(e) {
@@ -423,14 +468,49 @@
                 buildWidgetForm();
             }
 
+            function transformToEditBox(e) {
+                var me = this,
+                    textField = document.createElement('input'),
+                    oldText = me.innerHTML.replace(' (required)', '').trim();
+
+                textField.value = oldText;
+                textField.addEventListener('blur', function(){
+                    var val = this.value,
+                        required = this.parentElement.children[4].value;
+
+                    this.parentElement.draggable = true;
+                    val = val ? val : oldText;
+                    if (oldText === val) {
+                        this.parentNode.replaceChild(me, this);
+                        return true;
+                    }
+
+                    this.parentElement.children[0].title = val;
+                    this.parentElement.children[4].value = val;
+                    me.innerHTML = val + (required ? ' (' + required + ')' : '');
+
+                    this.parentNode.replaceChild(me, this);
+                    buildWidgetForm();
+                }, false);
+
+                me.parentNode.replaceChild(textField, me);
+                textField.parentElement.draggable = false;
+                textField.focus();
+            }
+
             [].forEach.call(document.querySelectorAll('#widgetFields .widgetField'), function (field) {
                 field.addEventListener('dragstart', handleDragStart, false);
-                field.addEventListener('dragenter', handleDragEnter, false)
+                field.addEventListener('dragenter', handleDragEnter, false);
                 field.addEventListener('dragover', handleDragOver, false);
                 field.addEventListener('dragleave', handleDragLeave, false);
                 field.addEventListener('drop', handleDrop, false);
                 field.addEventListener('dragend', handleDragEnd, false);
             });
+
+            [].forEach.call(document.querySelectorAll('.n2go-editable-label'), function (field) {
+                field.addEventListener('click', transformToEditBox, false);
+            });
+
 
             buildWidgetForm(<?= $widget ? '1' : '' ?>);
 
@@ -449,20 +529,20 @@
             function hookClickHandler(checkbox) {
                 checkbox.onclick = function (e) {
                     if (!this.checked) {
-                        if (this.parentElement.children[3].value === 'required') {
+                        if (this.parentElement.children[4].value === 'required') {
                             e.preventDefault();
                             this.checked = true;
                             this.className = 'js-n2go-widget-field';
-                            this.parentElement.children[3].value = '';
-                            this.parentElement.children[2].innerHTML = this.parentElement.children[2].innerHTML.replace(' (required)', '');
+                            this.parentElement.children[4].value = '';
+                            this.parentElement.children[3].innerHTML = this.parentElement.children[2].innerHTML.replace(' (required)', '');
                             buildWidgetForm();
 
                             return false;
                         }
                     } else {
                         this.className = 'js-n2go-widget-field n2go-required';
-                        this.parentElement.children[3].value = 'required';
-                        this.parentElement.children[2].innerHTML += ' (required)';
+                        this.parentElement.children[4].value = 'required';
+                        this.parentElement.children[3].innerHTML += ' (required)';
                     }
                 };
             }

@@ -47,6 +47,7 @@ class N2GoGui
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->save_option('n2go_apikey', $_POST['apiKey']);
             $this->save_option('n2go_doiCode', $_POST['doiCode']);
+            $this->save_option('n2go_fieldTitles', $_POST['fieldTitles']);
             $checks = $_POST['attributes'];
             $attributes = array('email' => array(
                 'sort' => $_POST['emailSort'],
@@ -81,9 +82,12 @@ class N2GoGui
             $widget = $_POST['widgetSourceCode'];
             $this->save_option('n2go_widgetSource', $widget);
         }
+
         $curl_error = null;
+        $allAttri = 0;
         $apiKey = get_option('n2go_apikey');
         $doiCode = get_option('n2go_doiCode');
+        $fieldTitles = get_option('n2go_fieldTitles');
         $attributesSelected = get_option('n2go_attributes');
         $texts = get_option('n2go_general');
         $colors = get_option('n2go_colors');
@@ -99,7 +103,8 @@ class N2GoGui
                     'id' => $tmpId,
                     'checked' => isset($attributesSelected[$tmpId]) ? 'checked' : '',
                     'sort' => $attributesSelected[$tmpId] ? $attributesSelected[$tmpId]['sort'] : $allAttri,
-                    'title' => $atr,
+                    'title' => isset($fieldTitles[$tmpId]) ? $fieldTitles[$tmpId] : $atr,
+                    'label' => $atr,
                     'required' => $attributesSelected[$tmpId] ? $attributesSelected[$tmpId]['required'] : '',
                 );
             }
@@ -131,31 +136,35 @@ class N2GoGui
 
         $attributes[] = array(
             'id' => 'email',
+            'label' => 'E-mail',
             'checked' => 'checked',
             'sort' => $attributesSelected['email'] ? $attributesSelected['email']['sort'] : $allAttri,
-            'title' => 'E-mail address',
+            'title' => isset($fieldTitles['email']) ? $fieldTitles['email'] : 'E-mail address',
             'disabled' => 'disabled="true"',
             'required' => 'required',
         );
         $attributes[] = array(
             'id' => 'firstname',
+            'label' => 'First name',
             'checked' => isset($attributesSelected['firstname']) ? 'checked' : '',
             'sort' => $attributesSelected['firstname'] ? $attributesSelected['firstname']['sort'] : $allAttri,
-            'title' => 'First name',
+            'title' => isset($fieldTitles['firstname']) ? $fieldTitles['firstname'] : 'First name',
             'required' => $attributesSelected['firstname'] ? $attributesSelected['firstname']['required'] : '',
         );
         $attributes[] = array(
             'id' => 'lastname',
+            'label' => 'Last name',
             'checked' => isset($attributesSelected['lastname']) ? 'checked' : '',
             'sort' => $attributesSelected['lastname'] ? $attributesSelected['lastname']['sort'] : $allAttri,
-            'title' => 'Last name',
+            'title' => isset($fieldTitles['lastname']) ? $fieldTitles['lastname'] : 'Last name',
             'required' => $attributesSelected['lastname'] ? $attributesSelected['lastname']['required'] : '',
         );
         $attributes[] = array(
             'id' => 'gender',
+            'label' => 'Gender',
             'checked' => isset($attributesSelected['gender']) ? 'checked' : '',
             'sort' => $attributesSelected['gender'] ? $attributesSelected['gender']['sort'] : $allAttri,
-            'title' => 'Gender',
+            'title' => isset($fieldTitles['gender']) ? $fieldTitles['gender'] : 'Gender',
             'required' => $attributesSelected['gender'] ? $attributesSelected['gender']['required'] : '',
         );
 

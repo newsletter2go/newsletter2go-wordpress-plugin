@@ -4,7 +4,7 @@
   Plugin Name: Newsletter2Go
   Plugin URI: https://www.newsletter2go.de/
   Description: A RESTful API for Newsletter2Go
-  Version: 3.0.04
+  Version: 3.0.05
   Author: Newsletter2Go
   Author URI: https://www.newsletter2go.de/
  */

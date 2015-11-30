@@ -93,7 +93,8 @@ class N2GoApi
                 'tags' => array(),
                 'images' => array(),
             );
-            $result['link'] = substr($post->guid, strlen($result['url']));
+            $permaLink = get_permalink($post->ID);
+            $result['link'] = substr($permaLink, strlen($result['url']));
 
             //images
             $images = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_mime_type LIKE 'image%' AND post_parent = $id;");
