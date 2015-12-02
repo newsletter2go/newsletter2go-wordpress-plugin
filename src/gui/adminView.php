@@ -35,7 +35,7 @@
 
     #n2goHeaderDOI {
         display: table;
-        background-color: <?php echo (isset($attributesApi['doi-success']) &&$attributesApi['doi-success'] ? 'greenyellow' : 'yellow'); ?>;
+        background-color: <?php echo (isset($attributesApi['doi-success']) && $attributesApi['doi-success'] ? 'greenyellow' : 'yellow'); ?>;
         padding: 10px;
         border-radius: 10px;
     }
@@ -164,9 +164,7 @@
                        value="<?php echo $apiKey; ?>" style="width:300px"/>
                 <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
                 <br/>
-                <a href="https://app.newsletter2go.com/en/settings/#/api" target="_blank">Where do I find my API
-                    key?</a>
-
+                <a href="https://app.newsletter2go.com/en/settings/#/api" target="_blank">Where do I find my API key?</a>
             </div>
             <hr/>
         </div>
@@ -183,8 +181,7 @@
                        value="<?php echo $doiCode; ?>" style="width:300px"/>
                 <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
                 <br/>
-                <a href="https://www.newsletter2go.de/hilfe/empfaenger-verwalten/wo-kann-ich-double-op-in-einstellen/"
-                   target="_blank">Where can I find the double opt in code?</a>
+                <a href="https://app.newsletter2go.com/en/settings/#/api" target="_blank">Where can I find the double opt in code?</a>
             </div>
             <hr/>
         </div>
