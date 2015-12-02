@@ -1,5 +1,10 @@
-Newsletter2Go WordPress Extension
-=================================
+Newsletter2Go WordPress Plugin
+==============================
+
+Installation
+------------
+
+For installation instructions please see the official [help article](https://www.newsletter2go.com/help/integration-api/set-up-wordpress-plug-in/ "How do I set up the WordPress newsletter plug-in?").
 
 Build and deploy
 ----------------
