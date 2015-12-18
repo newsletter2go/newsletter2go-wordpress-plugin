@@ -1,16 +1,14 @@
 version = 0_0_00
-outfile = newsletter2go_v$(version).zip
+outfile = Wordpress_nl2go_$(version).zip
 
 $(version): $(outfile)
 
-$(outfile): tmp/build.zip
-	mv tmp/build.zip $(outfile)
-
-tmp/build.zip: tmp/newsletter2go-for-wordpress
-	cd tmp/ && zip -r build.zip newsletter2go-for-wordpress/
-
-tmp/newsletter2go-for-wordpress:
-	mkdir -p tmp/newsletter2go-for-wordpress
+$(outfile):
+	mkdir newsletter2go
+	cp -r ./src/* newsletter2go
+	zip -r  build.zip ./newsletter2go/*
+	mv build.zip $(outfile)
+	rm -r newsletter2go
 
 .PHONY: svn
 svn:
