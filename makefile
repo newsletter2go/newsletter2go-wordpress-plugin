@@ -1,4 +1,4 @@
-version = 0.0.00
+version = 0_0_00
 outfile = newsletter2go_v$(version).zip
 
 $(version): $(outfile)
