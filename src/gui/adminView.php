@@ -144,6 +144,7 @@
     }
 
 </style>
+<?php $buttonSave = __('Save', NEWSLETTER2GO_TEXTDOMAIN); ?>
 <div class="wrap">
     <?php if ($curl_error != null) { ?>
         <div class="n2go-error"><?= $curl_error ?></div>
@@ -154,18 +155,17 @@
         <div>
             <img src="https://www.newsletter2go.de/pr/150204_WP_Banner.png"/>
 
-            <h2>Connect to Newsletter2Go</h2>
+            <h2><?php echo __('Connect to Newsletter2Go', NEWSLETTER2GO_TEXTDOMAIN) ?></h2>
 
             <div class="n2go-container" style="width: 600px;">
                 <h3 id="n2goHeaderConnection">
-                    <?php echo $attributesApi['success'] ? 'Connected!' : 'Not connected yet!'; ?>
+                    <?php echo $attributesApi['success'] ? __('Connected!', NEWSLETTER2GO_TEXTDOMAIN) : __('Not connected yet!', NEWSLETTER2GO_TEXTDOMAIN); ?>
                 </h3>
                 <input type="text" name="apiKey" placeholder="Insert your Newsletter2Go API key"
                        value="<?php echo $apiKey; ?>" style="width:300px"/>
-                <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
+                <input type="submit" value=<?php echo $buttonSave ?> class="button button-primary btn-nl2go"/>
                 <br/>
-                <a href="https://app.newsletter2go.com/en/settings/#/api" target="_blank">Where do I find my API
-                    key?</a>
+                <a href="https://app.newsletter2go.com/en/settings/#/api" target="_blank"><?php echo __('Where do I find my API key?', NEWSLETTER2GO_TEXTDOMAIN) ?></a>
 
             </div>
             <hr/>
@@ -176,28 +176,29 @@
             <div class="n2go-container" style="width: 600px;">
                 <?php if (isset($attributesApi['doi-success'])) { ?>
                     <h3 id="n2goHeaderDOI">
-                        <?php echo $attributesApi['doi-success'] ? 'Valid DOI-Code ( Host: ' . $attributesApi['doi-name'] . ')' : 'Invalid DOI-Code'; ?>
+                        <?php echo $attributesApi['doi-success'] ? __('Valid', NEWSLETTER2GO_TEXTDOMAIN) . ' DOI-Code ( Host: ' . $attributesApi['doi-name'] . ')'
+                            : __('Invalid', NEWSLETTER2GO_TEXTDOMAIN) . ' DOI-Code'; ?>
                     </h3>
                 <?php } ?>
                 <input type="text" name="doiCode" placeholder="Insert your Newsletter2Go DOI Code"
                        value="<?php echo $doiCode; ?>" style="width:300px"/>
-                <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
+                <input type="submit" value=<?php echo $buttonSave ?> class="button button-primary btn-nl2go"/>
                 <br/>
                 <a href="https://www.newsletter2go.de/hilfe/empfaenger-verwalten/wo-kann-ich-double-op-in-einstellen/"
-                   target="_blank">Where can I find the double opt in code?</a>
+                   target="_blank"><?php echo __('Where can I find the double opt in code?', NEWSLETTER2GO_TEXTDOMAIN) ?></a>
             </div>
             <hr/>
         </div>
         <div>
-            <h2>Configure subscription form</h2>
+            <h2><?php echo __('Configure subscription form', NEWSLETTER2GO_TEXTDOMAIN) ?></h2>
 
             <div class="n2go-container" style="width:600px;">
-                <h3>Which data fields should be visible in your subscription form?</h3>
-                <div class="alert alert-info">Attention: In germany, according to german law, it's only allowed to set email-address as required</div>
+                <h3><?php echo __('Which data fields should be visible in your subscription form?', NEWSLETTER2GO_TEXTDOMAIN) ?></h3>
+                <div class="alert alert-info"><?php echo __('Attention: In germany, according to german law, it\'s only allowed to set email-address as required', NEWSLETTER2GO_TEXTDOMAIN) ?></div>
                 <ul id="widgetFields">
                     <li>
-                        <span class="n2go-table-header" style="text-align: right;">Newsletter2Go field</span>
-                        <span class="n2go-table-header" style="padding-left: 30px;">Title label</span>
+                        <span class="n2go-table-header" style="text-align: right;"><?php echo 'Newsletter2Go ' . __('field', NEWSLETTER2GO_TEXTDOMAIN) ?></span>
+                        <span class="n2go-table-header" style="padding-left: 30px;"><?php echo __('Title label', NEWSLETTER2GO_TEXTDOMAIN) ?></span>
                     </li>
                     <?php
                     $i = 1;
@@ -217,75 +218,75 @@
                         </li>
                     <?php } ?>
                 </ul>
-                <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
+                <input type="submit" value="<?php echo $buttonSave ?>" class="button button-primary btn-nl2go"/>
             </div>
             <hr/>
             <div class="n2go-container" style="width:600px;">
-                <h3>General settings</h3>
-                <label for="success">Success</label>
+                <h3><?php echo __('General settings', NEWSLETTER2GO_TEXTDOMAIN) ?></h3>
+                <label for="success"><?php echo __('Success', NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                 <input type="text" name="success" id="success" value="<?= $texts['success']; ?>" size="75"/>
 
-                <label for="failureSubsc">Failure (already subscribed)</label>
+                <label for="failureSubsc"><?php echo __('Failure (already subscribed)', NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                 <input type="text" id="failureSubsc" name="failureSubsc" value="<?= $texts['failureSubsc']; ?>"
                        size="75"/>
 
-                <label for="failureEmail">Failure (wrong email syntax)</label>
+                <label for="failureEmail"><?php echo __('Failure (wrong email syntax)', NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                 <input type="text" id="failureEmail" name="failureEmail" value="<?= $texts['failureEmail']; ?>"
                        size="75"/>
 
-                <label for="failureRequired">Failure (required fields)</label>
+                <label for="failureRequired"><?php echo __('Failure (required fields)', NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                 <input type="text" id="failureRequired" name="failureRequired" value="<?= $texts['failureRequired']; ?>"
                        size="75"/>
 
-                <label for="failureError">Failure (general error)</label>
+                <label for="failureError"><?php echo __('Failure (general error)', NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                 <input type="text" id="failureError" name="failureError" value="<?= $texts['failureError']; ?>"
                        size="75"/>
 
-                <label for="buttonText">Text on button</label>
+                <label for="buttonText"><?php echo __('Text on button', NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                 <input class="js-n2go-widget-field" type="text" id="buttonText" name="buttonText"
                        value="<?= $texts['buttonText']; ?>" size="75"/>
                 <br/>
                 <br/>
-                <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
+                <input type="submit" value="<?php echo $buttonSave ?>" class="button button-primary btn-nl2go"/>
             </div>
             <hr/>
             <div class="n2go-container">
                 <div style="width: 600px;float:left;" valign="top">
-                    <h3>Visual appearance</h3>
+                    <h3><?php echo __('Visual appearance', NEWSLETTER2GO_TEXTDOMAIN) ?></h3>
                     <table>
                         <tr>
-                            <th>Text color</th>
+                            <th><?php echo __('Text color', NEWSLETTER2GO_TEXTDOMAIN) ?></th>
                             <td><input class="js-n2go-widget-field color-picker" type="text" name="textColor"
                                        value="<?= $colors['textColor']; ?>" size="7"/></td>
                         </tr>
                         <tr>
-                            <th>Input border color</th>
+                            <th><?php echo __('Input border color', NEWSLETTER2GO_TEXTDOMAIN) ?></th>
                             <td><input class="js-n2go-widget-field color-picker" type="text" name="borderColor"
                                        value="<?= $colors['borderColor']; ?>" size="7"/></td>
                         </tr>
                         <tr>
-                            <th>Input background color</th>
+                            <th><?php echo __('Input background color', NEWSLETTER2GO_TEXTDOMAIN) ?></th>
                             <td><input class="js-n2go-widget-field color-picker" type="text" name="backgroundColor"
                                        value="<?= $colors['backgroundColor']; ?>" size="7"/></td>
                         </tr>
                         <tr>
-                            <th>Button text color</th>
+                            <th><?php echo __('Button text color', NEWSLETTER2GO_TEXTDOMAIN) ?></th>
                             <td><input class="js-n2go-widget-field color-picker" type="text" name="btnTextColor"
                                        value="<?= $colors['btnTextColor']; ?>" size="7"/></td>
                         </tr>
                         <tr>
-                            <th>Button background color</th>
+                            <th><?php echo __('Button background color', NEWSLETTER2GO_TEXTDOMAIN) ?></th>
                             <td><input class="js-n2go-widget-field color-picker" type="text" name="btnBackgroundColor"
                                        value="<?= $colors['btnBackgroundColor']; ?>" size="7"/></td>
                         </tr>
                     </table>
 
                     <div id="colorPicker"></div>
-                    <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
+                    <input type="submit" value="<?php echo $buttonSave ?>" class="button button-primary btn-nl2go"/>
                 </div>
                 <div id="n2goWidget">
-                    <h3>Here is the preview for you</h3>
-                    <input type="button" value="Preview" class="button" id="btnShowPreview"/>
+                    <h3><?php echo __('Here is the preview for you', NEWSLETTER2GO_TEXTDOMAIN) ?></h3>
+                    <input type="button" value="<?php echo __('Preview', NEWSLETTER2GO_TEXTDOMAIN) ?>" class="button" id="btnShowPreview"/>
                     <input type="button" value="Source Code" class="button" id="btnShowSource"/>
 
                     <div class="preview-pane">
@@ -294,8 +295,8 @@
                         <textarea id="widgetSourceCode" name="widgetSourceCode"
                                   style="display: none;"><?= $widget ? $widget : '' ?></textarea>
                     </div>
-                    <p>Your subscription form will show up under "widgets". Feel free to place it on any page.</p>
-                    <input type="submit" value="Save subscription form" class="button button-primary btn-nl2go"
+                    <p><?php echo __('Your subscription form will show up under "widgets". Feel free to place it on any page.', NEWSLETTER2GO_TEXTDOMAIN) ?></p>
+                    <input type="submit" value="<?php echo __('Save subscription form', NEWSLETTER2GO_TEXTDOMAIN); ?>" class="button button-primary btn-nl2go"
                            name="saveApiKey"/>
                 </div>
             </div>

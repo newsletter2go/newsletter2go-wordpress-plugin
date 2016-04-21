@@ -10,12 +10,14 @@
  */
 
 define('NEWSLETTER2GO_ROOT_PATH', dirname(__FILE__));
+define('NEWSLETTER2GO_TEXTDOMAIN', 'newsletter2go');
 
 function n2GoApiInit()
 {
     add_filter('rewrite_rules_array', 'n2GoApiRewrites');
     add_filter('query_vars', 'n2goAddQueryVars');
     add_action('template_redirect', 'n2goTemplateRedirect');
+    load_plugin_textdomain( NEWSLETTER2GO_TEXTDOMAIN , false, 'newsletter2go/lang/');
     require_once NEWSLETTER2GO_ROOT_PATH . "/gui/N2GoGui.php";
     N2GoGui::run();
 }
@@ -27,12 +29,12 @@ function n2GoApiActivation()
     add_filter('rewrite_rules_array', 'n2GoApiRewrites');
     $wp_rewrite->flush_rules();
     $general = array(
-        'success' => 'Thank you for signing up. We have sent you an email with a confirmation link. Please check your inbox.',
-        'failureSubsc' => 'Thank you for signing up. You are already signed up and will continue to receive our newsletter.',
-        'failureEmail' => 'The email address you inserted does not seem to be valid. Please correct it.',
-        'failureRequired' => 'Please fill all fields.',
-        'failureError' => 'We were not able to sign you up. Please try again.',
-        'buttonText' => 'Subscribe now!',
+        'success' => __('Thank you for signing up. We have sent you an email with a confirmation link. Please check your inbox.', 'newsletter2go'),
+        'failureSubsc' => __('Thank you for signing up. You are already signed up and will continue to receive our newsletter.', 'newsletter2go'),
+        'failureEmail' => __('The email address you inserted does not seem to be valid. Please correct it.', 'newsletter2go'),
+        'failureRequired' => __('Please fill all fields.', 'newsletter2go'),
+        'failureError' => __('We were not able to sign you up. Please try again.', 'newsletter2go'),
+        'buttonText' => __('Subscribe now!', 'newsletter2go'),
         'landingpage' => '',
     );
     n2goSaveOption('n2go_general', $general);
