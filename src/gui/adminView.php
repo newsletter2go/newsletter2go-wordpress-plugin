@@ -351,8 +351,8 @@
                         return a['sort'] - b['sort'];
                     });
 
-                    sourceCode = '<div id="n2goResponseArea" ' + (styles['textColor'] ? 'style="color:' + styles['textColor'] + '"' : '') + '>';
-                    sourceCode += '\n  <form method="post" id="n2goForm">';
+                    sourceCode = '<div ' + (styles['textColor'] ? 'style="color:' + styles['textColor'] + '"' : '') + '>';
+                    sourceCode += '\n  <form method="post">';
 
                     if (styles['borderColor'] || styles['backgroundColor'] || styles['textColor']) {
                         inputStyle = 'style="';
@@ -384,7 +384,7 @@
                         sourceCode += '"';
                     }
 
-                    sourceCode += ' id="n2goButton" type="button" value="' + texts['button'] + '" onClick="n2goAjaxFormSubmit();" />\n  </form>\n</div>';
+                    sourceCode += ' type="button" value="' + texts['button'] + '" onClick="n2goAjaxFormSubmit(this);" />\n  </form>\n</div>';
                     document.getElementById('widgetSourceCode').innerHTML = sourceCode;
                     document.getElementById('widgetSourceCode').value = sourceCode;
                 }

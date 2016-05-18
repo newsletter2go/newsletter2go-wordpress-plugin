@@ -1,14 +1,16 @@
 
 
-function n2goAjaxFormSubmit() {
+function n2goAjaxFormSubmit(me) {
     jQuery.post(n2go_ajax_script.ajaxurl, 
-        jQuery("#n2goForm").serialize(),
+        jQuery(me.form).serialize(),
         function (response) {
-            var data = JSON.parse(response);
+            var data = JSON.parse(response),
+                messageElement = jQuery(me.form.parentElement);
+
             if (data.success) {
-                jQuery("#n2goResponseArea").html(data.message);
+                messageElement.html(data.message);
             } else {
-                jQuery("#n2goResponseArea").find('.message').text(data.message);
+                messageElement.find('.message').text(data.message);
             }
         }
     );
