@@ -1,12 +1,12 @@
+<?php
+/**
+ * @var string $formUniqueCode
+ * @var string $n2gConfig
+*/
+?>
 
-<div id="n2goResponseArea">
-    <form method="post" id="n2goForm">
-        <?php foreach ($attributes as $v): ?>
-            <?php echo $v['realName']; ?><br/>
-            <input type="<?=($v['name'] == 'email' ? 'email' : 'text')?>" name="<?php echo $v['name']; ?>" required /><br />
-        <?php endforeach; ?>
-        <br />
-        <input name="action" type="hidden" value="n2go_subscribe" />
-        <input id="n2goButton" type="button" value="<?php echo $texts['buttonText']; ?>" onClick="n2goAjaxFormSubmit();" />
-    </form>
-</div>
+<script id="n2g_script">
+    !function(e,t,n,c,r,a,i){e.Newsletter2GoTrackingObject=r,e[r]=e[r]||function(){(e[r].q=e[r].q||[]).push(arguments)},e[r].l=1*new Date,a=t.createElement(n),i=t.getElementsByTagName(n)[0],a.async=1,a.src=c,i.parentNode.insertBefore(a,i)}(window,document,"script","//static.newsletter2go.com/utils.js","n2g");
+    n2g('create','<?=$formUniqueCode?>');
+    n2g('subscribe:createForm',<?=$n2gConfig?>);
+</script>
