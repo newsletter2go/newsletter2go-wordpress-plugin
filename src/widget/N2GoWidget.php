@@ -56,21 +56,10 @@ class N2GoWidget extends WP_Widget
 
     public function widget($args, $instance)
     {
-        //$attributes = get_option('n2go_attributes');
-        // $texts = get_option('n2go_general');
-        $widget = stripslashes(get_option('n2go_widgetSource'));
+        $n2gConfig = stripslashes(get_option('n2go_widgetStyleConfig'));
+        $formUniqueCode = get_option('n2go_formUniqueCode');
 
-        //usort($attributes, array('N2GoWidget', 'attributestCmp'));
-
-        echo $args['before_widget'];
-        if (!empty($instance['title'])) {
-            echo $args['before_title'];
-            echo esc_html($instance['title']);
-            echo $args['after_title'];
-        }
-
-        echo $widget;
-        echo $args['after_widget'];
+        require_once('widgetView.php');
     }
 
     public function ajaxSubscribe()
