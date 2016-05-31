@@ -18,8 +18,8 @@
         alert(
             'Sorry, wrong Shortcode syntax or argument.\n\n'
             + "\tit must be like one of the following:\n"
-            + '\t[n2go-form type="plugin]"\n'
-            + '\t[n2go-form type="popup]"\n\n'
+            + '\t[n2go-form type="plugin"]\n'
+            + '\t[n2go-form type="popup"]\n\n'
         );
     }
 </script>
