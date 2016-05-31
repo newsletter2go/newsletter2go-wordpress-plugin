@@ -87,7 +87,21 @@ function n2goEditOption($id, $value)
     (get_option($id, null) !== null) ? update_option($id, $value) : add_option($id, $value);
 }
 
+//[n2go-form type="popup"]
+function n2goFormPopup ($attr)
+{
+    $n2gConfig = stripslashes(get_option('n2go_widgetStyleConfig'));
+    $formUniqueCode = stripslashes(get_option('n2go_formUniqueCode'));
+    $formType = shortcode_atts(array(
+        'type' => 'plugin',
+    ), $attr);
+
+    include_once('widget/widgetView.php');
+
+}
+
 add_action('init', 'n2GoApiInit');
 require_once NEWSLETTER2GO_ROOT_PATH . "/widget/N2GoWidget.php";
 register_activation_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2GoApiActivation');
 register_deactivation_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2GoApiDeactivation');
+add_shortcode('n2go-form', 'n2goFormPopup');
