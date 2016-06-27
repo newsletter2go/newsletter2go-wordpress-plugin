@@ -7,8 +7,8 @@ class N2GoWidget extends WP_Widget
     {
         load_plugin_textdomain('newsletter2go');
         parent::__construct(
-            'n2go_widget', __('Newsletter2Go Widget', 'Newsletter2Go'),
-            array('description' => __('Display subscription form', 'Newsletter2Go'))
+            'n2go_widget', 'Newsletter2Go Widget',
+            array('description' => __('Display subscription form', NEWSLETTER2GO_TEXTDOMAIN))
         );
 
         wp_enqueue_script('n2go-ajax-handle', plugin_dir_url(__FILE__) . 'ajax.js', array('jquery'));
@@ -39,7 +39,7 @@ class N2GoWidget extends WP_Widget
         if ($instance) {
             $title = $instance['title'];
         } else {
-            $title = __('Newsletter2Go', 'Newsletter2Go');
+            $title = 'Newsletter2Go';
         }
         ?>
 

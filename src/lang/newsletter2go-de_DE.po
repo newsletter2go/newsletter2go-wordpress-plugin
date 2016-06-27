@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Newsletter2Go German 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-21 13:11+0200\n"
+"PO-Revision-Date: 2016-04-21 14:02+0200\n"
+"Last-Translator: \n"
+"Language-Team: Boris Damjanovic <boris.damjanovic@soprex.com>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Generator: Poedit 1.8.7\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: lang\n"
+
+#: gui/N2GoGui.php:40
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Sie haben nicht genügend Rechte, um diese Seite anzuzeigen."
+
+#: gui/N2GoGui.php:44
+msgid ""
+"You don't have cURL enabled. Please enable it for proper plugin functioning."
+msgstr ""
+"Sie haben noch cURL aktiviert. Bitte aktivieren Sie es für die richtige "
+"Plugin funktioniert."
+
+#: gui/adminView.php:147
+msgid "Save"
+msgstr "Speichern"
+
+#: gui/adminView.php:158
+msgid "Connect to Newsletter2Go"
+msgstr "Anschließen zum Newsletter2Go"
+
+#: gui/adminView.php:162
+msgid "Connected!"
+msgstr "In Verbindung gebracht!"
+
+#: gui/adminView.php:162
+msgid "Not connected yet!"
+msgstr "Noch nicht verbunden!"
+
+#: gui/adminView.php:168
+msgid "Where do I find my API key?"
+msgstr "Wo finde ich meinen API-Schlüssel?"
+
+#: gui/adminView.php:179
+msgid "Valid"
+msgstr "Gültig"
+
+#: gui/adminView.php:180
+msgid "Invalid"
+msgstr "Ungültig"
+
+#: gui/adminView.php:188
+msgid "Where can I find the double opt in code?"
+msgstr "Wo finde ich das Double opt-in-Code?"
+
+#: gui/adminView.php:193
+msgid "Configure subscription form"
+msgstr "Anmeldeformular Konfigurieren"
+
+#: gui/adminView.php:196
+msgid "Which data fields should be visible in your subscription form?"
+msgstr "Welche Datenfelder in Ihrer Abo-Formular sichtbar sein soll?"
+
+#: gui/adminView.php:197
+msgid ""
+"Attention: In germany, according to german law, it's only allowed to set "
+"email-address as required"
+msgstr ""
+"Achtung: In Deutschland hat nach deutschem Recht, es nur erlaubt, Email-"
+"Adresse als erforderlich festlegen"
+
+#: gui/adminView.php:200
+msgid "field"
+msgstr "Feld"
+
+#: gui/adminView.php:201
+msgid "Title label"
+msgstr "Titel-Bezeichnung"
+
+#: gui/adminView.php:225
+msgid "General settings"
+msgstr "Allgemeine Einstellungen"
+
+#: gui/adminView.php:226
+msgid "Success"
+msgstr "Erfolg"
+
+#: gui/adminView.php:229
+msgid "Failure (already subscribed)"
+msgstr "Versagen (bereits abonniert)"
+
+#: gui/adminView.php:233
+msgid "Failure (wrong email syntax)"
+msgstr "Versagen (falsche E-Mail-Syntax)"
+
+#: gui/adminView.php:237
+msgid "Failure (required fields)"
+msgstr "Versagen (Pflichtfelder)"
+
+#: gui/adminView.php:241
+msgid "Failure (general error)"
+msgstr "Versagen (allgemeiner Fehler)"
+
+#: gui/adminView.php:245
+msgid "Text on button"
+msgstr "Text auf dem Button"
+
+#: gui/adminView.php:255
+msgid "Visual appearance"
+msgstr "Visuelle Darstellung"
+
+#: gui/adminView.php:258
+msgid "Text color"
+msgstr "Textfarbe"
+
+#: gui/adminView.php:263
+msgid "Input border color"
+msgstr "Rahmenfarbe"
+
+#: gui/adminView.php:268
+msgid "Input background color"
+msgstr "Hintergrundfarbe"
+
+#: gui/adminView.php:273
+msgid "Button text color"
+msgstr "Button Textfarbe"
+
+#: gui/adminView.php:278
+msgid "Button background color"
+msgstr "Button Hintergrundfarbe"
+
+#: gui/adminView.php:288
+msgid "Here is the preview for you"
+msgstr "Hier ist die Vorschau für Sie"
+
+#: gui/adminView.php:289
+msgid "Preview"
+msgstr "Vorschau"
+
+#: gui/adminView.php:298
+msgid ""
+"Your subscription form will show up under \"widgets\". Feel free to place it "
+"on any page."
+msgstr ""
+"Ihr Anmeldeformular angezeigt wird unter \"Widgets\". Fühlen Sie sich frei, "
+"um es auf jeder Seite zu platzieren."
+
+#: gui/adminView.php:299
+msgid "Save subscription form"
+msgstr "Speichern Anmeldeformular"
+
+#: newsletter2go.php:32
+msgid ""
+"Thank you for signing up. We have sent you an email with a confirmation "
+"link. Please check your inbox."
+msgstr ""
+"Danke fürs Anmelden. Wir haben Ihnen eine E-Mail mit einem Bestätigungslink "
+"geschickt. Bitte überprüfen Sie Ihren Posteingang."
+
+#: newsletter2go.php:33
+msgid ""
+"Thank you for signing up. You are already signed up and will continue to "
+"receive our newsletter."
+msgstr ""
+"Danke fürs Anmelden. Sie sind bereits angemeldet und werden auch weiterhin "
+"unseren Newsletter erhalten."
+
+#: newsletter2go.php:34
+msgid ""
+"The email address you inserted does not seem to be valid. Please correct it."
+msgstr ""
+"Die e-Mail-Adresse, die Sie eingefügt scheint nicht gültig zu sein. Bitte "
+"korrigieren Sie es."
+
+#: newsletter2go.php:35
+msgid "Please fill all fields."
+msgstr "Bitte füllen Sie alle Felder aus."
+
+#: newsletter2go.php:36
+msgid "We were not able to sign you up. Please try again."
+msgstr "Wir konnten nicht Sie sich anmelden. Bitte versuchen Sie es erneut."
+
+#: newsletter2go.php:37
+msgid "Subscribe now!"
+msgstr "﻿Jetzt anmelden!"
+
+#: widget/N2GoWidget.php:11
+msgid "Display subscription form"
+msgstr "Anzeige Anmeldeformular"
