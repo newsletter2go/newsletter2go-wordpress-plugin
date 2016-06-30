@@ -101,16 +101,13 @@ function n2goShortcode ($attr)
 
     if (is_array($attr) && isset($attr['type'])) {
         switch ($attr['type']) {
-            case '':
-            case 'plugin':
-            $args['params'][0] = "'subscribe:createForm'";
-                break;
             case 'popup':
                 $args['params'][0] = "'subscribe:createPopup'";
                 (isset($attr['delay'])) ? $args['params'][3] = $attr['delay'] : $args['params'][3] = 5;
                 break;
             default:
-                $args['params'] = array(); // todo show message 'wrong attribute'
+                $args['params'][0] = "'subscribe:createForm'";
+                break;
         }
     }
 
