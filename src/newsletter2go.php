@@ -28,16 +28,6 @@ function n2GoApiActivation()
     add_filter('query_vars', 'n2goAddQueryVars');
     add_filter('rewrite_rules_array', 'n2GoApiRewrites');
     $wp_rewrite->flush_rules();
-    $general = array(
-        'success' => __('Thank you for signing up. We have sent you an email with a confirmation link. Please check your inbox.', 'newsletter2go'),
-        'failureSubsc' => __('Thank you for signing up. You are already signed up and will continue to receive our newsletter.', 'newsletter2go'),
-        'failureEmail' => __('The email address you inserted does not seem to be valid. Please correct it.', 'newsletter2go'),
-        'failureRequired' => __('Please fill all fields.', 'newsletter2go'),
-        'failureError' => __('We were not able to sign you up. Please try again.', 'newsletter2go'),
-        'buttonText' => __('Subscribe now!', 'newsletter2go'),
-        'landingpage' => '',
-    );
-    n2goSaveOption('n2go_general', $general);
 }
 
 function n2GoApiDeactivation()
@@ -72,19 +62,6 @@ function n2goTemplateRedirect()
         require_once NEWSLETTER2GO_ROOT_PATH . "/api/N2GoApi.php";
         N2GoApi::run();
     }
-}
-
-function n2goSaveOption($id, $value)
-{
-    $option_exists = (get_option($id, null) !== null);
-    if (!$option_exists) {
-        add_option($id, $value);
-    }
-}
-
-function n2goEditOption($id, $value)
-{
-    (get_option($id, null) !== null) ? update_option($id, $value) : add_option($id, $value);
 }
 
 /**
