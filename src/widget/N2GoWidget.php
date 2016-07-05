@@ -59,7 +59,14 @@ class N2GoWidget extends WP_Widget
         $n2gConfig = stripslashes(get_option('n2go_widgetStyleConfig'));
         $formUniqueCode = get_option('n2go_formUniqueCode');
 
-        require_once('widgetView.php');
+        if (!isset($args['params'])) {
+            $args['params'][0] = "'subscribe:createForm'";
+        }
+        $args['params'][1] =  $n2gConfig;
+        ksort($args['params']);
+
+        $n2gParams = implode(', ', $args['params']);
+        require('widgetView.php');
     }
 
     public function ajaxSubscribe()

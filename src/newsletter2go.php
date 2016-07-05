@@ -87,7 +87,36 @@ function n2goEditOption($id, $value)
     (get_option($id, null) !== null) ? update_option($id, $value) : add_option($id, $value);
 }
 
+/**
+ * @param $attr
+ * 
+ * Shortcode syntax:
+ * embedded default [newsletter2go], [newsletter2go type=plugin],
+ * modal [newsletter2go type=popup], [newsletter2go type=popup delay=5]
+ */
+function n2goShortcode ($attr)
+{
+    $instance['title'] = 'Newsletter2Go';
+    $args = array();
+
+    if (is_array($attr) && isset($attr['type'])) {
+        switch ($attr['type']) {
+            case 'popup':
+                $args['params'][0] = "'subscribe:createPopup'";
+                (isset($attr['delay'])) ? $args['params'][3] = $attr['delay'] : $args['params'][3] = 5;
+                break;
+            default:
+                $args['params'][0] = "'subscribe:createForm'";
+                break;
+        }
+    }
+
+    $widget = new N2GoWidget;
+    $widget->widget($args, $instance);
+}
+
 add_action('init', 'n2GoApiInit');
 require_once NEWSLETTER2GO_ROOT_PATH . "/widget/N2GoWidget.php";
 register_activation_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2GoApiActivation');
 register_deactivation_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2GoApiDeactivation');
+add_shortcode('newsletter2go', 'n2goShortcode');
