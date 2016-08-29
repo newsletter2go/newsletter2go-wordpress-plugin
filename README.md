@@ -11,10 +11,10 @@ Build and deploy
 
 In order to build the plugin you can run the following command:
 
-    make version=3.0.05
+    make version=4.0.00
     make clean
 
-This will create `newsletter2go_v3.0.05.zip` which you can then upload to your WordPress installation.
+This will create `newsletter2go_v4.0.00.zip` which you can then upload to your WordPress installation.
 
 Currently the plugin is deployed by uploading the built package to our website.
 

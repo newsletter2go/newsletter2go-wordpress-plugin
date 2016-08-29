@@ -1,120 +1,130 @@
-<div class="wrap">
-    <?php if ($curl_error != null) { ?>
-        <div class="n2go-error"><?= $curl_error ?></div>
 
-    <?php } ?>
-    <div id="icon-options-general" class="icon32"><br/></div>
-    <form action="admin.php?page=n2go-api" method="POST">
-        <div>
-            <img src="https://www.newsletter2go.de/pr/150204_WP_Banner.png"/>
-
-            <h2>Connect to Newsletter2Go</h2>
-
-            <div class="n2go-container">
-                <h3 id="n2goHeaderConnection">
-                    <?php echo $response['success'] ? 'Connected!' : 'Not connected yet'; ?>
-                </h3>
-                <input type="text" name="apiKey" placeholder="Insert your Newsletter2Go API key"
-                       value="<?php echo $apiKey; ?>" class="nl2g-settings-input-fields"/>
-                <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
-                <br/>
-                <a href="https://app.newsletter2go.com/en/settings/#/api" target="_blank">Where do I find my API
-                    key?</a>
-            </div>
-            <hr/>
-        </div>
-
-        <div>
-            <h2>Unique Form Code</h2>
-
-            <div class="n2go-container">
-                <input type="text" id="formUniqueCode" name="formUniqueCode" placeholder="Insert your form unique code"
-                       value="<?php echo $formUniqueCode; ?>" class="nl2g-settings-input-fields"/>
-                <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
-                <br/>
-                <a href="https://www.newsletter2go.de/hilfe/empfaenger-verwalten/wo-kann-ich-double-op-in-einstellen/"
-                   target="_blank">Where can I find the unique form code?</a>
-            </div>
-            <hr/>
-        </div>
-
-        <div>
-            <h2>Configure subscription form</h2>
-            <div class="n2go-container">
-                <div class="nl2g-inner-container">
-                    <h3>Visual appearance</h3>
-                    <table>
-                       <tr>
-                            <th>Form background color</th>
-                            <td><input class="js-n2go-widget-field color-picker nl2g-fields" type="text" name="form.background-color"
-                                        size="7"/></td>
-                        </tr>
-                        <tr>
-                            <th>Label text color</th>
-                            <td><input class="js-n2go-widget-field color-picker nl2g-fields" type="text" name="label.color"
-                                        size="7"/></td>
-                        </tr>
-                        <tr>
-                            <th>Input Text color</th>
-                            <td><input class="js-n2go-widget-field color-picker nl2g-fields" type="text" name="input.color"
-                                       size="7"/></td>
-                        </tr>
-                        <tr>
-                            <th>Input border color</th>
-                            <td><input class="js-n2go-widget-field color-picker nl2g-fields" type="text" name="input.border-color"
-                                        size="7"/></td>
-                        </tr>
-                        <tr>
-                            <th>Input background color</th>
-                            <td><input class="js-n2go-widget-field color-picker nl2g-fields" type="text" name="input.background-color"
-                                        size="7"/></td>
-                        </tr>
-                        <tr>
-                            <th>Button text color</th>
-                            <td><input class="js-n2go-widget-field color-picker nl2g-fields" type="text" name="button.color"
-                                        size="7"/></td>
-                        </tr>
-                        <tr>
-                            <th>Button background color</th>
-                            <td><input class="js-n2go-widget-field color-picker nl2g-fields" type="text" name="button.background-color"
-                                        size="7"/></td>
-                        </tr>
-                    </table>
-
-                    <div id="colorPicker"></div>
-                    <input type="submit" value="Save" class="button button-primary btn-nl2go"/>
+<form action="admin.php?page=n2go-api" method="POST">
+<div class="n2go-section">
+    <img src="https://www.newsletter2go.de/pr/150204_WP_Banner.png"/>
+</div>
+<div class="n2go-section">
+        <div class="n2go-block50 main-block">
+            <div class="panel">
+                <div class="panel-heading text-center">
+                    <h3>Newsletter2Go Wordpress Plugin</h3>
                 </div>
-                <div id="n2goWidget">
-                    <h3>Here is the preview for you</h3>
-                    <div id="n2gButtons">
-                    <input type="button" value="Preview" class="button btn-nl2go" id="btnShowPreview" />
-                     <input type="button" value="Configure Styles" class="button" id="btnShowConfig"/>
+                <div class="panel-body">
+                    <div class="n2go-row">
+                        <div class="n2go-block50"><span>Connect to Newsletter2Go</span></div>
+                        <div class="n2go-block25">
+                            <?php if ($forms === false){ ?>
+                                <div class="n2go-btn">
+                                    <input type="hidden" name="apiKey" placeholder="" value="<?php echo $apiKey; ?>" style="width:300px" readonly>
+                                    <a href="<?php echo $connectUrl; ?>" target="_blank" style="padding:5px"><span class="fa fa-plug"></span> <span>Login or Create Account</span></a>
+                                </div>
+                            <?php } else { ?>
+                                <span class="n2go-label-success"> <span class="fa fa-check margin-right-5"></span>
+							<span>Successfully connected</span></span>
+                            <?php } ?>
+                        </div>
                     </div>
-                        <script>
+                    <div class="n2go-row">
+                        <div class="n2go-block50">
+                            <span>Choose the connected subscribe form</span>
+                        </div>
+                        <div class="n2go-block25">
+                            <select id="formUniqueCode" class="n2go-select" name="formUniqueCode">
+                                <?php if (!empty($forms)){ ?>
+                                    <?php foreach ($forms as $form) { ?>
+                                        <option value="<?php echo $form['hash']; ?>" <?php if ($form['hash'] == $formUniqueCode) { echo "selected"; }?>><?php echo $form['name']; ?></option>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <option value=""></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="n2go-row">
+                    <div class="n2go-block50"><span>Configure your Wordpress widget</span></div>
+                    <div class="n2go-block25">
+                        <label for="formBackgroundColor">Form background color</label>
+                        <div class="n2go-cp input-group">
+                            <span class="n2go-input-group-addon">#</span><input id="valueInputFBC" name="form.background-color" type="text" placeholder="" value="FFFFFF" class="n2go-colorField form-control n2go-text-right">
+                            <button id="styleInputFBC" class="input-group-btn jscolor{valueElement:'valueInputFBC', styleElement:'styleInputFBC'}">
+                            </button>
+                        </div>
+                        <label for="labelColor">Label text color</label>
+                        <div class="n2go-cp input-group">
+                            <span class="n2go-input-group-addon">#</span><input id="valueInputLC" name="label.color" type="text" placeholder="" value="222222" class="n2go-colorField form-control n2go-text-right">
+                            <button id="styleInputLC" class="input-group-btn jscolor{valueElement:'valueInputLC', styleElement:'styleInputLC'}">
+                            </button>
+                        </div>
+                        <label for="textColor">Input Text color</label>
+                        <div class="n2go-cp input-group">
+                            <span class="n2go-input-group-addon">#</span><input id="valueInputIC" name="input.color" type="text" placeholder="" value="222222" class="n2go-colorField form-control n2go-text-right">
+                            <button id="styleInputIC" class="input-group-btn jscolor{valueElement:'valueInputIC', styleElement:'styleInputIC'}">
+                            </button>
+                        </div>
+                        <label for="borderColor">Input border color</label>
+                        <div class="n2go-cp input-group">
+                            <span class="n2go-input-group-addon">#</span><input id="valueInputIBrC" name="input.border-color" type="text" placeholder="" value="CCCCCC" class="n2go-colorField form-control n2go-text-right">
+                            <button id="styleInputIBrC" class="input-group-btn jscolor{valueElement:'valueInputIBrC', styleElement:'styleInputIBrC'}">
+                            </button>
+                        </div>
+                        <label for="backgroundColor">Input background color</label>
+                        <div class="n2go-cp input-group">
+                            <span class="n2go-input-group-addon">#</span><input id="valueInputIBC" name="input.background-color" type="text" placeholder="" value="FFFFFF" class="n2go-colorField form-control n2go-text-right">
+                            <button id="styleInputIBC" class="input-group-btn jscolor{valueElement:'valueInputIBC', styleElement:'styleInputIBC'}">
+                            </button>
+                        </div>
+                        <label for="btnTextColor">Button text color</label>
+                        <div class="n2go-cp input-group">
+                            <span class="n2go-input-group-addon">#</span><input id="valueInputBC" type="text" name="button.color" placeholder="" value="FFFFFF" class="n2go-colorField form-control n2go-text-right">
+                            <button id="styleInputBC" class="input-group-btn jscolor{valueElement:'valueInputBC', styleElement:'styleInputBC'}">
+                            </button>
+                        </div>
+                        <label for="btnBackgroundColor">Button background color</label>
+                        <div class="n2go-cp input-group">
+                            <span class="n2go-input-group-addon">#</span><input id="valueInputBBC" type="text" name="button.background-color" placeholder="" value="00BAFF" class="n2go-colorField form-control n2go-text-right">
+                            <button id="styleInputBBC" class="input-group-btn jscolor{valueElement:'valueInputBBC', styleElement:'styleInputBBC'}">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    </script>
-
+        <div class="n2go-block50 main-block">
+            <div class="panel">
+                <div class="panel-heading text-center">
+                    <h3>This is how your form will look like</h3>
+                </div>
+                <div class="panel-body">
+                    <ul id="n2gButtons" class="nav nav-tabs">
+                        <li id="btnShowPreview" class="active">Preview</li>
+                        <li id="btnShowConfig" class="">Source</li>
+                    </ul>
+                    <!-- Tab panes-->
                     <div id="preview-form-panel" class="preview-pane">
                         <div id="widgetPreview">
-
-                            <?php
-                            if(!isset($errorMessage)){ ?>
+                            <?php if(!isset($errorMessage)){ ?>
                                 <script id="n2g_script">
                                 </script>
-                            <?php }else{ ?>
+                            <?php } else { ?>
                                 <h3 class="n2go-error-general"><?= $errorMessage ?></h3>
                             <?php } ?>
                         </div>
-                        <textarea id="widgetStyleConfig" name="widgetStyleConfig"><?php echo $nl2gStylesConfigObject; ?></textarea>
+                        <div id="nl2gStylesConfig" class="preview-pane">
+                            <textarea id="widgetStyleConfig" name="widgetStyleConfig"><?php echo $nl2gStylesConfigObject; ?></textarea>
+                        </div>
                     </div>
-
-                    <p>Your subscription form will show up under "widgets". Feel free to place it on any page.</p>
-                    <input type="submit" value="Save subscription form" class="button button-primary btn-nl2go"
-                           name="saveApiKey"/>
                 </div>
             </div>
         </div>
-    </form>
 </div>
+<div class="n2go-section">
+    <br />
+    <input type="submit" value="Save settings" class="save-btn button button-primary n2go-btn" name="saveApiKey"/>
+</div>
+
+</form>
+
 
 

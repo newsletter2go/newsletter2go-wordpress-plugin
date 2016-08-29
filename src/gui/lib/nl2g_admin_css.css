@@ -16,10 +16,11 @@
 }
 
 .preview-pane {
-    border: 1px solid #ccc;
+    border-top: 1px solid #d8dee4;
     width: 400px;
-    padding: 15px;
-    height: 300px;
+    padding: 15px 0;
+    display: inline-table;
+    margin-top: -1px;
 }
 
 .preview-pane iframe {
@@ -31,6 +32,26 @@
     background-color: greenyellow;
     padding: 10px;
     border-radius: 10px;
+}
+
+#n2gButtons li {
+    background: #eef2f5;
+    border: 1px solid #d8dee4;
+    border-bottom-color: transparent;
+    line-height: 14px;
+    padding: 9px 16px;
+    border-radius: 4px 4px 0 0;
+    float: left;
+    margin: 0;
+    display: block;
+    cursor: pointer;
+}
+
+#n2gButtons li.active {
+    border-bottom-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+    background-color: #ffffff;
 }
 
 /*#n2goHeaderDOI {
@@ -161,14 +182,280 @@ input[type=checkbox].n2go-required:checked:before {
     display:none;
 }
 
-#widgetStyleConfig, #widgetSourceCode {
+#widgetSourceCode {
     font-family: Consolas,Monaco,monospace;
     padding: 0;
     font-size: 12px;
     background: #f9f9f9;
     outline: 0;
-    display: none;
     overflow-y: auto;
     width: 100%;
     min-height: 300px;
+}
+
+/* new style */
+
+.n2go-section {
+    color: #5f666b !important;
+    background-color: #eef2f5;
+    width: 100%;
+    float: left;
+    font-family: sans-serif !important;
+}
+
+.n2go-block50 {
+    width: 49%;
+    float: left;
+}
+
+.n2go-block50:first-child {
+    margin-right: 1%;
+}
+
+.n2go-block50:last-child {
+    margin-last: 1%;
+}
+
+.n2go-block50.main-block {
+    width: 45% !important;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.n2go-block25 {
+    /*width: 25%;*/
+    float:left;
+}
+
+.n2go-section #widgetStyleConfig {
+    white-space: pre;
+    width: 100%;
+    border-radius: 0;
+    padding: 2px 5px;
+    display: inline-block;
+    font-size: 90%;
+    color: #eeeeee;
+    background-color: #5f666b;
+    overflow-x: hidden;
+    float: left;
+    min-height:475px;
+}
+
+.n2go-section label {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-radius: 0;
+    color: #afbac3;
+    padding: 0;
+}
+
+.n2go-section .preview-pane {
+    width: 100% !important;
+    float: left;
+    display: block;
+}
+
+.n2go-section span,
+.n2go-section h3 {
+    color: #5f666b;
+}
+.nav-tabs li a {
+    color: #afbac3;
+    background: #eef2f5;
+    border: 1px solid #d8dee4;
+    margin-right: -1px;
+    line-height: 14px;
+    padding: 9px 16px;
+}
+
+.nav-tabs li.active a,
+.nav-tabs li.active a:hover,
+.nav-tabs li.active a:focus {
+    color: #5f666b;
+}
+
+.n2go-paddingr10{
+    padding-right: 10px;
+}
+.n2go-paddingr20{
+    padding-right: 20px;
+}
+.n2go-paddingl10{
+    padding-left: 10px;
+}
+.n2go-paddingl20{
+    padding-left: 20px;
+}
+.n2go-row {
+    margin-bottom: 20px;
+    float: left;
+    width: 100%;
+}
+.n2go-select{
+    border: 1px solid #d8dee4;
+    border-radius: 4px;
+    height: auto !important;
+    padding: 8px 5px !important;
+}
+.save-btn {
+    float:left;
+}
+
+.n2go-cp {
+    width: 100%;
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.n2go-cp .input-group-addon,
+.n2go-cp .input-group-btn {
+    color: #afbac3;
+    line-height: initial;
+    float: left;
+    width: 34px;
+    height: 35px;
+}
+
+.n2go-cp button.input-group-btn {
+    border-radius: 4px;
+    border: 1px solid #d8dee4;
+    margin-left: -2px;
+}
+
+.n2go-cp .input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    color: #5f666b;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.n2go-cp .input-group-btn .input-group-addon {
+    padding: 0 !important;
+}
+.colorpicker-element .add-on i,
+.colorpicker-element .input-group-addon i {
+    height: 34px;
+    width: 34px;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid #ccc;
+    border-left: 0;
+}
+.input-group-addon, .input-group-btn, .cp.form-control {
+    display: table-cell;
+}
+
+.n2go-cp .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 80%;
+    margin-left: -2px;
+    margin-bottom: 0;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 34px;
+    font-size: 14px;
+    color: #5f666b;
+    background-color: #fff;
+    text-transform: uppercase;
+    border: 1px solid #d8dee4;
+}
+
+.n2go-cp.input-group {
+    margin-bottom: 10px;
+}
+.panel .panel-heading {
+    border-bottom: 1px solid #d8dee4;
+    padding: 0 0 8px 0;
+    margin-bottom: 20px;
+}
+
+.colorpicker.dropdown-menu {
+    width: 123px !important;
+    min-width: inherit !important;
+}
+
+.n2go-input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    color: #5f666b;
+    text-align: center;
+    background-color: #ffffff;
+    border-style: solid;
+    border-color: #d8dee4;
+    border-width: 1px 0 1px 1px;
+    border-radius: 4px;
+    vertical-align: middle;
+    display: table-cell;
+}
+.n2go-label-success {
+    background-color: rgba(25, 215, 110, 0.05);
+    border: 1px solid #19d76e;
+    color: #19d76e;
+    padding: 4px;
+    text-transform: uppercase;
+}
+
+.n2go-label-success span {
+    color: #19d76e;
+}
+
+.n2go-btn {
+    color: #fff;
+    background-color: #00baff;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid #00a7e6;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    border-radius: 4px;
+    -webkit-user-select: none;
+}
+
+.n2go-btn span {
+    color: #ffffff;
+}
+
+.n2go-btn a, .n2go-btn a:hover{
+    text-decoration: none;
+}
+
+.n2go-text-right {
+    text-align: right;
+}
+
+#nl2gStylesConfig {
+    display: none;
+}
+@media screen and (max-width: 1300px) {
+    .n2go-block50.main-block {
+        width: 44% !important;
+    }
+}
+@media screen and (max-width: 960px) {
+    .n2go-section{
+        width: 93%;
+    }
+    .n2go-block50.main-block {
+        width: 100% !important;
+        padding: 3%;
+    }
+
 }

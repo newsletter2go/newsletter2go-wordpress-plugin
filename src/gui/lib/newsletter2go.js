@@ -1,10 +1,10 @@
-window.addEventListener('load', function () {
+window.addEventListener('load', setTimeout(function () {
     var formUniqueCode = document.getElementById('formUniqueCode').value.trim(),
-        widgetPreview = document.getElementById('widgetPreview');
+        widgetPreview = document.getElementById('widgetPreview'),
+        nl2gStylesConfig = document.getElementById('nl2gStylesConfig');
 
     if (formUniqueCode) {
-        var picker = jQuery.farbtastic('#colorPicker'),
-            widgetStyleConfig = document.getElementById('widgetStyleConfig'),
+            var widgetStyleConfig = document.getElementById('widgetStyleConfig'),
             input,
             timer = 0,
             n2gSetUp = function  () {
@@ -14,14 +14,14 @@ window.addEventListener('load', function () {
                     n2gConfig = JSON.parse(widgetStyleConfig.textContent);
                 }
 
-                [].forEach.call(document.getElementsByClassName('nl2g-fields'), function (element) {
+                [].forEach.call(document.getElementsByClassName('n2go-colorField'), function (element) {
                     var field = element.name.split('.');
                     var style = getStyle(field[1], n2gConfig[field[0]]['style']);
+                    
+                    if (style !== '') {
+                        element.value = style;
+                    } 
 
-                    element.value = element.style.backgroundColor = style;
-                    if (element.value !== '') {
-                        element.style.color = picker.RGBToHSL(picker.unpack(element.value))[2] > 0.5 ? '#000' : '#fff';
-                    }
                 });
             };
 
@@ -43,7 +43,7 @@ window.addEventListener('load', function () {
                 property = formPropertyArray[0],
                 attribute = 'style',
                 cssProperty = formPropertyArray[1],
-                cssValue = element.value;
+                cssValue = '#' + element.value;
 
             var styleProperties;
             if (n2gConfig[property][attribute] == '') {
@@ -59,7 +59,7 @@ window.addEventListener('load', function () {
         function updateForm () {
             clearTimeout(timer);
             timer = setTimeout(function () {
-                document.getElementById('n2g_form').remove();
+                jQuery('#widgetPreview form').remove();
                 n2g('subscribe:createForm', n2gConfig);
             }, 100);
         }
@@ -95,39 +95,25 @@ window.addEventListener('load', function () {
         function show () {
             switch(this.id) {
                 case 'btnShowConfig':
-                    widgetStyleConfig.style.display = 'block';
+                    nl2gStylesConfig.style.display = 'block';
                     widgetPreview.style.display = 'none';
+                    jQuery('#btnShowConfig').addClass('active');
+                    jQuery('#btnShowPreview').removeClass('active');
                     break;
                 default:
                     widgetPreview.style.display = 'block';
-                    widgetStyleConfig.style.display = 'none';
+                    nl2gStylesConfig.style.display = 'none';
+                    jQuery('#btnShowConfig').removeClass('active');
+                    jQuery('#btnShowPreview').addClass('active');
             }
-            this.className = 'button btn-nl2go';
-            [].forEach.call(jQuery('#'+this.id).siblings(), function(button) {
-                button.className = 'button';
-            });
         }
 
-        jQuery('.color-picker').focus(function () {
+        jQuery('.n2go-colorField').on("change", function() {
             input = this;
-            picker.linkTo(function () {}).setColor('#000');
-            picker.linkTo(function (color) {
-                input.style.backgroundColor = color;
-                input.style.color = picker.RGBToHSL(picker.unpack(color))[2] > 0.5 ? '#000' : '#fff';
-                input.value = color;
 
-                updateConfig(input);
-                updateForm();
-
-            }).setColor(input.value);
-        }).blur(function () {
-            picker.linkTo(function () {}).setColor('#000');
-            if (!input.value) {
-                input.style.backgroundColor = '';
-                input.style.color = '';
-            }
             updateConfig(input);
             updateForm();
+
         });
 
         n2gSetUp();
@@ -135,13 +121,11 @@ window.addEventListener('load', function () {
         n2g('create', formUniqueCode);
         n2g('subscribe:createForm', n2gConfig);
 
+        show();
+
         [].forEach.call(document.getElementById('n2gButtons').children, function (button) {
             button.addEventListener('click', show);
         });
-
-        document.getElementById('colorPicker').addEventListener('click', function () {
-            input && input.focus();
-        });
-
+        
     }
-});
+}),1);
