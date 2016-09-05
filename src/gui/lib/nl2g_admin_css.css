@@ -216,13 +216,16 @@ input[type=checkbox].n2go-required:checked:before {
     margin-last: 1%;
 }
 
-.n2go-block50.main-block {
-    width: 45% !important;
+.main-block {
+
     background: #fff;
     border-radius: 5px;
     padding: 20px;
+    box-sizing: border-box;
 }
-
+.n2go-block50.main-block {
+    width: 45% !important;
+}
 .n2go-block25 {
     /*width: 25%;*/
     float:left;
@@ -427,6 +430,9 @@ input[type=checkbox].n2go-required:checked:before {
     line-height: 1.42857;
     border-radius: 4px;
     -webkit-user-select: none;
+}
+.n2go_logo{
+    margin: 15px 0 ;
 }
 
 .n2go-btn span {

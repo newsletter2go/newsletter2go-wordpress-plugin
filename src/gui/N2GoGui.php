@@ -3,8 +3,8 @@
 class N2GoGui
 {
 
-    const N2GO_INTEGRATION_URL = 'https://ui-staging.newsletter2go.com/integrations/connect/WP/';
-    const N2GO_API_URL = 'https://api-staging.newsletter2go.com/';
+    const N2GO_INTEGRATION_URL = 'https://ui.newsletter2go.com/integrations/connect/WP/';
+    const N2GO_API_URL = 'https://api.newsletter2go.com/';
     const N2GO_REFRESH_GRANT_TYPE = 'https://nl2go.com/jwt_refresh';
 
     /**
@@ -45,7 +45,7 @@ class N2GoGui
     public function adminMenu()
     {
         add_menu_page('Newsletter2Go API Settings', 'Newsletter2Go', 'manage_options', 'n2go-api',
-            array(&$this, 'adminOptions'), 'https://www.newsletter2go.de/pr/150204_wordpress_icon.png', 30);
+            array(&$this, 'adminOptions'), plugins_url('/lib/wordpress_icon.png', __FILE__), 30);
     }
 
 
