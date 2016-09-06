@@ -17,6 +17,7 @@ function n2GoApiInit()
     add_filter('rewrite_rules_array', 'n2GoApiRewrites');
     add_filter('query_vars', 'n2goAddQueryVars');
     add_action('template_redirect', 'n2goTemplateRedirect');
+    add_action('template_redirect', 'n2goCallback');
     load_plugin_textdomain( NEWSLETTER2GO_TEXTDOMAIN , false, 'newsletter2go/lang/');
     require_once NEWSLETTER2GO_ROOT_PATH . "/gui/N2GoGui.php";
     N2GoGui::run();
@@ -28,6 +29,27 @@ function n2GoApiActivation()
     add_filter('query_vars', 'n2goAddQueryVars');
     add_filter('rewrite_rules_array', 'n2GoApiRewrites');
     $wp_rewrite->flush_rules();
+
+    $authKey = generateRandomString();
+    (get_option('n2go_apikey', null) !== null) ? update_option('n2go_apikey', $authKey) : add_option('n2go_apikey', $authKey);
+}
+
+/**
+ * Generates random string with $length characters
+ *
+ * @param int $length
+ * @return string
+ */
+function generateRandomString($length = 40)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+
+    return $randomString;
 }
 
 function n2GoApiDeactivation()
@@ -42,6 +64,7 @@ function n2GoApiRewrites($wpRules)
         "n2go-api\$" => 'index.php?pagename=n2go-api&method=test',
         "n2go-api/getVersion\$" => 'index.php?pagename=n2go-api&method=getVersion',
         "n2go-api/([^/]+)/([0-9]+)\$" => 'index.php?pagename=n2go-api&method=$matches[1]&postId=$matches[2]',
+        "n2go-callback\$" => 'index.php?pagename=n2go-callback'
     );
 
     return array_merge($n2goRules, $wpRules);
@@ -61,6 +84,25 @@ function n2goTemplateRedirect()
     if ($pageNameVar == 'n2go-api') {
         require_once NEWSLETTER2GO_ROOT_PATH . "/api/N2GoApi.php";
         N2GoApi::run();
+    }
+}
+
+function n2goCallback()
+{
+    $pageNameVar = get_query_var('pagename');
+    if ($pageNameVar == 'n2go-callback') {
+        $result = array('result' => false);
+        $accessToken = filter_input(INPUT_POST, 'access_token');
+        $refreshToken = filter_input(INPUT_POST, 'refresh_token');
+        $authKey = filter_input(INPUT_POST, 'auth_key');
+        if(isset($accessToken) && !empty($accessToken) && isset($refreshToken) && !empty($refreshToken) && isset($authKey) && !empty($authKey)) {
+            (get_option('n2go_accessToken', null) !== null) ? update_option('n2go_accessToken', $accessToken) : add_option('n2go_accessToken', $accessToken);
+            (get_option('n2go_refreshToken', null) !== null) ? update_option('n2go_refreshToken', $refreshToken) : add_option('n2go_refreshToken', $refreshToken);
+            (get_option('n2go_authKey', null) !== null) ? update_option('n2go_authKey', $authKey) : add_option('n2go_authkey', $authKey);
+            header('HTTP/1.1 200 OK', true);
+            $result = array('result' => true);
+        }
+        wp_send_json($result);
     }
 }
 
