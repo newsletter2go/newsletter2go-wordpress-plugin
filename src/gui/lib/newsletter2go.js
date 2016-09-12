@@ -1,4 +1,4 @@
-window.addEventListener('load', setTimeout(function () {
+window.onload = function(){
     var formUniqueCode = document.getElementById('formUniqueCode').value.trim(),
         widgetPreview = document.getElementById('widgetPreview'),
         nl2gStylesConfig = document.getElementById('nl2gStylesConfig');
@@ -128,4 +128,4 @@ window.addEventListener('load', setTimeout(function () {
         });
         
     }
-}),1);
+}
