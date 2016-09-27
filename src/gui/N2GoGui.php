@@ -48,7 +48,6 @@ class N2GoGui
             array(&$this, 'adminOptions'), plugins_url('/lib/wordpress_icon.png', __FILE__), 30);
     }
 
-
     /**
      * Checks if preconditions are fulfilled(permissions and having curl);
      * Checks if admin side is request with POST or with GET.Handles admin options;
@@ -67,9 +66,9 @@ class N2GoGui
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            if ($_GET['task'] == 'resetApiKey'){
+            if ($_GET['task'] == 'resetApiKey') {
                 $this->restApiKey();
-                wp_redirect( admin_url( 'admin.php?page=n2go-api' ) );
+                wp_redirect(admin_url('admin.php?page=n2go-api'));
                 exit;
             }
         }
@@ -105,46 +104,12 @@ class N2GoGui
 
         $formUniqueCode = get_option('n2go_formUniqueCode');
         $nl2gStylesConfigObject = stripslashes(get_option('n2go_widgetStyleConfig'));
-        $response = $this->execute('attributes',array('key' => $apiKey));
 
         if (!strlen($formUniqueCode) > 0) {
             $errorMessage = "Please connect to Newsletter2Go by clicking on \"Login or Create Account\" button";
         }
 
         require_once dirname(__FILE__) . '/adminView.php';
-    }
-
-    /**
-     * Executes api call to newsletter2go server.
-     *
-     * @param string $action
-     * @param string $post
-     * @return array|mixed|object
-     */
-    private function execute($action, $post)
-    {
-        $response = wp_remote_post("https://www.newsletter2go.com/en/api/get/$action/", array(
-                'method' => 'POST',
-                'timeout' => 45,
-                'redirection' => 5,
-                'httpversion' => '1.0',
-                'blocking' => true,
-                'headers' => array(),
-                'body' => $post,
-                'cookies' => array()
-            )
-        );
-
-
-        if (is_wp_error($response)) {
-
-            return array('success' => false, 'error' => $response->get_error_message(), 'curl' => true);
-
-        } else {
-
-            return json_decode($response['body'], true);
-
-        }
     }
 
     /**
@@ -160,7 +125,8 @@ class N2GoGui
         (get_option($id, null) !== null) ? update_option($id, $value) : add_option($id, $value);
     }
 
-    public function restApiKey(){
+    public function restApiKey()
+    {
         $apiKey = $this->generateRandomString();
         $this->save_option('n2go_apikey', $apiKey);
     }
@@ -193,10 +159,10 @@ class N2GoGui
         $result = false;
 
         if (strlen($authKey) > 0) {
-            $form = $this->executeNewApi('forms/all?_expand=1', array());
+            $form = $this->executeNewApi('forms/all?_expand=1');
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
-                foreach ($form['value'] as $key => $value){
+                foreach ($form['value'] as $key => $value) {
                     $result[$key]['name'] = $value['name'];
                     $result[$key]['hash'] = $value['hash'];
                 }
@@ -210,72 +176,60 @@ class N2GoGui
      * Creates request and returns response. New API
      *
      * @param string $action
-     * @param $post
      * @return array
      * @internal param mixed $params
      */
-    private function executeNewApi($action, $post)
+    private function executeNewApi($action)
     {
-
         $this->refreshTokens();
         $access_token = get_option('n2go_accessToken');
 
-        $apiUrl = self::N2GO_API_URL;
-        $url = $apiUrl.$action;
-
-        $response = wp_remote_get("$url", array(
+        $response = wp_remote_get(self::N2GO_API_URL . $action, array(
                 'method' => 'GET',
                 'timeout' => 45,
-                'headers' => array('Authorization' => 'Bearer '.$access_token)
+                'headers' => array('Authorization' => 'Bearer ' . $access_token)
             )
         );
 
         return json_decode($response['body'], true);
-
     }
 
     /**
      * Creates request and returns response, refresh access token
      *
-     * @return array
+     * @return void
      * @internal param mixed $params
      */
-    function refreshTokens() {
-
-        $authKey = get_option('n2go_authKey');
-        $auth = base64_encode($authKey);
-        $refreshToken = get_option('n2go_refreshToken');
+    private function refreshTokens()
+    {
+        $url = self::N2GO_API_URL . 'oauth/v2/token';
+        $auth = base64_encode(get_option('n2go_authKey'));
+        $header = array(
+            'Authorization' => 'Basic ' . $auth,
+            'Content-Type' => 'application/x-www-form-urlencoded',
+        );
         $refreshPost = array(
-            'refresh_token' => $refreshToken,
+            'refresh_token' => get_option('n2go_refreshToken'),
             'grant_type' => self::N2GO_REFRESH_GRANT_TYPE
         );
-        $post = http_build_query($refreshPost);
 
-        $url = self::N2GO_API_URL.'oauth/v2/token';
+        $responseRaw = wp_remote_post($url, array(
+                'method' => 'POST',
+                'timeout' => 45,
+                'headers' => $header,
+                'sslverify' => false,
+                'body' => $refreshPost,
+            )
+        );
 
-        $header = array('Authorization: Basic '.$auth, 'Content-Type: application/x-www-form-urlencoded');
-
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-        $json_response = curl_exec($curl);
-
-        curl_close($curl);
-
-        $response = json_decode($json_response);
-
-        if(isset($response->access_token) && !empty($response->access_token)){
-            (get_option('n2go_accessToken', null) !== null) ? update_option('n2go_accessToken', $response->access_token) : add_option('n2go_accessToken', $response->access_token);
-        }
-        if(isset($response->refresh_token) && !empty($response->refresh_token)) {
-            (get_option('n2go_refreshToken', null) !== null) ? update_option('n2go_refreshToken', $response->refresh_token) : add_option('n2go_refreshToken', $response->refresh_token);
+        $response = json_decode($responseRaw['body']);
+        if (isset($response->access_token) && !empty($response->access_token)) {
+            $this->save_option('n2go_accessToken', $response->access_token);
         }
 
-        return true;
+        if (isset($response->refresh_token) && !empty($response->refresh_token)) {
+            $this->save_option('n2go_refreshToken', $response->refresh_token);
+        }
     }
 
     /**
