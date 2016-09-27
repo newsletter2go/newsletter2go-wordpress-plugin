@@ -15,11 +15,16 @@ window.addEventListener('load', function () {
         }
 
         [].forEach.call(document.getElementsByClassName('n2go-colorField'), function (element) {
-            var field = element.name.split('.'),
-                style = getStyle(field[1], n2gConfig[field[0]]['style']);
-
+            var field = element.name.split('.');
+            if( typeof n2gConfig[field[0]] != "undefined" &&  typeof n2gConfig[field[0]]['style'] != "undefined") {
+               var style = getStyle(field[1], n2gConfig[field[0]]['style']);
+            }else{
+                var style= '';
+            }
             if (style !== '') {
                 element.value = style;
+
+
             }
         });
     }

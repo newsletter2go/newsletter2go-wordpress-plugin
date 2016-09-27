@@ -131,7 +131,7 @@ function n2goShortcode ($attr)
     }
 
     $widget = new N2GoWidget;
-    $widget->widget($args, $instance);
+    return $widget->widget($args, $instance, false);
 }
 
 add_action('init', 'n2GoApiInit');

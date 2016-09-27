@@ -205,7 +205,7 @@ class N2GoGui
         $url = self::N2GO_API_URL . 'oauth/v2/token';
         $auth = base64_encode(get_option('n2go_authKey'));
         $header = array(
-            'Authorization' => 'Basic ' . $auth,
+            'Authorization' => 'Basic ' . $auth.':foo',
             'Content-Type' => 'application/x-www-form-urlencoded',
         );
         $refreshPost = array(

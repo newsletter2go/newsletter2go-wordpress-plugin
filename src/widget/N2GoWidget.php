@@ -54,7 +54,7 @@ class N2GoWidget extends WP_Widget
     <?php
     }
 
-    public function widget($args, $instance)
+    public function widget($args, $instance, $print = true)
     {
         $n2gConfig = stripslashes(get_option('n2go_widgetStyleConfig'));
         $formUniqueCode = get_option('n2go_formUniqueCode');
@@ -70,7 +70,12 @@ class N2GoWidget extends WP_Widget
 
         $n2gParams = implode(', ', $args['params']);
 
-        require('widgetView.php');
+        $response = require('widgetView.php');
+        if($print) {
+            echo $response;
+        }else{
+            return $response;
+        }
     }
 
     public function ajaxSubscribe()
