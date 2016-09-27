@@ -101,3 +101,7 @@ msgstr ""
 #: widget/N2GoWidget.php:11
 msgid "Display subscription form"
 msgstr ""
+
+#: gui/adminView.php:25
+msgid "Disconnect"
+msgstr ""

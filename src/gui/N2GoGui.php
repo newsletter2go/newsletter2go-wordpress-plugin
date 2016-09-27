@@ -78,6 +78,9 @@ class N2GoGui
             $this->save_option('n2go_formUniqueCode', $_POST['formUniqueCode']);
             $widgetStyleConfig = $_POST['widgetStyleConfig'];
             $this->save_option('n2go_widgetStyleConfig', $widgetStyleConfig);
+            if(isset($_POST['resetValues'])){
+                $this->disconnect($_POST['resetValues']);
+            }
 
         }
 
@@ -274,5 +277,24 @@ class N2GoGui
 
         return true;
     }
+
+    /**
+     * Reset the values that are set when callback is made
+     *
+     * @param string $data
+     */
+    private function disconnect($data){
+
+        if($data == 'Disconnect'){
+
+            $this->save_option('n2go_authKey', null);
+            $this->save_option('n2go_accessToken', null);
+            $this->save_option('n2go_refreshToken', null);
+            $this->save_option('n2go_formUniqueCode', null);
+            $this->save_option('n2go_widgetStyleConfig', null);
+
+        }
+    }
+
 
 }

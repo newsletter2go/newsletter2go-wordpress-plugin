@@ -106,3 +106,7 @@ msgstr "Anmeldeformular anzeigen"
 
 #~ msgid "banner_link"
 #~ msgstr "/lib/banner_wordpress_newsletter2go.png"
+
+#: gui/adminView.php:25
+msgid "Disconnect"
+msgstr ""

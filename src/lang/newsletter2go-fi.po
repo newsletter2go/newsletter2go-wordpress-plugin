@@ -188,3 +188,7 @@ msgstr "Tee tilaus nyt"
 #: widget/N2GoWidget.php:11
 msgid "Display subscription form"
 msgstr "Määritä tilauslomake"
+
+#: gui/adminView.php:25
+msgid "Disconnect"
+msgstr ""

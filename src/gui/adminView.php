@@ -51,6 +51,9 @@
                             <?php } else { ?>
                                 <span class="n2go-label-success"> <span class="fa fa-check margin-right-5"></span>
 							<span><?= __("Successfully connected", NEWSLETTER2GO_TEXTDOMAIN) ?></span></span>
+                               <br><br> <div>
+                                    <input type="submit" value="<?= __("Disconnect", NEWSLETTER2GO_TEXTDOMAIN) ?>" class="save-btn button" name="resetValues"/>
+                                </div>
                             <?php } ?>
                         </div>
                     </div>
