@@ -195,6 +195,13 @@
                                        style="margin-top:15px"/>
                             </div>
                         </div>
+                        <div id="nl2gStylesConfig" class="preview-pane">
+                            <textarea id="widgetStyleConfig" name="widgetStyleConfig"><?php echo $nl2gStylesConfigObject; ?></textarea>
+                        </div>
+                        <br>
+                        <div>
+                        <a id ="resetStyles" value="resetStyles" class="save-btn button" name="resetStyles"><?= __("Reset styles", NEWSLETTER2GO_TEXTDOMAIN) ?></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -207,6 +214,7 @@
     </div>
 
 </form>
+
 
 
 

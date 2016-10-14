@@ -110,3 +110,31 @@ msgstr "Anmeldeformular anzeigen"
 #: gui/adminView.php:25
 msgid "Disconnect"
 msgstr ""
+
+#: newsletter2go.php:35
+msgid "Please fill all fields."
+msgstr "Bitte füllen Sie alle Felder aus."
+
+#: newsletter2go.php:36
+msgid "We were not able to sign you up. Please try again."
+msgstr "Wir konnten nicht Sie sich anmelden. Bitte versuchen Sie es erneut."
+
+#: newsletter2go.php:37
+msgid "Subscribe now!"
+msgstr "﻿Jetzt anmelden!"
+
+#: widget/N2GoWidget.php:11
+msgid "Display subscription form"
+msgstr "Anzeige Anmeldeformular"
+
+#: gui/adminView.php:25
+msgid "Disconnect"
+msgstr ""
+
+#: gui/adminView.php:120
+msgid "Reset styles"
+msgstr ""
+
+#: gui/adminView.php:128
+msgid "Save settings"
+msgstr ""

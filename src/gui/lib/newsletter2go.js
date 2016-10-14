@@ -6,7 +6,6 @@ window.addEventListener('load', function () {
         input,
         timer = 0;
 
-
     function n2gSetUp() {
         if (widgetStyleConfig.textContent === null || widgetStyleConfig.textContent.trim() === '') {
             widgetStyleConfig.textContent = JSON.stringify(n2gConfig, null, 2);
@@ -16,28 +15,29 @@ window.addEventListener('load', function () {
 
         [].forEach.call(document.getElementsByClassName('n2go-colorField'), function (element) {
             var field = element.name.split('.');
-            if( typeof n2gConfig[field[0]] != "undefined" &&  typeof n2gConfig[field[0]]['style'] != "undefined") {
-               var style = getStyle(field[1], n2gConfig[field[0]]['style']);
-            }else{
-                var style= '';
-            }
+            var style = getStyle(field[1], n2gConfig[field[0]]['style']);
+
             if (style !== '') {
+                style = style.replace('!important','');
+                style = style.replace('#','');
                 element.value = style;
-
-
+                element.focus();
+                element.blur();
             }
         });
     }
 
     function getStyle(field, str) {
-        var styleArray = str.split(';');
+        var styleArray = str.split(';'),
+            styleField;
 
         for (var i = 0; i < styleArray.length; i++) {
-            var styleField = styleArray[i].split(':');
+            styleField = styleArray[i].split(':');
             if (styleField[0].trim() == field) {
                 return styleField[1].trim();
             }
         }
+
         return '';
     }
 
@@ -134,6 +134,22 @@ window.addEventListener('load', function () {
 
         [].forEach.call(document.getElementById('n2gButtons').children, function (button) {
             button.addEventListener('click', show);
+        });
+
+        document.getElementById('resetStyles').addEventListener('click', function (e) {
+            var defaultConfig = JSON.stringify(n2goConfigConst, null, 2);
+            e.preventDefault();
+            jQuery.ajax({
+                type: 'POST',
+                url: ajaxurl,
+                data: {
+                    action: 'resetStyles',
+                    style: defaultConfig
+                },
+                success: function(){
+                    location.reload();
+                }
+            });
         });
     }
 });

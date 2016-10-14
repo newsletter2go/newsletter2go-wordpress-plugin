@@ -16,6 +16,7 @@ class N2GoGui
         $obj = new N2GoGui();
         add_action('admin_menu', array($obj, 'adminMenu'));
         add_action('admin_enqueue_scripts', array($obj, 'myScripts'));
+        add_action('wp_ajax_resetStyles',  array($obj, 'resetStyles'));
     }
 
     /**
@@ -80,7 +81,6 @@ class N2GoGui
             if(isset($_POST['resetValues'])){
                 $this->disconnect($_POST['resetValues']);
             }
-
         }
 
         $curl_error = null;
@@ -250,5 +250,31 @@ class N2GoGui
         }
     }
 
+    /**
+     * Reset the values that are set when callback is made
+     *
+     * @param string $data
+     */
+    private function disconnect($data){
 
+        if($data == 'Disconnect'){
+
+            $this->save_option('n2go_authKey', null);
+            $this->save_option('n2go_accessToken', null);
+            $this->save_option('n2go_refreshToken', null);
+            $this->save_option('n2go_formUniqueCode', null);
+            $this->save_option('n2go_widgetStyleConfig', null);
+
+        }
+    }
+
+    /**
+     * This function sets widgetStyleConfig to default value
+     */
+    function resetStyles(){
+        $style = filter_input(INPUT_POST,'style');
+        $style = addslashes($style);
+        $this->save_option('n2go_widgetStyleConfig', $style);
+        return 'success';
+    }
 }
