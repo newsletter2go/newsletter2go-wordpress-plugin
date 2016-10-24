@@ -5,6 +5,7 @@ class N2GoGui
 
     const N2GO_INTEGRATION_URL = 'https://ui.newsletter2go.com/integrations/connect/WP/';
     const N2GO_API_URL = 'https://api.newsletter2go.com/';
+    const N2GO_STATIC_URL = 'https://static.newsletter2go.com/';
     const N2GO_REFRESH_GRANT_TYPE = 'https://nl2go.com/jwt_refresh';
 
     /**
@@ -79,7 +80,7 @@ class N2GoGui
             $widgetStyleConfig = $_POST['widgetStyleConfig'];
             $this->save_option('n2go_widgetStyleConfig', $widgetStyleConfig);
             if(isset($_POST['resetValues'])){
-                $this->disconnect($_POST['resetValues']);
+                $this->disconnect();
             }
         }
 
@@ -100,12 +101,23 @@ class N2GoGui
 
         $connectUrl = self::N2GO_INTEGRATION_URL . '?' . http_build_query($queryParams);
 
-        $forms = $this->getForms($authKey);
+        $forms = $this->getForms();
 
         $formUniqueCode = get_option('n2go_formUniqueCode');
+
         $nl2gStylesConfigObject = stripslashes(get_option('n2go_widgetStyleConfig'));
 
-        if (!strlen($formUniqueCode) > 0) {
+        //delete selected form, if form doesn't exist anymore
+        
+        if(strlen($formUniqueCode) > 0 && !isset($forms[$formUniqueCode])){
+            $this->save_option('n2go_formUniqueCode', null);
+            $formUniqueCode= null;
+        }else{
+            $form = $forms[$formUniqueCode];
+        }
+
+        //if (!strlen($formUniqueCode) > 0) {
+        if($forms === false){
             $errorMessage = "Please connect to Newsletter2Go by clicking on \"Login or Create Account\" button";
         }
 
@@ -156,19 +168,23 @@ class N2GoGui
      */
     public function getForms($authKey = '')
     {
+        $authKey = get_option('n2go_authKey');
+
         $result = false;
 
         if (strlen($authKey) > 0) {
-            $form = $this->executeNewApi('forms/all?_expand=1');
+            $form = $this->executeNewApi('forms?_expand=1');
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
-                foreach ($form['value'] as $key => $value) {
+                foreach ($form['value'] as  $value) {
+                    $key = $value['hash'];
                     $result[$key]['name'] = $value['name'];
                     $result[$key]['hash'] = $value['hash'];
+                    $result[$key]['type_subscribe'] = $value['type_subscribe'];
+                    $result[$key]['type_unsubscribe'] = $value['type_unsubscribe'];
                 }
             }
         }
-
         return $result;
     }
 
@@ -181,7 +197,7 @@ class N2GoGui
      */
     private function executeNewApi($action)
     {
-        $this->refreshTokens();
+
         $access_token = get_option('n2go_accessToken');
 
         $response = wp_remote_get(self::N2GO_API_URL . $action, array(
@@ -191,7 +207,25 @@ class N2GoGui
             )
         );
 
-        return json_decode($response['body'], true);
+
+
+        //access_token is deprecated
+        if(isset($response['response']['code'])&& $response['response']['code'] == 403 ||$response['response']['code'] == 401 ){
+
+            $this->refreshTokens();
+            $access_token = get_option('n2go_accessToken');
+            $response = wp_remote_get(self::N2GO_API_URL . $action, array(
+                    'method' => 'GET',
+                    'timeout' => 45,
+                    'headers' => array('Authorization' => 'Bearer ' . $access_token)
+                )
+            );
+            $responseJson =  json_decode($response['body'], true);
+        }else{
+            $responseJson =  json_decode($response['body'], true);
+        }
+
+        return $responseJson;
     }
 
     /**
@@ -205,7 +239,7 @@ class N2GoGui
         $url = self::N2GO_API_URL . 'oauth/v2/token';
         $auth = base64_encode(get_option('n2go_authKey'));
         $header = array(
-            'Authorization' => 'Basic ' . $auth.':foo',
+            'Authorization' => 'Basic ' . $auth.'',
             'Content-Type' => 'application/x-www-form-urlencoded',
         );
         $refreshPost = array(
@@ -223,6 +257,7 @@ class N2GoGui
         );
 
         $response = json_decode($responseRaw['body']);
+
         if (isset($response->access_token) && !empty($response->access_token)) {
             $this->save_option('n2go_accessToken', $response->access_token);
         }
@@ -237,9 +272,7 @@ class N2GoGui
      *
      * @param string $data
      */
-    private function disconnect($data){
-
-        if($data == 'Disconnect'){
+    private function disconnect(){
 
             $this->save_option('n2go_authKey', null);
             $this->save_option('n2go_accessToken', null);
@@ -247,26 +280,8 @@ class N2GoGui
             $this->save_option('n2go_formUniqueCode', null);
             $this->save_option('n2go_widgetStyleConfig', null);
 
-        }
     }
 
-    /**
-     * Reset the values that are set when callback is made
-     *
-     * @param string $data
-     */
-    private function disconnect($data){
-
-        if($data == 'Disconnect'){
-
-            $this->save_option('n2go_authKey', null);
-            $this->save_option('n2go_accessToken', null);
-            $this->save_option('n2go_refreshToken', null);
-            $this->save_option('n2go_formUniqueCode', null);
-            $this->save_option('n2go_widgetStyleConfig', null);
-
-        }
-    }
 
     /**
      * This function sets widgetStyleConfig to default value

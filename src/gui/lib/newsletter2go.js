@@ -1,6 +1,7 @@
 window.addEventListener('load', function () {
     var formUniqueCode = document.getElementById('formUniqueCode'),
-        widgetPreview = document.getElementById('widgetPreview'),
+        widgetPreviewSubscribe = document.getElementById('widgetPreviewSubscribe'),
+        widgetPreviewUnsubscribe = document.getElementById('widgetPreviewUnsubscribe'),
         nl2gStylesConfig = document.getElementById('nl2gStylesConfig'),
         widgetStyleConfig = document.getElementById('widgetStyleConfig'),
         input,
@@ -18,8 +19,8 @@ window.addEventListener('load', function () {
             var style = getStyle(field[1], n2gConfig[field[0]]['style']);
 
             if (style !== '') {
-                style = style.replace('!important','');
-                style = style.replace('#','');
+                style = style.replace('!important', '');
+                style = style.replace('#', '');
                 element.value = style;
                 element.focus();
                 element.blur();
@@ -62,10 +63,18 @@ window.addEventListener('load', function () {
 
     function updateForm() {
         clearTimeout(timer);
-        timer = setTimeout(function () {
-            jQuery('#widgetPreview').find('form').remove();
-            n2g('subscribe:createForm', n2gConfig);
-        }, 100);
+        if (jQuery('#widgetPreviewSubscribe').length > 0) {
+            timer = setTimeout(function () {
+                jQuery('#widgetPreviewSubscribe').find('form').remove();
+                n2g('subscribe:createForm', n2gConfig, 'n2g_script_subscribe');
+            }, 100);
+        }
+        if (jQuery('#widgetPreviewUnsubscribe').length > 0) {
+            timer = setTimeout(function () {
+                jQuery('#widgetPreviewUnsubscribe').find('form').remove();
+                n2g('unsubscribe:createForm', n2gConfig, 'n2g_script_unsubscribe');
+            }, 100);
+        }
     }
 
     function updateString(string, cssProperty, cssValue) {
@@ -98,21 +107,27 @@ window.addEventListener('load', function () {
     }
 
     function show() {
-        var btnConfig = jQuery('#btnShowConfig'),
-            btnPreview = jQuery('#btnShowPreview');
+        var btnConfig = jQuery('#btnShowConfig'), btnPreviewSubscribe = jQuery('#btnShowPreviewSubscribe');
+        btnPreviewUnsubscribe = jQuery('#btnShowPreviewUnsubscribe');
+
+        jQuery('#n2gButtons li').removeClass('active');
+        jQuery('#preview-form-panel > div').hide();
+
 
         switch (this.id) {
-            case 'btnShowConfig':
-                nl2gStylesConfig.style.display = 'block';
-                widgetPreview.style.display = 'none';
-                btnConfig.addClass('active');
-                btnPreview.removeClass('active');
+            case 'btnShowPreviewUnsubscribe':
+                widgetPreviewUnsubscribe.style.display = 'block';
+                btnPreviewUnsubscribe.addClass('active');
+                break;
+            case 'btnShowPreviewSubscribe':
+                widgetPreviewSubscribe.style.display = 'block';
+                btnPreviewSubscribe.addClass('active');
                 break;
             default:
-                widgetPreview.style.display = 'block';
-                nl2gStylesConfig.style.display = 'none';
-                btnConfig.removeClass('active');
-                btnPreview.addClass('active');
+                nl2gStylesConfig.style.display = 'block';
+                btnConfig.addClass('active');
+                break;
+
         }
     }
 
@@ -128,7 +143,13 @@ window.addEventListener('load', function () {
         n2gSetUp();
 
         n2g('create', formUniqueCode.value.trim());
-        n2g('subscribe:createForm', n2gConfig);
+        if (jQuery('#widgetPreviewSubscribe').length > 0) {
+            n2g('subscribe:createForm', n2gConfig, 'n2g_script_subscribe');
+        }
+        if (jQuery('#widgetPreviewUnsubscribe').length > 0) {
+            n2g('unsubscribe:createForm', n2gConfig, 'n2g_script_unsubscribe');
+
+        }
 
         show();
 
@@ -146,7 +167,7 @@ window.addEventListener('load', function () {
                     action: 'resetStyles',
                     style: defaultConfig
                 },
-                success: function(){
+                success: function () {
                     location.reload();
                 }
             });

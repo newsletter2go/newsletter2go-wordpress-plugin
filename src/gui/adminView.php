@@ -11,13 +11,18 @@
                 <div class="n2go-row">
                     <div class="n2go-block50">
                         <h4>als Widget</h4>
-                        <p>Unter Design -> Widgets können Sie ihr konfiguriertes Anmeldeformular bequem in ihre Seitenleisten und Menüs einfügen</p>
+                        <p>Unter Design -> Widgets können Sie ihr konfiguriertes Formular bequem in ihre
+                            Seitenleisten und Menüs einfügen</p>
                     </div>
 
                     <div class="n2go-block50">
                         <h4>in Beiträgen und Seiten</h4>
                         <p>Über den Shortcode <code>[newsletter2go]</code> können Sie ihr
-                            konfiguriertes Anmeldeformular in allen Seiten und Beiträgen über den Editor einbinden.
+                            konfiguriertes Anmeldeformular in allen Seiten und Beiträgen über den Editor einbinden.<br/>
+                            <br/>
+                            Durch den Parameter <code>[newsletter2go form_type=subscribe]</code> bzw. <code>[newsletter2go form_type=unsubscribe]</code>
+                            erzeugen Sie ein An- bzw. Abmeldeformular, soweit dieser Formular-Typ im Newsletter2Go-System ebenfalls aktiviert wurde.
+                            Standardmäßig wird ein Anmeldeformular erzeugt.<br/><br/>
                             Mit der zusätzlichen Option <code>[newsletter2go type=popup]</code> wird aus dem
                             eingebetten Formular ein Popup welches auf der spezifischen Seite eingeblendet wird.</p>
                     </div>
@@ -51,8 +56,10 @@
                             <?php } else { ?>
                                 <span class="n2go-label-success"> <span class="fa fa-check margin-right-5"></span>
 							<span><?= __("Successfully connected", NEWSLETTER2GO_TEXTDOMAIN) ?></span></span>
-                               <br><br> <div>
-                                    <input type="submit" value="<?= __("Disconnect", NEWSLETTER2GO_TEXTDOMAIN) ?>" class="save-btn button" name="resetValues"/>
+                                <br><br>
+                                <div>
+                                    <input type="submit" value="<?= __("Disconnect", NEWSLETTER2GO_TEXTDOMAIN) ?>"
+                                           class="save-btn button" name="resetValues"/>
                                 </div>
                             <?php } ?>
                         </div>
@@ -60,10 +67,11 @@
                     <div class="n2go-row">
                         <?php if ($forms !== false) { ?>
                             <div class="n2go-block50">
-                                <span><?= __("Choose the connected subscribe form", NEWSLETTER2GO_TEXTDOMAIN) ?></span>
+                                <span><?= __("Choose the connected form", NEWSLETTER2GO_TEXTDOMAIN) ?></span>
                             </div>
                             <div class="n2go-block25">
                                 <select id="formUniqueCode" class="n2go-select" name="formUniqueCode">
+                                    <option disabled selected>-- bitte auswählen --</option>
                                     <?php if (!empty($forms)) { ?>
                                         <?php foreach ($forms as $form) { ?>
                                             <option
@@ -79,10 +87,10 @@
                         <?php } ?>
                     </div>
                 </div>
-                <?php if ($forms !== false) { ?>
+                <?php if ($formUniqueCode) { ?>
                     <div class="n2go-row">
                         <div class="n2go-block50">
-                            <span><?= __("Configure your Wordpress widget", NEWSLETTER2GO_TEXTDOMAIN) ?></span></div>
+                            <span><?= __("Configure the styling of your form", NEWSLETTER2GO_TEXTDOMAIN) ?></span></div>
                         <div class="n2go-block25">
                             <label
                                 for="formBackgroundColor"><?= __("Form background color", NEWSLETTER2GO_TEXTDOMAIN) ?></label>
@@ -165,7 +173,8 @@
                 <?php } ?>
             </div>
         </div>
-        <?php if ($forms !== false) { ?>
+        <?php if ($formUniqueCode) {
+            ?>
             <div class="n2go-block50 main-block">
                 <div class="panel">
                     <div class="panel-heading text-center">
@@ -173,14 +182,33 @@
                     </div>
                     <div class="panel-body">
                         <ul id="n2gButtons" class="nav nav-tabs">
-                            <li id="btnShowPreview" class="active"><?= __("Preview", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
+                            <?php $active = false;
+                            if ($form['type_subscribe']) {
+                                ?>
+                                <li id="btnShowPreviewSubscribe"
+                                    class="active"><?= __("Subscription-Form", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
+                                <?php
+                                $active = true;
+                            }
+                            if ($form['type_unsubscribe']) {
+                                ?>
+                                <li id="btnShowPreviewUnsubscribe" <?= (!$active ? 'class="active"' : '') ?>><?= __("Unsubscription-Form", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
+                            <?php } ?>
                             <li id="btnShowConfig" class=""><?= __("Source", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
                         </ul>
                         <!-- Tab panes-->
                         <div id="preview-form-panel" class="preview-pane">
-                            <div id="widgetPreview">
+                            <div id="widgetPreviewSubscribe">
                                 <?php if (!isset($errorMessage)) { ?>
-                                    <script id="n2g_script">
+                                    <script id="n2g_script_subscribe">
+                                    </script>
+                                <?php } else { ?>
+                                    <h3 class="n2go-error-general"><?= __($errorMessage) ?></h3>
+                                <?php } ?>
+                            </div>
+                            <div id="widgetPreviewUnsubscribe">
+                                <?php if (!isset($errorMessage)) { ?>
+                                    <script id="n2g_script_unsubscribe">
                                     </script>
                                 <?php } else { ?>
                                     <h3 class="n2go-error-general"><?= __($errorMessage) ?></h3>
@@ -195,12 +223,9 @@
                                        style="margin-top:15px"/>
                             </div>
                         </div>
-                        <div id="nl2gStylesConfig" class="preview-pane">
-                            <textarea id="widgetStyleConfig" name="widgetStyleConfig"><?php echo $nl2gStylesConfigObject; ?></textarea>
-                        </div>
+
                         <br>
                         <div>
-                        <a id ="resetStyles" value="resetStyles" class="save-btn button" name="resetStyles"><?= __("Reset styles", NEWSLETTER2GO_TEXTDOMAIN) ?></a>
                         </div>
                     </div>
                 </div>
@@ -211,6 +236,8 @@
         <br/>
         <input type="submit" value="<?= __("Save settings", NEWSLETTER2GO_TEXTDOMAIN) ?>"
                class="save-btn button button-primary n2go-btn" name="saveApiKey"/>
+        <a id="resetStyles" value="resetStyles" class="save-btn button"
+           name="resetStyles"><?= __("Reset settings", NEWSLETTER2GO_TEXTDOMAIN) ?></a>
     </div>
 
 </form>

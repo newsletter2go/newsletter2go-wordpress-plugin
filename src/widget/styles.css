@@ -1,0 +1,14 @@
+
+#content .nl2go-widget{
+    width:100%;
+    padding: 0;
+}
+
+.nl2go-widget td{
+    border: none;
+}
+
+.nl2go-widget table{
+    border: none;
+
+}

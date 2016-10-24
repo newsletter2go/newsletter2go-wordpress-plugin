@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Newsletter2Go translation template 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-05 13:35+0200\n"
-"PO-Revision-Date: 2016-09-05 13:36+0200\n"
+"POT-Creation-Date: 2016-10-24 16:17+0200\n"
+"PO-Revision-Date: 2016-10-24 16:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: Boris Damjanovic <boris.damjanovic@soprex.com>\n"
 "Language: de\n"
@@ -17,11 +17,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: lang\n"
 
-#: gui/N2GoGui.php:62
+#: gui/N2GoGui.php:63
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Sie haben nicht genügend Berechtigungen, diese Seite anzuzeigen. "
 
-#: gui/N2GoGui.php:66
+#: gui/N2GoGui.php:67
 msgid ""
 "You don't have cURL enabled. Please enable it for proper plugin functioning."
 msgstr ""
@@ -32,109 +32,114 @@ msgstr ""
 msgid "/lib/banner_wordpress_newsletter2go_COM.png"
 msgstr "/lib/banner_wordpress_newsletter2go.png"
 
-#: gui/adminView.php:10
+#: gui/adminView.php:41
 msgid "Newsletter2Go Wordpress Plugin"
 msgstr "Newsletter2Go Wordpress Plugin"
 
-#: gui/adminView.php:14
+#: gui/adminView.php:46
 msgid "Connect to Newsletter2Go"
 msgstr "Verbinden zu Newsletter2Go"
 
-#: gui/adminView.php:19
+#: gui/adminView.php:54
 msgid "Login or Create Account"
 msgstr "Einloggen oder Account erstellen"
 
-#: gui/adminView.php:23
+#: gui/adminView.php:58
 msgid "Successfully connected"
 msgstr "Erfolgreich verbunden"
 
-#: gui/adminView.php:30
-msgid "Choose the connected subscribe form"
-msgstr "Bitte wählen Sie ein Anmeldeformular"
+#: gui/adminView.php:61
+msgid "Disconnect"
+msgstr "Verbindung trennen"
 
-#: gui/adminView.php:48
-msgid "Configure your Wordpress widget"
-msgstr "Konfiguration des Anmeldeformular-Widgets"
+#: gui/adminView.php:70
+msgid "Choose the connected form"
+msgstr "Wählen Sie ein Formular"
 
-#: gui/adminView.php:50
+#: gui/adminView.php:93
+msgid "Configure the styling of your form"
+msgstr "Konfigurieren Sie das Aussehen Ihres Formulars"
+
+#: gui/adminView.php:96
 msgid "Form background color"
 msgstr "Formular Hintergrundfarbe"
 
-#: gui/adminView.php:56
+#: gui/adminView.php:107
 msgid "Label text color"
 msgstr "Beschriftung Textfarbe"
 
-#: gui/adminView.php:62
+#: gui/adminView.php:117
 msgid "Input Text color"
 msgstr "Eingabefeld Textfarbe"
 
-#: gui/adminView.php:68
+#: gui/adminView.php:127
 msgid "Input border color"
 msgstr "Eingabefeld Rahmenfarbe"
 
-#: gui/adminView.php:74
+#: gui/adminView.php:139
 msgid "Input background color"
 msgstr "Eingabefeld Hintergrundfarbe"
 
-#: gui/adminView.php:80
+#: gui/adminView.php:150
 msgid "Button text color"
 msgstr "Button Textfarbe"
 
-#: gui/adminView.php:86
+#: gui/adminView.php:161
 msgid "Button background color"
 msgstr "Button Hintergrundfarbe"
 
-#: gui/adminView.php:101
+#: gui/adminView.php:181
 msgid "This is how your form will look like"
 msgstr "Voransicht  des Formulars"
 
-#: gui/adminView.php:105
-msgid "Preview"
-msgstr "Vorschau"
+#: gui/adminView.php:189 widget/N2GoWidget.php:73
+msgid "Subscription-Form"
+msgstr "Anmeldeformular"
 
-#: gui/adminView.php:106
+#: gui/adminView.php:195 widget/N2GoWidget.php:78
+msgid "Unsubscription-Form"
+msgstr "Abmeldeformular"
+
+#: gui/adminView.php:197
 msgid "Source"
 msgstr "Quellcode"
 
-#: gui/adminView.php:129
+#: gui/adminView.php:221 gui/adminView.php:237
 msgid "Save settings"
 msgstr "Einstellungen speichern"
+
+#: gui/adminView.php:240
+msgid "Reset settings"
+msgstr "Einstellungen zurücksetzen"
 
 #: widget/N2GoWidget.php:11
 msgid "Display subscription form"
 msgstr "Anmeldeformular anzeigen"
 
+#: widget/N2GoWidget.php:65
+msgid "Formtype"
+msgstr "Formular-Typ"
+
+#~ msgid "Choose the connected subscribe form"
+#~ msgstr "Bitte wählen Sie ein Anmeldeformular"
+
+#~ msgid "Configure your Wordpress widget"
+#~ msgstr "Konfiguration des Anmeldeformular-Widgets"
+
+#~ msgid "Preview"
+#~ msgstr "Vorschau"
+
+#~ msgid "Please fill all fields."
+#~ msgstr "Bitte füllen Sie alle Felder aus."
+
+#~ msgid "We were not able to sign you up. Please try again."
+#~ msgstr "Wir konnten nicht Sie sich anmelden. Bitte versuchen Sie es erneut."
+
+#~ msgid "Subscribe now!"
+#~ msgstr "﻿Jetzt anmelden!"
+
+#~ msgid "Reset styles"
+#~ msgstr "Styling zurücksetzen"
+
 #~ msgid "banner_link"
 #~ msgstr "/lib/banner_wordpress_newsletter2go.png"
-
-#: gui/adminView.php:25
-msgid "Disconnect"
-msgstr ""
-
-#: newsletter2go.php:35
-msgid "Please fill all fields."
-msgstr "Bitte füllen Sie alle Felder aus."
-
-#: newsletter2go.php:36
-msgid "We were not able to sign you up. Please try again."
-msgstr "Wir konnten nicht Sie sich anmelden. Bitte versuchen Sie es erneut."
-
-#: newsletter2go.php:37
-msgid "Subscribe now!"
-msgstr "﻿Jetzt anmelden!"
-
-#: widget/N2GoWidget.php:11
-msgid "Display subscription form"
-msgstr "Anzeige Anmeldeformular"
-
-#: gui/adminView.php:25
-msgid "Disconnect"
-msgstr ""
-
-#: gui/adminView.php:120
-msgid "Reset styles"
-msgstr ""
-
-#: gui/adminView.php:128
-msgid "Save settings"
-msgstr ""

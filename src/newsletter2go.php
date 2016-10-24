@@ -4,7 +4,7 @@
   Plugin Name: Newsletter2Go
   Plugin URI: https://www.newsletter2go.de/
   Description: Adds email marketing functionality to your E-commerce platform. Easily synchronize your contacts and send product newsletters
-  Version: 4.0.02
+  Version: 4.0.03
   Author: Newsletter2Go
   Author URI: https://www.newsletter2go.de/
  */
@@ -118,16 +118,29 @@ function n2goShortcode ($attr)
     $instance['title'] = 'Newsletter2Go';
     $args = array();
 
+    $form_type= 'subscribe';
+    if (is_array($attr) && isset($attr['form_type'])) {
+        switch ($attr['form_type']) {
+            case 'unsubscribe':
+                $form_type = 'unsubscribe';
+                break;
+            default:
+                $form_type = 'subscribe';
+                break;
+        }
+    }
+
     if (is_array($attr) && isset($attr['type'])) {
         switch ($attr['type']) {
             case 'popup':
-                $args['params'][0] = "'subscribe:createPopup'";
+                $args['params'][0] = "'".$form_type.":createPopup'";
                 (isset($attr['delay'])) ? $args['params'][3] = $attr['delay'] : $args['params'][3] = 5;
                 break;
             default:
-                $args['params'][0] = "'subscribe:createForm'";
+                $args['params'][0] = "'".$form_type.":createForm'";
                 break;
         }
+
     }
 
     $widget = new N2GoWidget;
