@@ -98,7 +98,7 @@ function n2goCallback()
         if(isset($accessToken) && !empty($accessToken) && isset($refreshToken) && !empty($refreshToken) && isset($authKey) && !empty($authKey)) {
             (get_option('n2go_accessToken', null) !== null) ? update_option('n2go_accessToken', $accessToken) : add_option('n2go_accessToken', $accessToken);
             (get_option('n2go_refreshToken', null) !== null) ? update_option('n2go_refreshToken', $refreshToken) : add_option('n2go_refreshToken', $refreshToken);
-            (get_option('n2go_authKey', null) !== null) ? update_option('n2go_authKey', $authKey.':foo') : add_option('n2go_authkey', $authKey.':foo');
+            (get_option('n2go_authKey', null) !== null) ? update_option('n2go_authKey', $authKey) : add_option('n2go_authkey', $authKey);
             header('HTTP/1.1 200 OK', true);
             $result = array('result' => true);
         }
