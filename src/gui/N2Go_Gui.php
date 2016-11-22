@@ -1,6 +1,6 @@
 <?php
 
-class N2GoGui
+class N2Go_Gui
 {
 
     const N2GO_INTEGRATION_URL = 'https://ui.newsletter2go.com/integrations/connect/WP/';
@@ -14,10 +14,10 @@ class N2GoGui
      */
     public static function run()
     {
-        $obj = new N2GoGui();
+        $obj = new N2Go_Gui();
         add_action('admin_menu', array($obj, 'adminMenu'));
         add_action('admin_enqueue_scripts', array($obj, 'myScripts'));
-        add_action('wp_ajax_resetStyles',  array($obj, 'resetStyles'));
+        add_action('wp_ajax_resetStyles', array($obj, 'resetStyles'));
     }
 
     /**
@@ -79,7 +79,7 @@ class N2GoGui
             $this->save_option('n2go_formUniqueCode', $_POST['formUniqueCode']);
             $widgetStyleConfig = $_POST['widgetStyleConfig'];
             $this->save_option('n2go_widgetStyleConfig', $widgetStyleConfig);
-            if(isset($_POST['resetValues'])){
+            if (isset($_POST['resetValues'])) {
                 $this->disconnect();
             }
         }
@@ -88,7 +88,7 @@ class N2GoGui
         $apiKey = get_option('n2go_apikey');
         $authKey = get_option('n2go_authKey');
 
-        $pluginInfo = get_plugin_data(WP_PLUGIN_DIR . '/newsletter2go/newsletter2go.php');
+        $pluginInfo = get_plugin_data(dirname(__DIR__) . '/newsletter2go.php');
         $queryParams['version'] = str_replace('.', '', $pluginInfo['Version']);
 
         $queryParams['apiKey'] = $apiKey;
@@ -108,20 +108,21 @@ class N2GoGui
         $nl2gStylesConfigObject = stripslashes(get_option('n2go_widgetStyleConfig'));
 
         //delete selected form, if form doesn't exist anymore
-        
-        if(strlen($formUniqueCode) > 0 && !isset($forms[$formUniqueCode])){
+
+        if (strlen($formUniqueCode) > 0 && !isset($forms[$formUniqueCode])) {
             $this->save_option('n2go_formUniqueCode', null);
-            $formUniqueCode= null;
-        }else{
+            $formUniqueCode = null;
+        } else {
             $form = $forms[$formUniqueCode];
         }
 
         //if (!strlen($formUniqueCode) > 0) {
-        if($forms === false){
+        if ($forms === false) {
             $errorMessage = "Please connect to Newsletter2Go by clicking on \"Login or Create Account\" button";
         }
 
         require_once dirname(__FILE__) . '/adminView.php';
+
     }
 
     /**
@@ -139,26 +140,8 @@ class N2GoGui
 
     public function restApiKey()
     {
-        $apiKey = $this->generateRandomString();
+        $apiKey = wp_generate_password(40, false);
         $this->save_option('n2go_apikey', $apiKey);
-    }
-
-    /**
-     * Generates random string with $length characters
-     *
-     * @param int $length
-     * @return string
-     */
-    private function generateRandomString($length = 40)
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-
-        return $randomString;
     }
 
     /**
@@ -176,7 +159,7 @@ class N2GoGui
             $form = $this->executeNewApi('forms?_expand=1');
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
-                foreach ($form['value'] as  $value) {
+                foreach ($form['value'] as $value) {
                     $key = $value['hash'];
                     $result[$key]['name'] = $value['name'];
                     $result[$key]['hash'] = $value['hash'];
@@ -185,6 +168,7 @@ class N2GoGui
                 }
             }
         }
+
         return $result;
     }
 
@@ -203,26 +187,25 @@ class N2GoGui
         $response = wp_remote_get(self::N2GO_API_URL . $action, array(
                 'method' => 'GET',
                 'timeout' => 45,
-                'headers' => array('Authorization' => 'Bearer ' . $access_token)
+                'headers' => array('Authorization' => 'Bearer ' . $access_token),
             )
         );
 
 
-
         //access_token is deprecated
-        if(isset($response['response']['code'])&& $response['response']['code'] == 403 ||$response['response']['code'] == 401 ){
+        if (isset($response['response']['code']) && $response['response']['code'] == 403 || $response['response']['code'] == 401) {
 
             $this->refreshTokens();
             $access_token = get_option('n2go_accessToken');
             $response = wp_remote_get(self::N2GO_API_URL . $action, array(
                     'method' => 'GET',
                     'timeout' => 45,
-                    'headers' => array('Authorization' => 'Bearer ' . $access_token)
+                    'headers' => array('Authorization' => 'Bearer ' . $access_token),
                 )
             );
-            $responseJson =  json_decode($response['body'], true);
-        }else{
-            $responseJson =  json_decode($response['body'], true);
+            $responseJson = json_decode($response['body'], true);
+        } else {
+            $responseJson = json_decode($response['body'], true);
         }
 
         return $responseJson;
@@ -239,12 +222,12 @@ class N2GoGui
         $url = self::N2GO_API_URL . 'oauth/v2/token';
         $auth = base64_encode(get_option('n2go_authKey'));
         $header = array(
-            'Authorization' => 'Basic ' . $auth.'',
+            'Authorization' => 'Basic ' . $auth . '',
             'Content-Type' => 'application/x-www-form-urlencoded',
         );
         $refreshPost = array(
             'refresh_token' => get_option('n2go_refreshToken'),
-            'grant_type' => self::N2GO_REFRESH_GRANT_TYPE
+            'grant_type' => self::N2GO_REFRESH_GRANT_TYPE,
         );
 
         $responseRaw = wp_remote_post($url, array(
@@ -269,16 +252,15 @@ class N2GoGui
 
     /**
      * Reset the values that are set when callback is made
-     *
-     * @param string $data
      */
-    private function disconnect(){
+    private function disconnect()
+    {
 
-            $this->save_option('n2go_authKey', null);
-            $this->save_option('n2go_accessToken', null);
-            $this->save_option('n2go_refreshToken', null);
-            $this->save_option('n2go_formUniqueCode', null);
-            $this->save_option('n2go_widgetStyleConfig', null);
+        $this->save_option('n2go_authKey', null);
+        $this->save_option('n2go_accessToken', null);
+        $this->save_option('n2go_refreshToken', null);
+        $this->save_option('n2go_formUniqueCode', null);
+        $this->save_option('n2go_widgetStyleConfig', null);
 
     }
 
@@ -286,10 +268,11 @@ class N2GoGui
     /**
      * This function sets widgetStyleConfig to default value
      */
-    function resetStyles(){
-        $style = filter_input(INPUT_POST,'style');
-        $style = addslashes($style);
+    function resetStyles()
+    {
+        $style = $_POST['style'];
         $this->save_option('n2go_widgetStyleConfig', $style);
-        return 'success';
+        echo true;
+        wp_die();
     }
 }

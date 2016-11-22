@@ -18,11 +18,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: lang\n"
 
-#: gui/N2GoGui.php:63
+#: gui/N2Go_Gui.php:63
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: gui/N2GoGui.php:67
+#: gui/N2Go_Gui.php:67
 msgid "You don't have cURL enabled. Please enable it for proper plugin functioning."
 msgstr ""
 
@@ -90,11 +90,11 @@ msgstr ""
 msgid "This is how your form will look like"
 msgstr ""
 
-#: gui/adminView.php:189 widget/N2GoWidget.php:73
+#: gui/adminView.php:189 widget/N2Go_Widget.php:73
 msgid "Subscription-Form"
 msgstr ""
 
-#: gui/adminView.php:195 widget/N2GoWidget.php:78
+#: gui/adminView.php:195 widget/N2Go_Widget.php:78
 msgid "Unsubscription-Form"
 msgstr ""
 
@@ -110,10 +110,10 @@ msgstr ""
 msgid "Reset settings"
 msgstr ""
 
-#: widget/N2GoWidget.php:11
+#: widget/N2Go_Widget.php:11
 msgid "Display subscription form"
 msgstr ""
 
-#: widget/N2GoWidget.php:65
+#: widget/N2Go_Widget.php:65
 msgid "Formtype"
 msgstr ""

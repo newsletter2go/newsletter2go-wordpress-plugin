@@ -17,11 +17,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: lang\n"
 
-#: gui/N2GoGui.php:40
+#: gui/N2Go_Gui.php:40
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Sinulla ei ole riittäviä oikeuksia käyttää tätä sivua."
 
-#: gui/N2GoGui.php:44
+#: gui/N2Go_Gui.php:44
 msgid ""
 "You don't have cURL enabled. Please enable it for proper plugin functioning."
 msgstr "Sinulla ei ole käytössä cURL. Ota asianmukainen plugin toiminnalle."
@@ -185,10 +185,14 @@ msgstr "Ei me voitu allekirjoittaa sinut. Yritä uudelleen."
 msgid "Subscribe now!"
 msgstr "Tee tilaus nyt"
 
-#: widget/N2GoWidget.php:11
+#: widget/N2Go_Widget.php:11
 msgid "Display subscription form"
 msgstr "Määritä tilauslomake"
 
 #: gui/adminView.php:25
 msgid "Disconnect"
 msgstr ""
+
+#: gui/adminView.php:74
+msgid "-- please select --"
+msgstr "-- bitte auswählen --"
