@@ -124,6 +124,10 @@ msgstr "Formular-Typ"
 msgid "-- please select --"
 msgstr "-- bitte auswählen --"
 
+#: widget/widgetView.php:4
+msgid "This form type is not available for selected form"
+msgstr "This form type is not available for selected form"
+
 #~ msgid "Choose the connected subscribe form"
 #~ msgstr "Bitte wählen Sie ein Anmeldeformular"
 

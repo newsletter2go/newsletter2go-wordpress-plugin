@@ -196,3 +196,7 @@ msgstr ""
 #: gui/adminView.php:74
 msgid "-- please select --"
 msgstr "-- bitte auswählen --"
+
+#: widget/widgetView.php:4
+msgid "This form type is not available for selected form"
+msgstr "This form type is not available for selected form"

@@ -68,7 +68,7 @@ class N2Go_Gui
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            if ($_GET['task'] == 'resetApiKey') {
+            if (isset($_GET['task']) && $_GET['task'] == 'resetApiKey') {
                 $this->restApiKey();
                 wp_redirect(admin_url('admin.php?page=n2go-api'));
                 exit;
@@ -104,6 +104,9 @@ class N2Go_Gui
         $forms = $this->getForms();
 
         $formUniqueCode = get_option('n2go_formUniqueCode');
+
+        ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($formUniqueCode)) ?: $this->saveFormType($forms,
+            $formUniqueCode);
 
         $nl2gStylesConfigObject = stripslashes(get_option('n2go_widgetStyleConfig'));
 
@@ -274,5 +277,23 @@ class N2Go_Gui
         $this->save_option('n2go_widgetStyleConfig', $style);
         echo true;
         wp_die();
+    }
+
+    /**
+     * This method saves form types in database.
+     *
+     * @param $forms
+     * @param $formUniqueCode
+     */
+    private function saveFormType($forms, $formUniqueCode)
+    {
+        foreach ($forms as $form) {
+            if ($form['hash'] == $formUniqueCode) {
+                $subscribe = $form['type_subscribe'] !== false ? $subscribe = 1 : $subscribe = 0;
+                $unsubscribe = $form['type_unsubscribe'] !== false ? $unsubscribe = 1 : $unsubscribe = 0;
+                $this->save_option('n2go_typeSubscribe', $subscribe);
+                $this->save_option('n2go_typeUnsubscribe', $unsubscribe);
+            }
+        }
     }
 }

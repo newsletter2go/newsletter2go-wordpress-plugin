@@ -102,7 +102,7 @@ function n2Go_Shortcode ($attr)
     $instance['title'] = 'Newsletter2Go';
     $args = array();
 
-    $form_type= 'subscribe';
+    $form_type = 'subscribe';
     if (is_array($attr) && isset($attr['form_type'])) {
         switch ($attr['form_type']) {
             case 'unsubscribe':
@@ -117,15 +117,16 @@ function n2Go_Shortcode ($attr)
     if (is_array($attr) && isset($attr['type'])) {
         switch ($attr['type']) {
             case 'popup':
-                $args['params'][0] = "'".$form_type.":createPopup'";
+                $args['params'][0] = "'" . $form_type . ":createPopup'";
                 (isset($attr['delay'])) ? $args['params'][3] = $attr['delay'] : $args['params'][3] = 5;
                 break;
             default:
-                $args['params'][0] = "'".$form_type.":createForm'";
+                $args['params'][0] = "'" . $form_type . ":createForm'";
                 break;
         }
-
     }
+    
+    $instance['type'] = $form_type;
 
     $widget = new N2Go_Widget;
     return $widget->widget($args, $instance, false);

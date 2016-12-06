@@ -85,6 +85,8 @@ class N2Go_Widget extends WP_Widget
      */
     public function widget($args, $instance, $print = true)
     {
+        $formTypeAvaliable = array();
+
         if ($instance && isset($instance['type'])) {
             $type = $instance['type'];
         } else {
@@ -94,23 +96,32 @@ class N2Go_Widget extends WP_Widget
         $n2gConfig = stripslashes(get_option('n2go_widgetStyleConfig'));
         $formUniqueCode = get_option('n2go_formUniqueCode');
 
-        $uniqueId = false;
-        $form = false;
-        //if (!isset($args['params'])) {
-            $uniqueId = uniqid();
+        $formTypeAvaliable['subscribe'] = get_option('n2go_typeSubscribe');
+        $formTypeAvaliable['unsubscribe'] = get_option('n2go_typeUnsubscribe');
+        
+        $popup = false;
+
+        $uniqueId = uniqid();
+
+        if (isset($args['params'][0])) {
+            $args['params'][0] == "'subscribe:createPopup'" ?: $args['params'][0] = "'" . $type . ":createForm'";
+            $args['params'][0] == "'subscribe:createPopup'" ? $popup = true : '';
+        } else {
             $args['params'][0] = "'" . $type . ":createForm'";
-        //}
-        //var_dump($args['params']);
-        if(strlen(trim($n2gConfig))>0) {
+        }
+
+        if (strlen(trim($n2gConfig)) > 0) {
             $args['params'][1] = $n2gConfig;
-        }else{
+        } else {
             $args['params'][1] = 'null';
         }
+
         ksort($args['params']);
 
         $n2gParams = implode(', ', $args['params']);
 
         $response = require('widgetView.php');
+
         if ($print) {
             echo $response;
         } else {
