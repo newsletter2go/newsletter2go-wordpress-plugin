@@ -76,7 +76,7 @@ class N2GoApi
                     u.display_name as author 
                 FROM $wpdb->posts p 
                     LEFT JOIN $wpdb->users u ON p.post_author = u.ID 
-                WHERE p.ID = %d AND p.post_parent = 0 AND post_type = 'post'
+                WHERE p.ID = %d AND p.post_parent = 0 AND (post_type = 'post' OR post_type = 'page')
               ", $id)
         );
 
