@@ -71,7 +71,7 @@
                             </div>
                             <div class="n2go-block25">
                                 <select id="formUniqueCode" class="n2go-select" name="formUniqueCode">
-                                    <option disabled selected>-- bitte auswählen --</option>
+                                    <option value="" disabled selected><?= __("-- please select --", NEWSLETTER2GO_TEXTDOMAIN) ?></option>
                                     <?php if (!empty($forms)) { ?>
                                         <?php foreach ($forms as $form) { ?>
                                             <option
@@ -183,22 +183,22 @@
                     <div class="panel-body">
                         <ul id="n2gButtons" class="nav nav-tabs">
                             <?php $active = false;
-                            if ($form['type_subscribe']) {
+                            if ($forms[$formUniqueCode]['type_subscribe']) {
                                 ?>
                                 <li id="btnShowPreviewSubscribe"
-                                    class="active"><?= __("Subscription-Form", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
+                                    class="active" ><?= __("Subscription-Form", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
                                 <?php
                                 $active = true;
                             }
-                            if ($form['type_unsubscribe']) {
+                            if ($forms[$formUniqueCode]['type_unsubscribe']) {
                                 ?>
                                 <li id="btnShowPreviewUnsubscribe" <?= (!$active ? 'class="active"' : '') ?>><?= __("Unsubscription-Form", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
                             <?php } ?>
-                            <li id="btnShowConfig" class=""><?= __("Source", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
+                            <li id="btnShowConfig" class="" ><?= __("Source", NEWSLETTER2GO_TEXTDOMAIN) ?></li>
                         </ul>
                         <!-- Tab panes-->
                         <div id="preview-form-panel" class="preview-pane">
-                            <div id="widgetPreviewSubscribe">
+                            <div id="widgetPreviewSubscribe" <?= (!$active ? 'style="display:none"' : '')?>>
                                 <?php if (!isset($errorMessage)) { ?>
                                     <script id="n2g_script_subscribe">
                                     </script>
@@ -206,7 +206,7 @@
                                     <h3 class="n2go-error-general"><?= __($errorMessage) ?></h3>
                                 <?php } ?>
                             </div>
-                            <div id="widgetPreviewUnsubscribe">
+                            <div id="widgetPreviewUnsubscribe" <?= ($active ? 'style="display:none"' : '')?>>
                                 <?php if (!isset($errorMessage)) { ?>
                                     <script id="n2g_script_unsubscribe">
                                     </script>

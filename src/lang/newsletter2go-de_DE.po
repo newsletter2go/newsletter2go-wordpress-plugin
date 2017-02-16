@@ -17,11 +17,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: lang\n"
 
-#: gui/N2GoGui.php:63
+#: gui/N2Go_Gui.php:63
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Sie haben nicht genügend Berechtigungen, diese Seite anzuzeigen. "
 
-#: gui/N2GoGui.php:67
+#: gui/N2Go_Gui.php:67
 msgid ""
 "You don't have cURL enabled. Please enable it for proper plugin functioning."
 msgstr ""
@@ -92,11 +92,11 @@ msgstr "Button Hintergrundfarbe"
 msgid "This is how your form will look like"
 msgstr "Voransicht  des Formulars"
 
-#: gui/adminView.php:189 widget/N2GoWidget.php:73
+#: gui/adminView.php:189 widget/N2Go_Widget.php:73
 msgid "Subscription-Form"
 msgstr "Anmeldeformular"
 
-#: gui/adminView.php:195 widget/N2GoWidget.php:78
+#: gui/adminView.php:195 widget/N2Go_Widget.php:78
 msgid "Unsubscription-Form"
 msgstr "Abmeldeformular"
 
@@ -112,13 +112,21 @@ msgstr "Einstellungen speichern"
 msgid "Reset settings"
 msgstr "Einstellungen zurücksetzen"
 
-#: widget/N2GoWidget.php:11
+#: widget/N2Go_Widget.php:11
 msgid "Display subscription form"
 msgstr "Anmeldeformular anzeigen"
 
-#: widget/N2GoWidget.php:65
+#: widget/N2Go_Widget.php:65
 msgid "Formtype"
 msgstr "Formular-Typ"
+
+#: gui/adminView.php:74
+msgid "-- please select --"
+msgstr "-- bitte auswählen --"
+
+#: widget/widgetView.php:4
+msgid "This form type is not available for selected form"
+msgstr "This form type is not available for selected form"
 
 #~ msgid "Choose the connected subscribe form"
 #~ msgstr "Bitte wählen Sie ein Anmeldeformular"

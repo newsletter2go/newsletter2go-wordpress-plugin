@@ -151,7 +151,7 @@ window.addEventListener('load', function () {
 
         }
 
-        show();
+        // show();
 
         [].forEach.call(document.getElementById('n2gButtons').children, function (button) {
             button.addEventListener('click', show);
@@ -159,15 +159,13 @@ window.addEventListener('load', function () {
 
         document.getElementById('resetStyles').addEventListener('click', function (e) {
             var defaultConfig = JSON.stringify(n2goConfigConst, null, 2);
+            var data = {
+                'action' : 'resetStyles',
+                'style' : defaultConfig
+            };
             e.preventDefault();
-            jQuery.ajax({
-                type: 'POST',
-                url: ajaxurl,
-                data: {
-                    action: 'resetStyles',
-                    style: defaultConfig
-                },
-                success: function () {
+            jQuery.post(ajaxurl, data,function(response) {
+                if(response == 1){
                     location.reload();
                 }
             });
