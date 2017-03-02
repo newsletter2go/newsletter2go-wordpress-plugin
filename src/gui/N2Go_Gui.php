@@ -88,7 +88,7 @@ class N2Go_Gui
         $apiKey = get_option('n2go_apikey');
         $authKey = get_option('n2go_authKey');
 
-        $pluginInfo = get_plugin_data(dirname(__DIR__) . '/newsletter2go.php');
+        $pluginInfo = get_plugin_data(dirname(__FILE__) . '/newsletter2go.php');
         $queryParams['version'] = str_replace('.', '', $pluginInfo['Version']);
 
         $queryParams['apiKey'] = $apiKey;

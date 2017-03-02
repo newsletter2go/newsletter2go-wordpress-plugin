@@ -36,7 +36,7 @@ class N2Go_Api
                     //$result = array('success' => true, 'message' => 'API Connected!');
                     break;
                 case 'getVersion':
-                    $pluginInfo = get_plugin_data(dirname(__DIR__) . '/newsletter2go.php');
+                    $pluginInfo = get_plugin_data(dirname(__FILE__) . '/newsletter2go.php');
                     $result = Nl2go_ResponseHelper::generateSuccessResponse(array('version' => str_replace('.', '', $pluginInfo['Version'])));
                     //$result = array('success' => true, 'message' => 'OK', 'version' => get_option('n2go_plugin_version'));
                     break;

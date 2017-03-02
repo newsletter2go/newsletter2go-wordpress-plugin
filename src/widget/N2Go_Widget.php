@@ -34,7 +34,7 @@ class N2Go_Widget extends WP_Widget
             $title = 'Newsletter2Go';
             $type = 'subscribe';
         }
-        require_once __DIR__ . '/../gui/N2Go_Gui.php';
+        require_once dirname(__FILE__) . '/../gui/N2Go_Gui.php';
         $gui = new N2Go_Gui();
         $forms = $gui->getForms();
         $formUniqueCode = get_option('n2go_formUniqueCode');
@@ -120,7 +120,9 @@ class N2Go_Widget extends WP_Widget
 
         $n2gParams = implode(', ', $args['params']);
 
-        $response = require('widgetView.php');
+        $response = !isset($GLOBALS['n2go_script_loaded']) ? require('widgetScriptView.php') : '';
+        $GLOBALS['n2go_script_loaded'] = true;
+        $response = $response . require('widgetView.php');
 
         if ($print) {
             echo $response;
