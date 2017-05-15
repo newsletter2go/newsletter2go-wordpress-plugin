@@ -77,9 +77,12 @@ class N2Go_Gui
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->save_option('n2go_formUniqueCode', $_POST['formUniqueCode']);
-            $widgetStyleConfig = $_POST['widgetStyleConfig'];
-            $this->save_option('n2go_widgetStyleConfig', $widgetStyleConfig);
-            if (isset($_POST['resetValues'])) {
+
+            $widgetStyleConfig = json_decode(stripcslashes($_POST['widgetStyleConfig']));
+            if (isset($widgetStyleConfig)) {
+                $this->save_option('n2go_widgetStyleConfig', $_POST['widgetStyleConfig']);
+            }
+            if(isset($_POST['resetValues'])){
                 $this->disconnect();
             }
         }
