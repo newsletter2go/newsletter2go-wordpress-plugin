@@ -13,6 +13,11 @@
                         <h4>als Widget</h4>
                         <p>Unter Design -> Widgets können Sie ihr konfiguriertes Formular bequem in ihre
                             Seitenleisten und Menüs einfügen</p>
+                        <br>
+
+                        <h4><div class="dashicons dashicons-info"></div> Tipps und Tricks</h4>
+                        <p>In unserem <a href="https://hilfe.newsletter2go.com">Hilfebereich</a> finden Sie hilfreiche Anleitungen zu unserer Software und deren erfolgreiche Nutzung.</p>
+                        <p>Wie sich unsere Formulare weiter über die "Source" (Rechter Tab) individualisieren lassen erfahren Sie <a href="https://hilfe.newsletter2go.com/empfanger-verwalten/anmeldeformular/wie-kann-ich-das-anmeldeformular-verwenden-einbetten-und-anpassen.html">hier</a></p>
                     </div>
 
                     <div class="n2go-block50">
