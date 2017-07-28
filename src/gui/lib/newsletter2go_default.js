@@ -6,24 +6,24 @@ var n2gConfig = n2goConfigConst = {
         "style": ""
     },
     "container": {
-        "type": "table",
+        "type": "div",
         "class": "",
         "style": "width: 100%;"
     },
     "row": {
-        "type": "tr",
+        "type": "div",
         "class": "",
         "style": ""
     },
     "columnLeft": {
-        "type": "td",
+        "type": "div",
         "class": "",
-        "style": "width: 40%; padding: 10px 5px;"
+        "style": "width: 40%; padding: 10px 5px; display: inline-block;"
     },
     "columnRight": {
-        "type": "td",
+        "type": "div",
         "class": "",
-        "style": ""
+        "style": " width: 60%; display: inline-block;"
     },
     "checkbox": {
         "type": "input",
@@ -53,7 +53,7 @@ var n2gConfig = n2goConfigConst = {
     "label": {
         "type": "label",
         "class": "",
-        "style": "padding-left: 5px;"
+        "style": "padding-left: 5px; display: inline-block;"
     },
     "loader": {
         "type": "img",
