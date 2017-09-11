@@ -1,19 +1,19 @@
 <?php
 
-require_once dirname(__FILE__).'/Nl2go_ResponseHelper.php';
+require_once dirname(__FILE__) . '/Nl2go_ResponseHelper.php';
 
 class N2Go_Api
 {
 
     public static function run()
     {
-		$apikey = $_SERVER['PHP_AUTH_USER'];
+        $apikey = $_SERVER['PHP_AUTH_USER'];
 
-		if (empty($apikey) === true) {
-			$apikey = filter_input(INPUT_POST, 'apikey');
-		}
+        if (empty($apikey) === true) {
+            $apikey = filter_input(INPUT_POST, 'apikey');
+        }
 
-        if(strlen($apikey) == 0){
+        if (strlen($apikey) == 0) {
             $result = Nl2go_ResponseHelper::generateErrorResponse('api-key is missing', Nl2go_ResponseHelper::ERRNO_PLUGIN_CREDENTIALS_MISSING);
             echo $result;
             exit;
@@ -24,10 +24,10 @@ class N2Go_Api
             switch ($method) {
                 case 'getPost':
                     $id = get_query_var('postId');
-                    $post = self::getPost($id);
-                    if($post === null){
+                    $post = self::getPost((int)$id);
+                    if ($post === null) {
                         $result = Nl2go_ResponseHelper::generateErrorResponse('no post found', Nl2go_ResponseHelper::ERRNO_PLUGIN_OTHER);
-                    }else{
+                    } else {
                         $result = Nl2go_ResponseHelper::generateSuccessResponse(array('post' => $post));
                     }
                     break;
@@ -62,7 +62,6 @@ class N2Go_Api
     private static function getPost($id)
     {
         global $wpdb;
-        $result = array();
         $post = $wpdb->get_row(
             $wpdb->prepare("
                 SELECT 
@@ -75,12 +74,12 @@ class N2Go_Api
                     u.display_name as author 
                 FROM $wpdb->posts p 
                     LEFT JOIN $wpdb->users u ON p.post_author = u.ID 
-                WHERE p.ID = %d AND p.post_parent = 0 AND (post_type = 'post' OR post_type = 'page')
+                WHERE p.ID = %d
               ", $id)
         );
 
         if ($post) {
-            $result= array(
+            $result = array(
                 'id' => $post->ID,
                 'url' => esc_url(home_url('/')),
                 'shortDescription' => $post->shortDescription,
@@ -92,11 +91,14 @@ class N2Go_Api
                 'tags' => array(),
                 'images' => array(),
             );
+
             $permaLink = get_permalink($post->ID);
             $result['link'] = substr($permaLink, strlen($result['url']));
 
             //images
-            $images = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_mime_type LIKE 'image%' AND post_parent = $id;");
+            $images = $wpdb->get_results(
+                "SELECT * FROM $wpdb->posts WHERE post_mime_type LIKE 'image%' AND post_parent = $id;"
+            );
             if ($images) {
                 foreach ($images as $image) {
                     $result['images'][] = $image->guid;
@@ -110,31 +112,28 @@ class N2Go_Api
                         LEFT JOIN $wpdb->term_taxonomy tx ON tx.term_taxonomy_id = rs.term_taxonomy_id 
                         LEFT JOIN $wpdb->terms ts ON tx.term_id = ts.term_id 
                     WHERE rs.object_id = %d"
-                    , $id));
-            
+                , $id));
+
             if ($terms) {
                 foreach ($terms as $term) {
-                    if ($term->type == 'category') {
+                    if ($term->type === 'category') {
                         $result['category'][] = $term->name;
-                    } else if ($term->type == 'post_tag') {
+                    } else if ($term->type === 'post_tag') {
                         $result['tags'][] = $term->name;
                     }
                 }
             }
 
             $meta = get_post_meta($post->ID);
-            if($meta !== false){
-                foreach($meta as $key => $value){
-                    if(substr($key,0, 1) !== '_'){
+            if ($meta !== false) {
+                foreach ($meta as $key => $value) {
+                    if (substr($key, 0, 1) !== '_') {
                         $result[$key] = current($value);
                     }
                 }
             }
 
-            //$result['success'] = true;
         } else {
-           // $result['success'] = false;
-            //$result['message'] = "Post with ID = $id NOT FOUND!";
             $result = null;
         }
 
