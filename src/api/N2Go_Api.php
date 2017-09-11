@@ -24,7 +24,7 @@ class N2Go_Api
             switch ($method) {
                 case 'getPost':
                     $id = get_query_var('postId');
-                    $post = self::getPost($id);
+                    $post = self::getPost((int)$id);
                     if ($post === null) {
                         $result = Nl2go_ResponseHelper::generateErrorResponse('no post found', Nl2go_ResponseHelper::ERRNO_PLUGIN_OTHER);
                     } else {
