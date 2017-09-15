@@ -94,7 +94,7 @@ class N2Go_Api
                 'date' => $post->post_date,
                 'category' => array(),
                 'tags' => array(),
-                'images' => self::getImageUrls($content),
+                'images' => array_unique(array_merge(self::extractImages($content), self::getAttachedImages($post->ID))),
                 'link' => substr(get_permalink($post->ID), strlen($basUrl)),
             );
 
@@ -134,7 +134,7 @@ class N2Go_Api
      * @param string $html
      * @return string[]
      */
-    private static function getImageUrls($html)
+    private static function extractImages($html)
     {
         $document = new DOMDocument();
         if (!$document->loadHTML($html)) {
@@ -151,6 +151,20 @@ class N2Go_Api
                 return $node->nodeValue;
             },
             iterator_to_array($list)
+        );
+    }
+
+    /**
+     * @param int $postId
+     * @return string[]
+     */
+    private static function getAttachedImages($postId)
+    {
+        return array_map(
+            function($image){
+                return wp_get_attachment_url($image->ID);
+            },
+            get_attached_media('image', $postId)
         );
     }
 }
