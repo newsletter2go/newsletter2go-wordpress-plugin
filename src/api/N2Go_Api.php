@@ -62,48 +62,41 @@ class N2Go_Api
     private static function getPost($id)
     {
         global $wpdb;
+
+        /** @var WP_Post $post */
         $post = $wpdb->get_row(
             $wpdb->prepare("
                 SELECT 
-                    p.ID as ID, 
-                    p.guid as guid, 
-                    p.post_content as description,
-                    p.post_excerpt as shortDescription,
-                    p.post_title as title, 
-                    p.post_date as date,
-                    u.display_name as author 
+                    p.ID,
+                    p.post_content,
+                    p.post_excerpt,
+                    p.post_title, 
+                    p.post_date,
+                    u.display_name as post_author 
                 FROM $wpdb->posts p 
                     LEFT JOIN $wpdb->users u ON p.post_author = u.ID 
                 WHERE p.ID = %d
               ", $id)
         );
+        $result = null;
 
         if ($post) {
+            $basUrl = esc_url(home_url('/'));
+            $content = apply_filters('the_content', $post->post_content);
+
             $result = array(
                 'id' => $post->ID,
-                'url' => esc_url(home_url('/')),
-                'shortDescription' => $post->shortDescription,
-                'description' => $post->description,
-                'title' => $post->title,
-                'author' => $post->author,
-                'date' => $post->date,
+                'url' => $basUrl,
+                'shortDescription' => $post->post_excerpt,
+                'description' => $content,
+                'title' => $post->post_title,
+                'author' => $post->post_author,
+                'date' => $post->post_date,
                 'category' => array(),
                 'tags' => array(),
-                'images' => array(),
+                'images' => self::getImageUrls($content),
+                'link' => substr(get_permalink($post->ID), strlen($basUrl)),
             );
-
-            $permaLink = get_permalink($post->ID);
-            $result['link'] = substr($permaLink, strlen($result['url']));
-
-            //images
-            $images = $wpdb->get_results(
-                "SELECT * FROM $wpdb->posts WHERE post_mime_type LIKE 'image%' AND post_parent = $id;"
-            );
-            if ($images) {
-                foreach ($images as $image) {
-                    $result['images'][] = $image->guid;
-                }
-            }
 
             //terms
             $terms = $wpdb->get_results($wpdb->prepare("
@@ -132,11 +125,32 @@ class N2Go_Api
                     }
                 }
             }
-
-        } else {
-            $result = null;
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $html
+     * @return string[]
+     */
+    private static function getImageUrls($html)
+    {
+        $document = new DOMDocument();
+        if (!$document->loadHTML($html)) {
+            return [];
+        }
+
+        $xpath = new DOMXPath($document);
+        if (!($list = $xpath->query('//img/@src'))) {
+            return [];
+        }
+
+        return array_map(
+            function (DOMNode $node) {
+                return $node->nodeValue;
+            },
+            iterator_to_array($list)
+        );
     }
 }
