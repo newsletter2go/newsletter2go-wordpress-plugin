@@ -120,7 +120,7 @@ class N2Go_Widget extends WP_Widget
 
         $n2gParams = implode(', ', $args['params']);
 
-        $response = require('widgetView.php');
+        $response = "<h2 class=\"widget-title\">" . $instance['title'] . "</h2>" . require('widgetView.php');
 
         if ($print) {
             echo $response;
