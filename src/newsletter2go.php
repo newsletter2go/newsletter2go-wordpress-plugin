@@ -99,7 +99,7 @@ function n2Go_Callback()
  */
 function n2Go_Shortcode ($attr)
 {
-    $instance['title'] = 'Newsletter2Go';
+    $instance['title'] = isset($attr['title']) ? $attr['title'] : '';
     $args = array();
 
     $form_type = 'subscribe';

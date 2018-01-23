@@ -81,7 +81,7 @@ class N2Go_Widget extends WP_Widget
      * @param $args
      * @param $instance
      * @param bool $print
-     * @return mixed|void
+     * @return mixed
      */
     public function widget($args, $instance, $print = true)
     {
@@ -120,7 +120,10 @@ class N2Go_Widget extends WP_Widget
 
         $n2gParams = implode(', ', $args['params']);
 
-        $response = "<h2 class=\"widget-title\">" . $instance['title'] . "</h2>" . require('widgetView.php');
+        $response = require('widgetView.php');
+        if (!empty($instance['title'])) {
+            $response = "<h2 class=\"widget-title\">" . $instance['title'] . "</h2>" . $response;
+        }
 
         if ($print) {
             echo $response;
