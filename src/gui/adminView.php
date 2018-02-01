@@ -29,7 +29,10 @@
                             erzeugen Sie ein An- bzw. Abmeldeformular, soweit dieser Formular-Typ im Newsletter2Go-System ebenfalls aktiviert wurde.
                             Standardmäßig wird ein Anmeldeformular erzeugt.<br/><br/>
                             Mit der zusätzlichen Option <code>[newsletter2go type=popup]</code> wird aus dem
-                            eingebetten Formular ein Popup welches auf der spezifischen Seite eingeblendet wird.</p>
+                            eingebetten Formular ein Popup welches auf der spezifischen Seite eingeblendet wird.<br/><br/>
+                            Um dem Formular eine Überschrift/Titel zu geben können Sie den zusätzlichen Parameter <code>[newsletter2go title=mein Titel]</code>
+                            nutzen.
+                        </p>
                     </div>
                 </div>
                 <div style="clear: both"></div>
