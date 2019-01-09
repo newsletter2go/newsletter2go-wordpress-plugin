@@ -6,8 +6,10 @@ if (empty($formTypeAvaliable[$type])) {
     return '<div class="widget nl2go-widget">
 
     <script>
+        var n2gAction = '. $n2gParams[0] .';
+        var n2gStyle = '. $n2gParams[1]. ';
+        
         var formUniqueCode = "'.$formUniqueCode.'";
-        var n2gParams = "' . $n2gParams . '".split(",");
         var uniqueId = "'.$uniqueId.'";
         var popup = "'.$popup.'";
     </script>

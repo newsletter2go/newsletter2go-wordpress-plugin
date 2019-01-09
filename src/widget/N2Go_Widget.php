@@ -111,14 +111,14 @@ class N2Go_Widget extends WP_Widget
         }
 
         if (strlen(trim($n2gConfig)) > 0) {
-            $args['params'][1] = $n2gConfig;
+            $args['params'][1] = trim(preg_replace('/\s+/', ' ', $n2gConfig));
         } else {
             $args['params'][1] = 'null';
         }
 
         ksort($args['params']);
 
-        $n2gParams = implode(', ', $args['params']);
+        $n2gParams = $args['params'];
 
         $response = require('widgetView.php');
         if (!empty($instance['title'])) {

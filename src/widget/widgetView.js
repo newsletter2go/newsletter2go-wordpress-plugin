@@ -6,8 +6,8 @@
 n2g("create", formUniqueCode);
 
 if (uniqueId && !popup) {
-    n2gParams.push("'" + uniqueId+ "'");
+    eval("n2g(" + "'" + n2gAction + "', " + JSON.stringify(n2gStyle) + ',' + "'" + uniqueId + "'" + ")");
+} else {
+    eval("n2g(" + "'" + n2gAction + "', " + null + ',' + "'" + uniqueId + "'" + ")");
 }
-let n2gFun = "n2g(" + n2gParams.join(", ") + ")";
-eval(n2gFun);
 
