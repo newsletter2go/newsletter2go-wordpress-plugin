@@ -98,7 +98,7 @@ class N2Go_Widget extends WP_Widget
 
         $formTypeAvaliable['subscribe'] = get_option('n2go_typeSubscribe');
         $formTypeAvaliable['unsubscribe'] = get_option('n2go_typeUnsubscribe');
-        
+
         $popup = false;
 
         $uniqueId = uniqid();
@@ -118,7 +118,7 @@ class N2Go_Widget extends WP_Widget
 
         ksort($args['params']);
 
-        $n2gParams = implode(', ', $args['params']);
+        $n2gParams = implode(',', $args['params']);
 
         $response = require('widgetView.php');
         if (!empty($instance['title'])) {
