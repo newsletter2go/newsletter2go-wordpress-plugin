@@ -118,7 +118,7 @@ class N2Go_Widget extends WP_Widget
 
         ksort($args['params']);
 
-        $n2gParams = implode(',', $args['params']);
+        $n2gParams = implode(', ', $args['params']);
 
         $response = require('widgetView.php');
         if (!empty($instance['title'])) {
