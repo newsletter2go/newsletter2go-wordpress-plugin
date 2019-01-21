@@ -2,9 +2,9 @@
 Contributors: newsletter2go
 Donate link: http://www.newsletter2go.com
 Tags: email, email marketing, emailing, email marketing software, newsletter, newsletter software, newsletter plugin, newsletter widget, content, content transfer, subscribers
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: trunk
+Requires PHP: 5.2.4
+Tested up to: 5.0.2
+Stable tag: 4.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
