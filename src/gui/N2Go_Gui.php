@@ -222,7 +222,7 @@ class N2Go_Gui
                 }
             }
         } else {
-            $responseJson = json_decode($response, true);
+            $responseJson = json_decode(json_encode($response), true);
         }
 
         return $responseJson;
