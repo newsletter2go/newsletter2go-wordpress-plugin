@@ -83,9 +83,10 @@
                                     <?php if (!empty($forms)) { ?>
                                         <?php foreach ($forms as $form) { ?>
                                             <option
-                                                value="<?php echo $form['hash']; ?>" <?php if ($form['hash'] == $formUniqueCode) {
-                                                echo "selected";
-                                            } ?>><?php echo $form['name']; ?></option>
+                                                value="<?= !isset($form['hash']) ?: $form['hash'] ?>" <?= !isset($form['hash']) && ($form['hash'] != $formUniqueCode) ?: "selected"?>
+                                            >
+                                                <?= !isset($form['name']) ?: $form['name'] ?>
+                                            </option>
                                         <?php } ?>
                                     <?php } else { ?>
                                         <option value=""></option>
