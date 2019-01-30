@@ -109,7 +109,7 @@ class N2Go_Gui
 
         $formUniqueCode = get_option('n2go_formUniqueCode');
 
-        ($_SERVER['REQUEST_METHOD'] !== 'POST' || (!isset($formUniqueCode)) || !is_array($forms)) ?: $this->saveFormType($forms,
+        ($_SERVER['REQUEST_METHOD'] !== 'POST' || (!isset($formUniqueCode)) || !is_array($forms) || $formUniqueCode == '') ?: $this->saveFormType($forms,
             $formUniqueCode);
 
         $nl2gStylesConfigObject = stripslashes(get_option('n2go_widgetStyleConfig'));
