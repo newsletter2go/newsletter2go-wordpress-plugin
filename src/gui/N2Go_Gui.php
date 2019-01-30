@@ -8,6 +8,7 @@ class N2Go_Gui
     const N2GO_STATIC_URL = 'https://static.newsletter2go.com/';
     const N2GO_REFRESH_GRANT_TYPE = 'https://nl2go.com/jwt_refresh';
 
+    private $apiErrorMessage;
     /**
      * Register actions.
      *
@@ -108,7 +109,7 @@ class N2Go_Gui
 
         $formUniqueCode = get_option('n2go_formUniqueCode');
 
-        ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($formUniqueCode) || $formUniqueCode == '') ?: $this->saveFormType($forms,
+        ($_SERVER['REQUEST_METHOD'] !== 'POST' || (!isset($formUniqueCode)) || !is_array($forms)) ?: $this->saveFormType($forms,
             $formUniqueCode);
 
         $nl2gStylesConfigObject = stripslashes(get_option('n2go_widgetStyleConfig'));
@@ -162,22 +163,16 @@ class N2Go_Gui
         $result = false;
 
         if (strlen($authKey) > 0) {
-            try {
-                $form = $this->executeNewApi('forms?_expand=1');
-                if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
-                    $result = array();
-                    foreach ($form['value'] as $value) {
-                        $key = $value['hash'];
-                        $result[$key]['name'] = $value['name'];
-                        $result[$key]['hash'] = $value['hash'];
-                        $result[$key]['type_subscribe'] = $value['type_subscribe'];
-                        $result[$key]['type_unsubscribe'] = $value['type_unsubscribe'];
-                    }
-                } else {
-                    $result = $form;
+            $form = $this->executeNewApi('forms?_expand=1');
+            if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
+                $result = array();
+                foreach ($form['value'] as $value) {
+                    $key = $value['hash'];
+                    $result[$key]['name'] = $value['name'];
+                    $result[$key]['hash'] = $value['hash'];
+                    $result[$key]['type_subscribe'] = $value['type_subscribe'];
+                    $result[$key]['type_unsubscribe'] = $value['type_unsubscribe'];
                 }
-            } catch (Exception $exception) {
-                //
             }
         }
 
@@ -205,24 +200,24 @@ class N2Go_Gui
 
 
         //access_token is deprecated
-        if (isset($response['response']['code'])) {
-            if ($response['response']['code'] == 403 || $response['response']['code'] == 401) {
-                $this->refreshTokens();
-                $access_token = get_option('n2go_accessToken');
-                $response = wp_remote_get(self::N2GO_API_URL . $action, array(
-                        'method' => 'GET',
-                        'timeout' => 45,
-                        'headers' => array('Authorization' => 'Bearer ' . $access_token),
-                    )
-                );
-                $responseJson = json_decode($response['body'], true);
-            } else {
-                if (isset($response['body'])) {
-                    $responseJson = json_decode($response['body'], true);
-                }
-            }
+        if (is_wp_error($response)) {
+
+            $this->apiErrorMessage =  $response->get_error_message($response->get_error_code());
+            return;
+
+        } else if (isset($response['response']['code']) && $response['response']['code'] == 403 || $response['response']['code'] == 401) {
+
+            $this->refreshTokens();
+            $access_token = get_option('n2go_accessToken');
+            $response = wp_remote_get(self::N2GO_API_URL . $action, array(
+                    'method' => 'GET',
+                    'timeout' => 45,
+                    'headers' => array('Authorization' => 'Bearer ' . $access_token),
+                )
+            );
+            $responseJson = json_decode($response['body'], true);
         } else {
-            $responseJson = json_decode(json_encode($response), true);
+            $responseJson = json_decode($response['body'], true);
         }
 
         return $responseJson;
@@ -256,15 +251,20 @@ class N2Go_Gui
             )
         );
 
-        $response = json_decode($responseRaw['body']);
+        if (is_wp_error($responseRaw)) {
+            $this->apiErrorMessage = $responseRaw->get_error_message($responseRaw->get_error_code());
+        } else {
+            $response = json_decode($responseRaw['body']);
 
-        if (isset($response->access_token) && !empty($response->access_token)) {
-            $this->save_option('n2go_accessToken', $response->access_token);
+            if (isset($response->access_token) && !empty($response->access_token)) {
+                $this->save_option('n2go_accessToken', $response->access_token);
+            }
+
+            if (isset($response->refresh_token) && !empty($response->refresh_token)) {
+                $this->save_option('n2go_refreshToken', $response->refresh_token);
+            }
         }
 
-        if (isset($response->refresh_token) && !empty($response->refresh_token)) {
-            $this->save_option('n2go_refreshToken', $response->refresh_token);
-        }
     }
 
     /**

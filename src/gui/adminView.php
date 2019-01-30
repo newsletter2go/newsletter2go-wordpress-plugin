@@ -1,8 +1,8 @@
 <form action="admin.php?page=n2go-api" method="POST">
     <div class="n2go-section">
         <img
-            src="<?= plugins_url(__("/lib/banner_wordpress_newsletter2go_COM.png", NEWSLETTER2GO_TEXTDOMAIN), __FILE__) ?>"
-            width="91%" class="n2go_logo">
+                src="<?= plugins_url(__("/lib/banner_wordpress_newsletter2go_COM.png", NEWSLETTER2GO_TEXTDOMAIN), __FILE__) ?>"
+                width="91%" class="n2go_logo">
         <div class="n2go-block main-block" style="width:91%; margin-bottom: 30px;">
             <div class="panel">
                 <div class="panel-heading text-center">
@@ -58,7 +58,7 @@
                                     <input type="hidden" name="apiKey" placeholder="" value="<?php echo $apiKey; ?>"
                                            style="width:300px" readonly>
                                     <a href="<?php echo $connectUrl; ?>" target="_blank" style="padding:5px"><span
-                                            class="fa fa-plug"></span>
+                                                class="fa fa-plug"></span>
                                         <span><?= __("Login or Create Account", NEWSLETTER2GO_TEXTDOMAIN) ?></span></a>
                                 </div>
                             <?php } else { ?>
@@ -71,6 +71,16 @@
                                 </div>
                             <?php } ?>
                         </div>
+                        <?php
+
+                        if ($this->apiErrorMessage) {
+                            ?>
+                            <div class="n2go-row">
+                                <p class="n2go-error-general"><?= $this->apiErrorMessage ?></p>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                     <div class="n2go-row">
                         <?php if ($forms !== false) { ?>
@@ -83,10 +93,9 @@
                                     <?php if (!empty($forms)) { ?>
                                         <?php foreach ($forms as $form) { ?>
                                             <option
-                                                value="<?= !isset($form['hash']) ?: $form['hash'] ?>" <?= !isset($form['hash']) && ($form['hash'] != $formUniqueCode) ?: "selected"?>
-                                            >
-                                                <?= !isset($form['name']) ?: $form['name'] ?>
-                                            </option>
+                                                    value="<?php echo $form['hash']; ?>" <?php if ($form['hash'] == $formUniqueCode) {
+                                                echo "selected";
+                                            } ?>><?php echo $form['name']; ?></option>
                                         <?php } ?>
                                     <?php } else { ?>
                                         <option value=""></option>
@@ -102,7 +111,7 @@
                             <span><?= __("Configure the styling of your form", NEWSLETTER2GO_TEXTDOMAIN) ?></span></div>
                         <div class="n2go-block25">
                             <label
-                                for="formBackgroundColor"><?= __("Form background color", NEWSLETTER2GO_TEXTDOMAIN) ?></label>
+                                    for="formBackgroundColor"><?= __("Form background color", NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                             <div class="n2go-cp input-group">
                                 <span class="n2go-input-group-addon">#</span><input id="valueInputFBC"
                                                                                     name="container.background-color"
@@ -145,7 +154,7 @@
                                 </button>
                             </div>
                             <label
-                                for="backgroundColor"><?= __("Input background color", NEWSLETTER2GO_TEXTDOMAIN) ?></label>
+                                    for="backgroundColor"><?= __("Input background color", NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                             <div class="n2go-cp input-group">
                                 <span class="n2go-input-group-addon">#</span><input id="valueInputIBC"
                                                                                     name="input.background-color"
@@ -167,7 +176,7 @@
                                 </button>
                             </div>
                             <label
-                                for="btnBackgroundColor"><?= __("Button background color", NEWSLETTER2GO_TEXTDOMAIN) ?></label>
+                                    for="btnBackgroundColor"><?= __("Button background color", NEWSLETTER2GO_TEXTDOMAIN) ?></label>
                             <div class="n2go-cp input-group">
                                 <span class="n2go-input-group-addon">#</span><input id="valueInputBBC" type="text"
                                                                                     name="button.background-color"
