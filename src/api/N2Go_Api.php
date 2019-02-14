@@ -94,7 +94,11 @@ class N2Go_Api
                 'date' => $post->post_date,
                 'category' => array(),
                 'tags' => array(),
-                'images' => array_unique(array_merge(self::extractImages($content), self::getAttachedImages($post->ID))),
+                'images' => array_unique(array_merge(
+                    [get_the_post_thumbnail($post)],
+                    self::extractImages($content),
+                    self::getAttachedImages($post->ID)
+                )),
                 'link' => substr(get_permalink($post->ID), strlen($basUrl)),
             );
 
