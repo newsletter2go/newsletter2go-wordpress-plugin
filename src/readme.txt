@@ -4,7 +4,7 @@ Donate link: http://www.newsletter2go.com
 Tags: email, email marketing, emailing, email marketing software, newsletter, newsletter software, newsletter plugin, newsletter widget, content, content transfer, subscribers
 Requires PHP: 5.2.4
 Tested up to: 5.0.2
-Stable tag: 4.0.7
+Stable tag: 4.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+
+= 4.0.8 =
+* Fix get the featured image on retrieving a post
 
 = 1.0 =
 * A change since the previous version.
