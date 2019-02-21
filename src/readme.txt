@@ -3,76 +3,142 @@ Contributors: newsletter2go
 Donate link: http://www.newsletter2go.com
 Tags: email, email marketing, emailing, email marketing software, newsletter, newsletter software, newsletter plugin, newsletter widget, content, content transfer, subscribers
 Requires PHP: 5.2.4
-Tested up to: 5.0.2
+Tested up to: 5.1.
 Stable tag: 4.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Mit der E-Mail Marketing Software von Newsletter2Go können Sie mühelos professionelle Newsletter für Ihr Wordpress erstellen, gestalten und versenden.
+[Newsletter2Go](http://www.newsletter2go.com/ "Newsletter2Go")’s offizielles Plugin macht es für jeden WordPress-Nutzer möglich, mühelos selbst professionelle E-Mail-Kampagnen zu erstellen, zu gestalten und zu versenden. Mit unserem  [Wordpress-Newsletter-Plugin](https://www.newsletter2go.com/features/wordpress-newsletter-plugin/ "Wordpress-Newsletter-Plugin") sparen Sie Zeit und manuellen Aufwand. Die professionelle Newsletter Software von Newsletter2Go ist speziell ausgerichtet auf Onlineshops, Agenturen, KMU und Vereine.
 
 == Description ==
 
-Newsletter2Go macht es für jeden möglich, mühelos selbst professionelle E-Mail-Kampagnen zu erstellen, zu gestalten und zu versenden.
+[Newsletter2Go](http://www.newsletter2go.com/ "Newsletter2Go")’s offizielles Plugin macht es für jeden WordPress-Nutzer möglich, mühelos selbst professionelle E-Mail-Kampagnen zu erstellen, zu gestalten und zu versenden. Mit unserem  [Wordpress-Newsletter-Plugin](https://www.newsletter2go.com/features/wordpress-newsletter-plugin/ "Wordpress-Newsletter-Plugin") sparen Sie Zeit und manuellen Aufwand. Die professionelle Newsletter Software von Newsletter2Go ist speziell ausgerichtet auf Onlineshops, Agenturen, KMU und Vereine.
+**1-Klick-Contentübernahme:**
+- Integrieren Sie Inhalte Ihrer Webseite mit nur einem Klick in Ihren Newsletter.
+- Übernehmen Sie im Handumdrehen Attribute wie Titel, Autor, Datum, Bilder oder Beschreibung in Ihr Mailing.
+**Rechtssichere & DSGVO-konforme Anmeldeformulare mit einem Klick:**
+- Erstellen und bearbeiten Sie Ihr Anmeldeformular direkt in Ihrem Wordpress-Backend.
+- Bestimmen Sie, zu welcher Gruppe neu angemeldete Empfänger zugeordnet werden sollen.
+- Stylen Sie Ihre Anmeldeformulare ganz individuell.
+**Intuitiv bedienbarer Drag&Drop-Editor:**
+- Erstellen Sie im Handumdrehen hochwertige und relevante Newsletter-Kampagnen.
+- Sparen Sie Zeit dank des Drag&Drop-Prinzips.
+**Personalisieren Sie Ihre Newsletter:**
+- Verwenden Sie Personalisierungsbausteine, um jedes Mailing zu individualisieren.
+- Mit diesen Platzhaltern können Sie Anrede, Preheader, Betreffe oder auch gesamte Newsletter-Bausteine persönlich auf jeden Empfänger anpassen.
+- Beim Versand werden die Platzhalter dann mit den richtigen Empfängerdaten eines jeden Adressaten gefüllt.
+**Newsletter Automation:**
+- Versenden Sie Mailings zum perfekten Zeitpunkt ganz automatisch.
+- Definieren Sie feste Anlässe und individuelle verhaltensbasierte Kriterien für den automatisierten Versand.
+**Empfängerverwaltung:**
+- Verwalten und sammeln Sie alle Empfängerdaten zentralisiert in einem Tool.
+- Profitieren Sie vom effizienten Bounce- und Abmeldemanagement.
+**Tracking & Reports:**
+- Detaillierte Echtzeit-Reports ermöglichen ein effektives Kampagnen-Tracking.
+- Visuelle Clickmaps und Geotracking geben Ihnen wichtige Informationen über Ihre Newsletter-Leser.
+- Alle wichtigen E-Mail-Marketing-KPI (Öffnungsrate, Klickrate, Bouncerate, Click-Through-Rate, Abmelderat) erhalten Sie im Überblick.
+Newsletter2Go ist in Sachen professionelles E-Mail Marketing auf dem Laufenden: Responsive Design für Newsletter ist selbstverständlich bereits ein Teil der Software. Sollten einmal Fragen auftreten, steht Ihnen unser Support-Team zur Seite. Außerdem finden Sie auf unserer Webseite ein umfangreiches Verzeichnis von Anleitungen, Hilfeartikeln und Wissensbeiträgen.
 
-Die [E-Mail Marketing Software](https://www.newsletter2go.de/email-marketing-software/ "E-Mail Marketing Software") ist speziell auf (Online-)Händler, Agenturen, Vereine und den typischen Mittelstand zugeschnitten. Dank der sehr einfachen, intuitiven Bedienbarkeit können individuelle, persönliche und hochwertige Newsletter schnell und eigenständig erstellt und versendet werden. Umfangreiche Funktionen zur Ausgestaltung und Anpassung der Newsletter sind kostenlos inbegriffen und auch die Gruppierung von Empfängern oder sogar die Personalisierung ganzer Kampagnen sind ohne weiteres möglich. Regelmäßig stattfindende kostenlose Einführungs-Webinare helfen dabei, die Software besser kennen zu lernen.
-
-Newsletter2Go legt großen Wert auf Sicherheit: Die gesamte Software mit all ihren Funktionen ist deshalb konform mit dem Bundesdatenschutzgesetz. Sämtliche Daten werden auf deutschen Servern gespeichert und der Datenschutz ist TÜV-zertifiziert. Außerdem ist Newsletter2Go Mitglied in mehreren Verbänden und wird von diesen als Absender zertifiziert. E-Mails werden deshalb generell nicht auf Spamverdacht geprüft, sondern zuverlässig direkt ins Postfach der Empfänger zugestellt.
-Die Newsletter2Go Software ist leistungsstark und dabei unkompliziert zu bedienen. Sie kann ohne Installation direkt im Browser genutzt werden. Einzigartige Funktionen wie die 1-Klick-Contentübernahme, die automatische Empfängersynchronisation und A/B-Splittest-Mailings machen sie für professionelles E-Mail Marketing unverzichtbar. Um die Leistung der Newsletter messen zu können, erhält jeder Kunde nach dem Versand detaillierte Live-Reports. All diese Funktionen stehen zu einem hervorragenden Preis-Leistungs-Verhältnis zur Verfügung, denn 1.000 E-Mails pro Monat sind für alle Kunden kostenlos.
-
-Newsletter2Go ist in Sachen E-Mail Marketing auf dem Laufenden: Responsive Design für Newsletter ist selbstverständlich bereits ein Teil der Software. Auch der Versand automatisierter E-Mails wie Geburtstagsmailings oder Reaktivierungsmailings ist schnell und unkompliziert möglich.
-
-Sollten doch einmal Fragen auftreten, ist der kompetente und freundliche Support kostenlos erreichbar. Außerdem steht ein umfangreiches Verzeichnis von Anleitungen und Hilfeartikeln frei zugänglich auf der Website zur Verfügung.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1.Permalink-Einstellungen verändern: Öffnen Sie in WordPress unter “Einstellungen” den Bereich “Permalinks” und wählen Sie irgendeine andere Einstellung als Standard.
+2. Jetzt können Sie das Newsletter2Go-Plugin für WordPress [hier herunterladen](https://www.newsletter2go.de/download-center/ "hier herunterladen").
+3. Nachdem Sie das Plugin heruntergeladen haben, laden Sie es ins Backend Ihrer WordPress-Website hoch. Gehen Sie dafür in Ihre Plugin-Einstellungen und öffnen Sie den Bereich “Installieren”. Hier können Sie das neue Plugin hochladen.
+4. Danach ist es direkt in WordPress verfügbar. Wählen Sie es dort unter den heruntergeladenen Plugins aus, um es zu installieren.
+5. Wenn die Installation abgeschlossen ist klicken Sie auf "Newsletter2Go" in der Menüleiste.
+6. Klicken Sie auf "Einloggen oder Account erstellen".
+7. Wenn die Verbindung mit dem Account hergestellt wurde, kann im WordPress Plugin ein Anmeldeformular oder Abmeldeformular bearbeitet werden.
+8. Einbinden können Sie das Anmeldeformular dann über "Beiträge"-->"Erstellen" mit diesen Shortcuts:
+[newsletter2go  type=popup]  = als Popup
+[newsletter2go] = Normale Einbindung
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+Warum Newsletter2Go Wordpress Newsletter Plugin zum Versenden von Newslettern benutzen? =
+Mit dem Plugin sparen Sie sich manuelle Arbeit. Einmal eingerichtet ermöglichen Sie Ihren Webseitenbesuchern eine kinderleichte Anmeldung zu Ihrem Newsletter. Das Anmeldeformular können Sie direkt in Ihrem Wordpress-Backend erstellen. Profitieren Sie auch von Features wie der Gruppenzuordnung von Ihren Empfängern und der 1-Klick-Content-Übernahme.
+= Brauche ich ein Newsletter2Go Account um das Newsletter2Go Wordpress Plugin zu benutzen? =
+Ja, um das Plugin zu nutzen, benötigen Sie einen Newsletter2Go-Account. Registierein Sie sich kostenlos unter: [https://www.newsletter2go.de/registrierung/](https://www.newsletter2go.de/registrierung/ "Jetzt registrieren")
+= Wie installiere ich das Newsletter2Go Wordpress Plugin? =
+Laden Sie sich das Plugin einfach herunter und diese Datei anschließend in das Backend Ihres Wordpress-Systems. In den Plugin-Einstellungen können Sie das Widget nun direkt installieren. Eine genaue Anleitung finden Sie hier:   [https://hilfe.newsletter2go.de/integrationenapi/cms-anbindung/wie-richte-ich-das-wordpress-newsletter-plugin-ein.html](https://hilfe.newsletter2go.de/integrationenapi/cms-anbindung/wie-richte-ich-das-wordpress-newsletter-plugin-ein.html)
+= Was sind die Systemvoraussetzungen um das Plugin zu installieren? =
+Das Wordpress-Plugin von Newsletter2Go ist kompatibel mit allen Versionen von Wordpress.
+= Wie erstelle ich ein Anmeldeformular? =
+Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin installiert, sollten Sie es an der linken Seite Ihres Backends in der Menüleiste sehen. Die erste Erstellung Ihres Anmeldeformular erfolgt im Account von Newsletter2Go. Eine genaue Anleitung finden Sie in unserem [Video](https://www.youtube.com/watch?v=aJIy7OgjOwE&feature=youtu.be "Video"). Bei Wordpress können Sie nun Ihr An- und Abmeldeformular bearbeiten und auch grafisch anpassen.
 
 == Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Per Drag&Drop können Sie im einfach zu bedienenden Editor im Handumdrehen Elemente einfügen und an die richtige Stelle rücken.
+2. Mit unserem professionellen Conversion Tracking haben Sie Ihre Umsätze stets im Blick.
+3. Behalten Sie die Performance Ihrer Mailings stets im Blick: Mit unserer Report-Übersicht haben Sie die wichtigsten Kennzahlen in einer Übersicht. Gehen Sie in die detaillierten Reports, um noch mehr über Öffnungs- und Klickraten herauszufinden.
+4. Passen Sie Ihre Anmeldeformulare für den Newsletter Ihrem Design an.
 
 == Changelog ==
 
-= 4.0.8 =
+= 4.0.08 =
 * Fix get the featured image on retrieving a post
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
+= 4.0.07 =
+* Widget titel is not shown over form
 
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 4.0.06 =
+* Return all post images even if not attached directly
+
+= 4.0.05 =
+* Change Default-Config of WP-Forms from Table to Bootstrap Grid-System
+* Add helptopic for configure forms to wp plugin header of Plugin
+* add popup option to shortcode with unsubscribe
+
+= 4.0.04 =
+* Fetch sites too, not only posts
+
+= 4.0.03 =
+* colors are not loaded in color-picker initially
+* form is placed on the wrong positions via shortcode
+* preview is not loaded sometimes
+
+= 4.0.02 =
+* Show preview fails, if config is broken
+
+= 4.0.01 =
+* Add important-flag to colors
+* Give option to "disconnect" manually in plugin
+
+= 4.0.00 =
+* First Plugin Version
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+= 4.0.08 =
+* Fix get the featured image on retrieving a post
 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+= 4.0.07 =
+* Widget titel is not shown over form
+
+= 4.0.06 =
+* Return all post images even if not attached directly
+
+= 4.0.05 =
+* Change Default-Config of WP-Forms from Table to Bootstrap Grid-System
+* Add helptopic for configure forms to wp plugin header of Plugin
+* add popup option to shortcode with unsubscribe
+
+= 4.0.04 =
+* Fetch sites too, not only posts
+
+= 4.0.03 =
+* colors are not loaded in color-picker initially
+* form is placed on the wrong positions via shortcode
+* preview is not loaded sometimes
+
+= 4.0.02 =
+* Show preview fails, if config is broken
+
+= 4.0.01 =
+* Add important-flag to colors
+* Give option to "disconnect" manually in plugin
+
+= 4.0.00 =
+* First Plugin Version
 
 == Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
+Die genaue Anleitung inklusive Screenshots finden Sie hier: https://hilfe.newsletter2go.de/integrationenapi/cms-anbindung/wie-richte-ich-das-wordpress-newsletter-plugin-ein.html
