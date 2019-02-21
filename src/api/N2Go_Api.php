@@ -98,7 +98,6 @@ class N2Go_Api
                 'category' => array(),
                 'tags' => array(),
                 'images' => array_unique(array_merge(
-                    [get_the_post_thumbnail($post)],
                     self::extractImages($content),
                     self::getAttachedImages($post->ID)
                 )),
