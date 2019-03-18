@@ -14,35 +14,43 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 [Newsletter2Go](http://www.newsletter2go.com/ "Newsletter2Go")’s offizielles Plugin macht es für jeden WordPress-Nutzer möglich, mühelos selbst professionelle E-Mail-Kampagnen zu erstellen, zu gestalten und zu versenden. Mit unserem  [Wordpress-Newsletter-Plugin](https://www.newsletter2go.de/wordpress-newsletter-plugin/ "Wordpress-Newsletter-Plugin") sparen Sie Zeit und manuellen Aufwand. Die professionelle Newsletter Software von Newsletter2Go ist speziell ausgerichtet auf Onlineshops, Agenturen, KMU und Vereine.
 
-**1-Klick-Contentübernahme:**
-- Integrieren Sie Inhalte Ihrer Webseite mit nur einem Klick in Ihren Newsletter.
-- Übernehmen Sie im Handumdrehen Attribute wie Titel, Autor, Datum, Bilder oder Beschreibung in Ihr Mailing.
+**1-Klick-Contentübernahme**
 
-**Rechtssichere & DSGVO-konforme Anmeldeformulare mit einem Klick:**
-- Erstellen und bearbeiten Sie Ihr Anmeldeformular direkt in Ihrem Wordpress-Backend.
-- Bestimmen Sie, zu welcher Gruppe neu angemeldete Empfänger zugeordnet werden sollen.
-- Stylen Sie Ihre Anmeldeformulare ganz individuell.
+* Integrieren Sie Inhalte Ihrer Webseite mit nur einem Klick in Ihren Newsletter
+* Übernehmen Sie im Handumdrehen Attribute wie Titel, Autor, Datum, Bilder oder Beschreibung in Ihr Mailing
 
-**Intuitiv bedienbarer Drag&Drop-Editor:**
-- Erstellen Sie im Handumdrehen hochwertige und relevante Newsletter-Kampagnen.
-- Sparen Sie Zeit dank des Drag&Drop-Prinzips.
+**Rechtssichere & DSGVO-konforme Anmeldeformulare mit einem Klick**
 
-**Personalisieren Sie Ihre Newsletter:**
-- Verwenden Sie Personalisierungsbausteine, um jedes Mailing zu individualisieren.
-- Mit diesen Platzhaltern können Sie Anrede, Preheader, Betreffe oder auch gesamte Newsletter-Bausteine persönlich auf jeden Empfänger anpassen.
-- Beim Versand werden die Platzhalter dann mit den richtigen Empfängerdaten eines jeden Adressaten gefüllt.
+* Erstellen und bearbeiten Sie Ihr Anmeldeformular direkt in Ihrem Wordpress-Backend
+* Bestimmen Sie, zu welcher Gruppe neu angemeldete Empfänger zugeordnet werden sollen
+* Stylen Sie Ihre Anmeldeformulare ganz individuell
 
-**Newsletter Automation:**
-- Versenden Sie Mailings zum perfekten Zeitpunkt ganz automatisch.
-- Definieren Sie feste Anlässe und individuelle verhaltensbasierte Kriterien für den automatisierten Versand.
+**Intuitiv bedienbarer Drag&Drop-Editor**
 
-**Empfängerverwaltung:**
-- Verwalten und sammeln Sie alle Empfängerdaten zentralisiert in einem Tool.
-- Profitieren Sie vom effizienten Bounce- und Abmeldemanagement.
-**Tracking & Reports:**
-- Detaillierte Echtzeit-Reports ermöglichen ein effektives Kampagnen-Tracking.
-- Visuelle Clickmaps und Geotracking geben Ihnen wichtige Informationen über Ihre Newsletter-Leser.
-- Alle wichtigen E-Mail-Marketing-KPI (Öffnungsrate, Klickrate, Bouncerate, Click-Through-Rate, Abmelderat) erhalten Sie im Überblick.
+* Erstellen Sie im Handumdrehen hochwertige und relevante Newsletter-Kampagnen.
+* Sparen Sie Zeit dank des Drag&Drop-Prinzips.
+
+**Personalisieren Sie Ihre Newsletter**
+
+* Verwenden Sie Personalisierungsbausteine, um jedes Mailing zu individualisieren
+* Mit diesen Platzhaltern können Sie Anrede, Preheader, Betreffe oder auch gesamte Newsletter-Bausteine persönlich auf jeden Empfänger anpassen
+* Beim Versand werden die Platzhalter dann mit den richtigen Empfängerdaten eines jeden Adressaten gefüllt
+
+**Newsletter Automation**
+
+* Versenden Sie Mailings zum perfekten Zeitpunkt ganz automatisch
+* Definieren Sie feste Anlässe und individuelle verhaltensbasierte Kriterien für den automatisierten Versand
+
+**Empfängerverwaltung**
+
+* Verwalten und sammeln Sie alle Empfängerdaten zentralisiert in einem Tool
+* Profitieren Sie vom effizienten Bounce- und Abmeldemanagement
+
+**Tracking & Reports**
+
+* Detaillierte Echtzeit-Reports ermöglichen ein effektives Kampagnen-Tracking
+* Visuelle Clickmaps und Geotracking geben Ihnen wichtige Informationen über Ihre Newsletter-Leser
+* Alle wichtigen E-Mail-Marketing-KPI (Öffnungsrate, Klickrate, Bouncerate, Click-Through-Rate, Abmelderat) erhalten Sie im Überblick
 
 
 Newsletter2Go ist in Sachen professionelles E-Mail Marketing auf dem Laufenden: Responsive Design für Newsletter ist selbstverständlich bereits ein Teil der Software. Sollten einmal Fragen auftreten, steht Ihnen unser Support-Team zur Seite. Außerdem finden Sie auf unserer Webseite ein umfangreiches Verzeichnis von Anleitungen, Hilfeartikeln und Wissensbeiträgen.
