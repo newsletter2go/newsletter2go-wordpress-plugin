@@ -90,6 +90,9 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 
 == Changelog ==
 
+= 4.0.09 =
+* get also thumbnails to all images on retrieving a post
+
 = 4.0.08 =
 * Fix get the featured image on retrieving a post
 
@@ -123,6 +126,9 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 * First Plugin Version
 
 == Upgrade Notice ==
+
+= 4.0.09 =
+* get also thumbnails to all images on retrieving a post
 
 = 4.0.08 =
 * Fix get the featured image on retrieving a post
