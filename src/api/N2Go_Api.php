@@ -99,7 +99,8 @@ class N2Go_Api
                 'tags' => array(),
                 'images' => array_unique(array_merge(
                     self::extractImages($content),
-                    self::getAttachedImages($post->ID)
+                    self::getAttachedImages($post->ID),
+                    self::getThumbnailImages($post->ID)
                 )),
                 'link' => substr(get_permalink($post->ID), strlen($basUrl)),
             );
@@ -172,5 +173,25 @@ class N2Go_Api
             },
             get_attached_media('image', $postId)
         );
+    }
+
+    /**
+     * @param int $postId
+     * @return string[]
+     */
+    private static function getThumbnailImages($postId)
+    {
+        $thumbnailTypes = [
+            'thumbnail',
+            'medium',
+            'medium_large',
+            'full'
+        ];
+
+        foreach ($thumbnailTypes as $type){
+            $thumbnails[] = get_the_post_thumbnail_url( $postId, $type);
+        }
+
+        return $thumbnails;
     }
 }
