@@ -210,7 +210,16 @@ class N2Go_Gui
         );
 
         if($this->verifyResponse($response)){
-            return $response;
+            wp_remote_get(
+                self::N2GO_API_URL . $action,
+                array(
+                    'method' => $method,
+                    'timeout' => 45,
+                    'headers' => array('Authorization' => 'Bearer ' . $access_token),
+                )
+            );
+            
+            return true;
         }
 
         return false;
@@ -307,7 +316,7 @@ class N2Go_Gui
     {
         switch($response['response']['code']){
             case 200:
-                return true;
+                return json_decode($response['body']);
                 break;
             case 400:
                 $this->disconnect();
