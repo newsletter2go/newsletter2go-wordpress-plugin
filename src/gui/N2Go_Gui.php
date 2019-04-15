@@ -174,8 +174,8 @@ class N2Go_Gui
 
         $result = false;
 
-        if (strlen($access_token)) {
-            $form = $this->executeNewApi(self::N2GO_API_FORMS, $access_token);
+        if (strlen($access_token > 0)) {
+            $form = $this->executeNewApi(self::N2GO_API_FORMS, 'GET', $access_token);
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
                 foreach ($form['value'] as $value) {
@@ -198,11 +198,12 @@ class N2Go_Gui
      * @return array|boolean
      * @internal param mixed $params
      */
-    private function executeNewApi($action, $access_token)
+    private function executeNewApi($action)
     {
-        $response = wp_remote_get(
-            self::N2GO_API_URL . $action,
-            array(
+
+        $access_token = get_option('n2go_accessToken');
+
+        $response = wp_remote_get(self::N2GO_API_URL . $action, array(
                 'method' => 'GET',
                 'timeout' => 45,
                 'headers' => array('Authorization' => 'Bearer ' . $access_token),
@@ -218,7 +219,7 @@ class N2Go_Gui
                     'headers' => array('Authorization' => 'Bearer ' . $access_token),
                 )
             );
-            
+
             return $response;
         }
 
@@ -255,13 +256,17 @@ class N2Go_Gui
             )
         );
 
-        $response = $this->verifyResponse($responseRaw, false);
+        if($this->verifyResponse($responseRaw)){
+            $response = json_decode($responseRaw['body']);
 
-        if (isset($response->access_token) && isset($response->refresh_token)) {
-            $this->save_option('n2go_accessToken', $response->access_token);
-            $this->save_option('n2go_refreshToken', $response->refresh_token);
+            if (isset($response->access_token) && !empty($response->access_token) && isset($response->refresh_token) && !empty($response->refresh_token)) {
+                $this->save_option('n2go_accessToken', $response->access_token);
+                $this->save_option('n2go_refreshToken', $response->refresh_token);
 
-            return true;
+                return true;
+            }
+        } else {
+            return false;
         }
 
         return $response;
@@ -309,11 +314,11 @@ class N2Go_Gui
         }
     }
 
-    private function verifyResponse($response, $verify = true)
+    private function verifyResponse($response)
     {
         switch($response['response']['code']){
             case 200:
-                return json_decode($response['body']);
+                return true;
                 break;
             case 400:
                 $this->disconnect();
@@ -321,11 +326,7 @@ class N2Go_Gui
                 break;
             case 401:
             case 403:
-                if($verify){
-                    return $this->refreshTokens();
-                }else {
-                    return false;
-                }
+                return $this->refreshTokens();
                 break;
         }
     }
