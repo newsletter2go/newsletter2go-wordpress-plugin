@@ -7,8 +7,10 @@ class N2Go_Gui
     const N2GO_API_URL = 'https://api.newsletter2go.com/';
     const N2GO_STATIC_URL = 'https://static.newsletter2go.com/';
     const N2GO_REFRESH_GRANT_TYPE = 'https://nl2go.com/jwt_refresh';
+    const N2GO_API_FORMS = 'forms?_expand=1';
 
     private $apiErrorMessage;
+
     /**
      * Register actions.
      *
@@ -47,8 +49,15 @@ class N2Go_Gui
      */
     public function adminMenu()
     {
-        add_menu_page('Newsletter2Go API Settings', 'Newsletter2Go', 'manage_options', 'n2go-api',
-            array(&$this, 'adminOptions'), plugins_url('/lib/wordpress_icon.png', __FILE__), 30);
+        add_menu_page(
+            'Newsletter2Go API Settings',
+            'Newsletter2Go',
+            'manage_options',
+            'n2go-api',
+            array(&$this, 'adminOptions'),
+            plugins_url('/lib/wordpress_icon.png', __FILE__),
+            30
+        );
     }
 
     /**
@@ -83,7 +92,7 @@ class N2Go_Gui
             if (isset($widgetStyleConfig)) {
                 $this->save_option('n2go_widgetStyleConfig', $_POST['widgetStyleConfig']);
             }
-            if(isset($_POST['resetValues'])){
+            if (isset($_POST['resetValues'])) {
                 $this->disconnect();
             }
         }
@@ -107,10 +116,18 @@ class N2Go_Gui
 
         $forms = $this->getForms();
 
+        if ($forms === false) {
+            $errorMessage = "Please connect to Newsletter2Go by clicking on \"Login or Create Account\" button";
+        }
+
         $formUniqueCode = get_option('n2go_formUniqueCode');
 
-        ($_SERVER['REQUEST_METHOD'] !== 'POST' || (!isset($formUniqueCode)) || !is_array($forms) || $formUniqueCode == '') ?: $this->saveFormType($forms,
-            $formUniqueCode);
+        ($_SERVER['REQUEST_METHOD'] !== 'POST' || (!isset($formUniqueCode)) || !is_array(
+                $forms
+            ) || $formUniqueCode == '') ?: $this->saveFormType(
+            $forms,
+            $formUniqueCode
+        );
 
         $nl2gStylesConfigObject = stripslashes(get_option('n2go_widgetStyleConfig'));
 
@@ -121,11 +138,6 @@ class N2Go_Gui
             $formUniqueCode = null;
         } else {
             $form = $forms[$formUniqueCode];
-        }
-
-        //if (!strlen($formUniqueCode) > 0) {
-        if ($forms === false) {
-            $errorMessage = "Please connect to Newsletter2Go by clicking on \"Login or Create Account\" button";
         }
 
         require_once dirname(__FILE__) . '/adminView.php';
@@ -156,14 +168,14 @@ class N2Go_Gui
      * @param string $authKey
      * @return array
      */
-    public function getForms($authKey = '')
+    public function getForms()
     {
-        $authKey = get_option('n2go_authKey');
+        $access_token = get_option('n2go_accessToken');
 
         $result = false;
 
-        if (strlen($authKey) > 0) {
-            $form = $this->executeNewApi('forms?_expand=1');
+        if (strlen($access_token)) {
+            $form = $this->executeNewApi(self::N2GO_API_FORMS, 'GET', $access_token);
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
                 foreach ($form['value'] as $value) {
@@ -183,50 +195,31 @@ class N2Go_Gui
      * Creates request and returns response. New API
      *
      * @param string $action
-     * @return array
+     * @return array|boolean
      * @internal param mixed $params
      */
-    private function executeNewApi($action)
+    private function executeNewApi($action, $method, $access_token)
     {
-
-        $access_token = get_option('n2go_accessToken');
-
-        $response = wp_remote_get(self::N2GO_API_URL . $action, array(
-                'method' => 'GET',
+        $response = wp_remote_get(
+            self::N2GO_API_URL . $action,
+            array(
+                'method' => $method,
                 'timeout' => 45,
                 'headers' => array('Authorization' => 'Bearer ' . $access_token),
             )
         );
 
-
-        //access_token is deprecated
-        if (is_wp_error($response)) {
-
-            $this->apiErrorMessage =  $response->get_error_message($response->get_error_code());
-            return;
-
-        } else if (isset($response['response']['code']) && $response['response']['code'] == 403 || $response['response']['code'] == 401) {
-
-            $this->refreshTokens();
-            $access_token = get_option('n2go_accessToken');
-            $response = wp_remote_get(self::N2GO_API_URL . $action, array(
-                    'method' => 'GET',
-                    'timeout' => 45,
-                    'headers' => array('Authorization' => 'Bearer ' . $access_token),
-                )
-            );
-            $responseJson = json_decode($response['body'], true);
-        } else {
-            $responseJson = json_decode($response['body'], true);
+        if($this->verifyResponse($response)){
+            return $response;
         }
 
-        return $responseJson;
+        return false;
     }
 
     /**
      * Creates request and returns response, refresh access token
      *
-     * @return void
+     * @return boolean
      * @internal param mixed $params
      */
     private function refreshTokens()
@@ -242,7 +235,9 @@ class N2Go_Gui
             'grant_type' => self::N2GO_REFRESH_GRANT_TYPE,
         );
 
-        $responseRaw = wp_remote_post($url, array(
+        $responseRaw = wp_remote_post(
+            $url,
+            array(
                 'method' => 'POST',
                 'timeout' => 45,
                 'headers' => $header,
@@ -251,18 +246,17 @@ class N2Go_Gui
             )
         );
 
-        if (is_wp_error($responseRaw)) {
-            $this->apiErrorMessage = $responseRaw->get_error_message($responseRaw->get_error_code());
-        } else {
+        if($this->verifyResponse($responseRaw)){
             $response = json_decode($responseRaw['body']);
 
-            if (isset($response->access_token) && !empty($response->access_token)) {
+            if (isset($response->access_token) && !empty($response->access_token) && isset($response->refresh_token) && !empty($response->refresh_token)) {
                 $this->save_option('n2go_accessToken', $response->access_token);
-            }
-
-            if (isset($response->refresh_token) && !empty($response->refresh_token)) {
                 $this->save_option('n2go_refreshToken', $response->refresh_token);
+
+                return true;
             }
+        } else {
+            return false;
         }
 
     }
@@ -272,12 +266,10 @@ class N2Go_Gui
      */
     private function disconnect()
     {
-
         $this->save_option('n2go_authKey', null);
         $this->save_option('n2go_accessToken', null);
         $this->save_option('n2go_refreshToken', null);
         $this->save_option('n2go_formUniqueCode', null);
-        $this->save_option('n2go_widgetStyleConfig', null);
 
     }
 
@@ -308,6 +300,23 @@ class N2Go_Gui
                 $this->save_option('n2go_typeSubscribe', $subscribe);
                 $this->save_option('n2go_typeUnsubscribe', $unsubscribe);
             }
+        }
+    }
+
+    private function verifyResponse($response)
+    {
+        switch($response['response']['code']){
+            case 200:
+                return true;
+                break;
+            case 400:
+                $this->disconnect();
+                return false;
+                break;
+            case 401:
+            case 403:
+                return $this->refreshTokens();
+                break;
         }
     }
 }
