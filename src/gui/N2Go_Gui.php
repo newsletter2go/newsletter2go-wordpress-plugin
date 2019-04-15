@@ -210,7 +210,7 @@ class N2Go_Gui
             )
         );
 
-        if($this->verifyResponse($response)){
+        if($this->verifyResponse($response)) {
             $response = wp_remote_get(
                 self::N2GO_API_URL . $action,
                 array(
@@ -220,7 +220,9 @@ class N2Go_Gui
                 )
             );
 
-            return $response;
+            if ($this->verifyResponse($response)) {
+                return $response;
+            };
         }
 
         return false;
