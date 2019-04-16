@@ -224,14 +224,12 @@ class N2Go_Gui
                 return $response;
             };
         }
-
-        return false;
     }
 
     /**
      * Creates request and returns response, refresh access token
      *
-     * @return boolean
+     * @return array|boolean
      * @internal param mixed $params
      */
     private function refreshTokens()
@@ -247,7 +245,7 @@ class N2Go_Gui
             'grant_type' => self::N2GO_REFRESH_GRANT_TYPE,
         );
 
-        $responseRaw = wp_remote_post(
+        $response = wp_remote_post(
             $url,
             array(
                 'method' => 'POST',
@@ -258,19 +256,18 @@ class N2Go_Gui
             )
         );
 
-        if($this->verifyResponse($responseRaw)){
-            $response = json_decode($responseRaw['body']);
+        if($this->verifyResponse($response)) {
+            $response = json_decode($response['body'], true);
 
-        if (isset($response->access_token) && isset($response->refresh_token)) {
-            $this->save_option('n2go_accessToken', $response->access_token);
-            $this->save_option('n2go_refreshToken', $response->refresh_token);
+            if ($response->access_token && $response->refresh_token) {
+                $this->save_option('n2go_accessToken', $response->access_token);
+                $this->save_option('n2go_refreshToken', $response->refresh_token);
 
-                return true;
+                return $response;
             }
-        } else {
-            return false;
         }
 
+        return false;
     }
 
     /**
@@ -320,15 +317,12 @@ class N2Go_Gui
         switch($response['response']['code']){
             case 200:
                 return true;
-                break;
             case 400:
                 $this->disconnect();
-                return false;
                 break;
             case 401:
             case 403:
-                return $this->refreshTokens();
-                break;
+               return false;
         }
     }
 }
