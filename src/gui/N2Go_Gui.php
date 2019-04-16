@@ -175,7 +175,7 @@ class N2Go_Gui
         $result = false;
 
         if (strlen($access_token)) {
-            $form = $this->executeNewApi(self::N2GO_API_FORMS, 'GET', $access_token);
+            $form = $this->executeNewApi(self::N2GO_API_FORMS, $access_token);
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
                 foreach ($form['value'] as $value) {
@@ -198,28 +198,28 @@ class N2Go_Gui
      * @return array|boolean
      * @internal param mixed $params
      */
-    private function executeNewApi($action, $method, $access_token)
+    private function executeNewApi($action, $access_token)
     {
         $response = wp_remote_get(
             self::N2GO_API_URL . $action,
             array(
-                'method' => $method,
+                'method' => 'GET',
                 'timeout' => 45,
                 'headers' => array('Authorization' => 'Bearer ' . $access_token),
             )
         );
 
         if($this->verifyResponse($response)){
-            wp_remote_get(
+            $response = wp_remote_get(
                 self::N2GO_API_URL . $action,
                 array(
-                    'method' => $method,
+                    'method' => 'GET',
                     'timeout' => 45,
                     'headers' => array('Authorization' => 'Bearer ' . $access_token),
                 )
             );
             
-            return true;
+            return $response;
         }
 
         return false;
@@ -255,19 +255,16 @@ class N2Go_Gui
             )
         );
 
-        if($this->verifyResponse($responseRaw)){
-            $response = json_decode($responseRaw['body']);
+        $response = $this->verifyResponse($responseRaw);
 
-            if (isset($response->access_token) && !empty($response->access_token) && isset($response->refresh_token) && !empty($response->refresh_token)) {
-                $this->save_option('n2go_accessToken', $response->access_token);
-                $this->save_option('n2go_refreshToken', $response->refresh_token);
+        if (isset($response->access_token) && isset($response->refresh_token)) {
+            $this->save_option('n2go_accessToken', $response->access_token);
+            $this->save_option('n2go_refreshToken', $response->refresh_token);
 
-                return true;
-            }
-        } else {
-            return false;
+            return true;
         }
 
+        return $response;
     }
 
     /**
