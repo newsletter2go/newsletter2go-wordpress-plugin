@@ -255,7 +255,7 @@ class N2Go_Gui
             )
         );
 
-        $response = $this->verifyResponse($responseRaw);
+        $response = $this->verifyResponse($responseRaw, false);
 
         if (isset($response->access_token) && isset($response->refresh_token)) {
             $this->save_option('n2go_accessToken', $response->access_token);
@@ -309,7 +309,7 @@ class N2Go_Gui
         }
     }
 
-    private function verifyResponse($response)
+    private function verifyResponse($response, $verify = true)
     {
         switch($response['response']['code']){
             case 200:
@@ -321,7 +321,11 @@ class N2Go_Gui
                 break;
             case 401:
             case 403:
-                return $this->refreshTokens();
+                if($verify){
+                    return $this->refreshTokens();
+                }else {
+                    return false;
+                }
                 break;
         }
     }
