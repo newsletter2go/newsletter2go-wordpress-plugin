@@ -271,7 +271,6 @@ class N2Go_Gui
             return false;
         }
 
-        return $response;
     }
 
     /**
