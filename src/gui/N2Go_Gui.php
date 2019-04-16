@@ -261,9 +261,9 @@ class N2Go_Gui
         if($this->verifyResponse($responseRaw)){
             $response = json_decode($responseRaw['body']);
 
-            if (isset($response->access_token) && !empty($response->access_token) && isset($response->refresh_token) && !empty($response->refresh_token)) {
-                $this->save_option('n2go_accessToken', $response->access_token);
-                $this->save_option('n2go_refreshToken', $response->refresh_token);
+        if (isset($response->access_token) && isset($response->refresh_token)) {
+            $this->save_option('n2go_accessToken', $response->access_token);
+            $this->save_option('n2go_refreshToken', $response->refresh_token);
 
                 return true;
             }
