@@ -166,16 +166,16 @@ class N2Go_Gui
     /**
      * Get forms
      * @param string $authKey
-     * @return array
+     * @return array|bool
      */
     public function getForms()
     {
-        $access_token = get_option('n2go_accessToken');
+        $authKey = get_option('n2go_authKey');
 
         $result = false;
 
-        if (strlen($access_token)) {
-            $form = $this->executeNewApi(self::N2GO_API_FORMS, $access_token);
+        if (strlen($authKey) > 0) {
+            $form = $this->executeNewApi(self::N2GO_API_FORMS);
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
                 foreach ($form['value'] as $value) {
@@ -195,11 +195,13 @@ class N2Go_Gui
      * Creates request and returns response. New API
      *
      * @param string $action
-     * @return array|boolean
+     * @return array
      * @internal param mixed $params
      */
-    private function executeNewApi($action, $access_token)
+    private function executeNewApi($action)
     {
+        $access_token = get_option('n2go_accessToken');
+
         $response = wp_remote_get(
             self::N2GO_API_URL . $action,
             array(
@@ -210,6 +212,11 @@ class N2Go_Gui
         );
 
         if($this->verifyResponse($response)){
+            return json_decode($response['body'], true);
+        }elseif($this->refreshTokens()){
+
+            $access_token = get_option('n2go_accessToken');
+
             $response = wp_remote_get(
                 self::N2GO_API_URL . $action,
                 array(
@@ -218,17 +225,15 @@ class N2Go_Gui
                     'headers' => array('Authorization' => 'Bearer ' . $access_token),
                 )
             );
-            
-            return $response;
-        }
 
-        return false;
+            return json_decode($response['body'], true);
+        }
     }
 
     /**
      * Creates request and returns response, refresh access token
      *
-     * @return boolean
+     * @return array|boolean
      * @internal param mixed $params
      */
     private function refreshTokens()
@@ -244,7 +249,7 @@ class N2Go_Gui
             'grant_type' => self::N2GO_REFRESH_GRANT_TYPE,
         );
 
-        $responseRaw = wp_remote_post(
+        $response = wp_remote_post(
             $url,
             array(
                 'method' => 'POST',
@@ -255,16 +260,18 @@ class N2Go_Gui
             )
         );
 
-        $response = $this->verifyResponse($responseRaw, false);
+        if($this->verifyResponse($response)) {
+            $response = json_decode($response['body']);
 
-        if (isset($response->access_token) && isset($response->refresh_token)) {
-            $this->save_option('n2go_accessToken', $response->access_token);
-            $this->save_option('n2go_refreshToken', $response->refresh_token);
+            if (isset($response->access_token) && isset($response->refresh_token)) {
+                $this->save_option('n2go_accessToken', $response->access_token);
+                $this->save_option('n2go_refreshToken', $response->refresh_token);
 
-            return true;
+                return true;
+            }
         }
 
-        return $response;
+        return false;
     }
 
     /**
@@ -309,24 +316,17 @@ class N2Go_Gui
         }
     }
 
-    private function verifyResponse($response, $verify = true)
+    private function verifyResponse($response)
     {
         switch($response['response']['code']){
             case 200:
-                return json_decode($response['body']);
-                break;
+                return true;
             case 400:
                 $this->disconnect();
-                return false;
                 break;
             case 401:
             case 403:
-                if($verify){
-                    return $this->refreshTokens();
-                }else {
-                    return false;
-                }
-                break;
+               return false;
         }
     }
 }
