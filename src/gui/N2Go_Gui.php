@@ -166,16 +166,16 @@ class N2Go_Gui
     /**
      * Get forms
      * @param string $authKey
-     * @return array
+     * @return array|bool
      */
     public function getForms()
     {
-        $access_token = get_option('n2go_accessToken');
+        $authKey = get_option('n2go_authKey');
 
         $result = false;
 
-        if (strlen($access_token > 0)) {
-            $form = $this->executeNewApi(self::N2GO_API_FORMS, 'GET', $access_token);
+        if (strlen($authKey) > 0) {
+            $form = $this->executeNewApi(self::N2GO_API_FORMS);
             if (isset($form['status']) && $form['status'] >= 200 && $form['status'] < 300) {
                 $result = array();
                 foreach ($form['value'] as $value) {
@@ -195,22 +195,28 @@ class N2Go_Gui
      * Creates request and returns response. New API
      *
      * @param string $action
-     * @return array|boolean
+     * @return array
      * @internal param mixed $params
      */
     private function executeNewApi($action)
     {
-
         $access_token = get_option('n2go_accessToken');
 
-        $response = wp_remote_get(self::N2GO_API_URL . $action, array(
+        $response = wp_remote_get(
+            self::N2GO_API_URL . $action,
+            array(
                 'method' => 'GET',
                 'timeout' => 45,
                 'headers' => array('Authorization' => 'Bearer ' . $access_token),
             )
         );
 
-        if($this->verifyResponse($response)) {
+        if($this->verifyResponse($response)){
+            return json_decode($response['body'], true);
+        }elseif($this->refreshTokens()){
+
+            $access_token = get_option('n2go_accessToken');
+
             $response = wp_remote_get(
                 self::N2GO_API_URL . $action,
                 array(
@@ -220,9 +226,7 @@ class N2Go_Gui
                 )
             );
 
-            if ($this->verifyResponse($response)) {
-                return $response;
-            };
+            return json_decode($response['body'], true);
         }
     }
 
@@ -263,7 +267,7 @@ class N2Go_Gui
                 $this->save_option('n2go_accessToken', $response->access_token);
                 $this->save_option('n2go_refreshToken', $response->refresh_token);
 
-                return $response;
+                return true;
             }
         }
 
