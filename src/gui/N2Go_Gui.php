@@ -263,7 +263,7 @@ class N2Go_Gui
         if($this->verifyResponse($response)) {
             $response = json_decode($response['body']);
 
-            if ($response->access_token && $response->refresh_token) {
+            if (isset($response->access_token) && isset($response->refresh_token)) {
                 $this->save_option('n2go_accessToken', $response->access_token);
                 $this->save_option('n2go_refreshToken', $response->refresh_token);
 
