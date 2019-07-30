@@ -318,6 +318,15 @@ class N2Go_Gui
 
     private function verifyResponse($response)
     {
+        if (is_wp_error($response)) {
+            $this->apiErrorMessage = $response->get_error_message();
+            return false;
+        }
+
+        if (empty($response['response']['code'])) {
+            return false;
+        }
+
         switch($response['response']['code']){
             case 200:
                 return true;
