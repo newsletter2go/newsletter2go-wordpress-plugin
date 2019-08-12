@@ -116,7 +116,7 @@ class N2Go_Gui
 
         $forms = $this->getForms();
 
-        if ($forms === false) {
+        if (empty($forms)) {
             $errorMessage = "Please connect to Newsletter2Go by clicking on \"Login or Create Account\" button";
         }
 
@@ -213,7 +213,7 @@ class N2Go_Gui
 
         if($this->verifyResponse($response)){
             return json_decode($response['body'], true);
-        }elseif($this->refreshTokens()){
+        } elseif ($this->refreshTokens()){
 
             $access_token = get_option('n2go_accessToken');
 
@@ -227,6 +227,10 @@ class N2Go_Gui
             );
 
             return json_decode($response['body'], true);
+
+        } else {
+            $this->disconnect();
+            return null;
         }
     }
 
@@ -283,7 +287,6 @@ class N2Go_Gui
         $this->save_option('n2go_accessToken', null);
         $this->save_option('n2go_refreshToken', null);
         $this->save_option('n2go_formUniqueCode', null);
-
     }
 
 

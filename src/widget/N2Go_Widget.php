@@ -38,7 +38,7 @@ class N2Go_Widget extends WP_Widget
         $gui = new N2Go_Gui();
         $forms = $gui->getForms();
         $formUniqueCode = get_option('n2go_formUniqueCode');
-        if (isset($forms[$formUniqueCode])) {
+        if (!empty($forms[$formUniqueCode])) {
             $form = $forms[$formUniqueCode];
             ?>
 
