@@ -53,7 +53,7 @@
                         <div class="n2go-block50">
                             <span><?= __("Connect to Newsletter2Go", NEWSLETTER2GO_TEXTDOMAIN) ?></span></div>
                         <div class="n2go-block25">
-                            <?php if ($forms === false) { ?>
+                            <?php if (empty($forms)) { ?>
                                 <div class="n2go-btn">
                                     <input type="hidden" name="apiKey" placeholder="" value="<?php echo $apiKey; ?>"
                                            style="width:300px" readonly>
