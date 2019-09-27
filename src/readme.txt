@@ -4,7 +4,7 @@ Donate link: http://www.newsletter2go.com
 Tags: email, email marketing, emailing, email marketing software, newsletter, newsletter software, newsletter plugin, newsletter widget, content, content transfer, subscribers
 Requires PHP: 5.2.4
 Tested up to: 5.1
-Stable tag: 4.0.10
+Stable tag: 4.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,9 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 
 == Changelog ==
 
+= 4.0.11 =
+* enhance WP error handling
+
 = 4.0.10 =
 * improve error handling for api form calls
 
@@ -129,6 +132,9 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 * First Plugin Version
 
 == Upgrade Notice ==
+
+= 4.0.11 =
+* enhance WP error handling
 
 = 4.0.10 =
 * improve error handling for api form calls
