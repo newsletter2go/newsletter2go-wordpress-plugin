@@ -1,9 +1,9 @@
 <?php
 
 if (empty($formTypeAvaliable[$type])) {
-    return '<div class="widget nl2go-widget">This form type is not available for selected form</div>';
+    return '<div class="nl2go-widget">This form type is not available for selected form</div>';
 } else {
-    return '<div class="widget nl2go-widget"><script id="' . ($uniqueId && !$popup ? $uniqueId : "n2g_script") . '">
+    return '<div class="nl2go-widget"><script id="' . ($uniqueId && !$popup ? $uniqueId : "n2g_script") . '">
     !function (e, t, n, c, r, a, i) {
         e.Newsletter2GoTrackingObject = r, e[r] = e[r] || function () {
                 (e[r].q = e[r].q || []).push(arguments)

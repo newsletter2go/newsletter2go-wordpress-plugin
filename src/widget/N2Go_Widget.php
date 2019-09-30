@@ -44,14 +44,15 @@ class N2Go_Widget extends WP_Widget
 
             <p>
                 <label
-                    for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Title:', 'Newsletter2Go'); ?></label>
+                        for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Title:',
+                        'Newsletter2Go'); ?></label>
                 <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
                        name="<?php echo $this->get_field_name('title'); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>"/>
                 <br/>
                 <br/>
                 <label
-                    for="<?php echo $this->get_field_id('type'); ?>"><?= __("Formtype", NEWSLETTER2GO_TEXTDOMAIN) ?>
+                        for="<?php echo $this->get_field_id('type'); ?>"><?= __("Formtype", NEWSLETTER2GO_TEXTDOMAIN) ?>
                     :</label>
                 <select class="widefat" id="<?php echo $this->get_field_id('type'); ?>"
                         name="<?php echo $this->get_field_name('type'); ?>"
@@ -59,12 +60,14 @@ class N2Go_Widget extends WP_Widget
 
                     <?php if ($form['type_subscribe'] == 1) { ?>
                         <option
-                            value="subscribe" <?= ($type == 'subscribe' ? 'selected="selected"' : '') ?>><?= __("Subscription-Form", NEWSLETTER2GO_TEXTDOMAIN) ?></option>
+                                value="subscribe" <?= ($type == 'subscribe' ? 'selected="selected"' : '') ?>><?= __("Subscription-Form",
+                                NEWSLETTER2GO_TEXTDOMAIN) ?></option>
                         <?php
                     }
                     if ($form['type_unsubscribe'] == 1) { ?>
-                    <option
-                        value="unsubscribe" <?= ($type == 'unsubscribe' ? 'selected="selected"' : '') ?>><?= __("Unsubscription-Form", NEWSLETTER2GO_TEXTDOMAIN) ?></option>
+                        <option
+                                value="unsubscribe" <?= ($type == 'unsubscribe' ? 'selected="selected"' : '') ?>><?= __("Unsubscription-Form",
+                                NEWSLETTER2GO_TEXTDOMAIN) ?></option>
                         <?php
                     }
                     ?>
@@ -73,8 +76,8 @@ class N2Go_Widget extends WP_Widget
             </p>
         <?php } else { ?>
             <h3>kein gültiges Formular konfiguriert</h3>
-        <?php
-            }
+            <?php
+        }
     }
 
     /**
@@ -98,7 +101,7 @@ class N2Go_Widget extends WP_Widget
 
         $formTypeAvaliable['subscribe'] = get_option('n2go_typeSubscribe');
         $formTypeAvaliable['unsubscribe'] = get_option('n2go_typeUnsubscribe');
-        
+
         $popup = false;
 
         $uniqueId = uniqid();
@@ -124,6 +127,11 @@ class N2Go_Widget extends WP_Widget
         if (!empty($instance['title'])) {
             $response = "<h2 class=\"widget-title\">" . $instance['title'] . "</h2>" . $response;
         }
+        $response = <<<HTML
+            <section class="widget widget_newsletter2go">
+                    $response
+            </section>
+HTML;
 
         if ($print) {
             echo $response;
