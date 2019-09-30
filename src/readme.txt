@@ -92,6 +92,7 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 
 = 4.0.11 =
 * enhance WP error handling
+* fix widget view
 
 = 4.0.10 =
 * improve error handling for api form calls
