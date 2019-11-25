@@ -132,7 +132,7 @@ function n2Go_Shortcode ($attr)
     return $widget->widget($args, $instance, false);
 }
 
-function n2Go_plugin_uninstallation() {
+function n2Go_DeletePluginOptions() {
     delete_option('n2go_authKey');
     delete_option('n2go_accessToken');
     delete_option('n2go_refreshToken');
@@ -143,5 +143,5 @@ add_action('init', 'n2Go_ApiInit');
 require_once NEWSLETTER2GO_ROOT_PATH . "/widget/N2Go_Widget.php";
 register_activation_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2Go_ApiActivation');
 register_deactivation_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2Go_ApiDeactivation');
-register_uninstall_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2Go_plugin_uninstallation');
+register_uninstall_hook(NEWSLETTER2GO_ROOT_PATH . "/newsletter2go.php", 'n2Go_DeletePluginOptions');
 add_shortcode('newsletter2go', 'n2Go_Shortcode');
