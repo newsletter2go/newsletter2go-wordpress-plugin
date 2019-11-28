@@ -154,6 +154,8 @@ class N2Go_Api
             return [];
         }
 
+        libxml_clear_errors();
+
         return array_map(
             function (DOMNode $node) {
                 return $node->nodeValue;

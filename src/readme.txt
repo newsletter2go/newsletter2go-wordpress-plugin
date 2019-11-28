@@ -138,7 +138,7 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 
 == Upgrade Notice ==
 
-= 4.0.11 =
+= 4.0.12 =
 * delete plugin options record at uninstall
 * remove warnings when getting post or pages via 1-click transfer
 
