@@ -92,6 +92,7 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 
 = 4.0.12 =
 * delete plugin options record at uninstall
+* remove warnings when getting post or pages via 1-click transfer
 
 = 4.0.11 =
 * enhance WP error handling
@@ -138,7 +139,12 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 == Upgrade Notice ==
 
 = 4.0.11 =
+* delete plugin options record at uninstall
+* remove warnings when getting post or pages via 1-click transfer
+
+= 4.0.11 =
 * enhance WP error handling
+* fix widget view
 
 = 4.0.10 =
 * improve error handling for api form calls

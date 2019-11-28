@@ -144,6 +144,7 @@ class N2Go_Api
     private static function extractImages($html)
     {
         $document = new DOMDocument();
+        libxml_use_internal_errors(true);
         if (!$document->loadHTML($html)) {
             return [];
         }
