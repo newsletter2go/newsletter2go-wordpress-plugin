@@ -144,6 +144,7 @@ class N2Go_Api
     private static function extractImages($html)
     {
         $document = new DOMDocument();
+        libxml_use_internal_errors(true);
         if (!$document->loadHTML($html)) {
             return [];
         }
@@ -152,6 +153,8 @@ class N2Go_Api
         if (!($list = $xpath->query('//img/@src'))) {
             return [];
         }
+
+        libxml_clear_errors();
 
         return array_map(
             function (DOMNode $node) {
