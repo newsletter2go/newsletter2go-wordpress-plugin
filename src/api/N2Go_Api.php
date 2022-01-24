@@ -7,7 +7,7 @@ class N2Go_Api
 
     public static function run()
     {
-        $apikey = $_SERVER['PHP_AUTH_USER'];
+        $apikey = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] :  null;
 
         if (empty($apikey) === true) {
             $apikey = filter_input(INPUT_POST, 'apikey');
@@ -52,10 +52,9 @@ class N2Go_Api
             $result = Nl2go_ResponseHelper::generateErrorResponse('API Key is invalid', Nl2go_ResponseHelper::ERRNO_PLUGIN_CREDENTIALS_WRONG);
         }
 
-        $charset = get_option('blog_charset');
         if (!headers_sent()) {
             header('HTTP/1.1 200 OK', true);
-            header("Content-Type: application/json; charset=$charset", true);
+            header("Content-Type: application/json; charset=utf-8");
         }
 
         echo $result;
