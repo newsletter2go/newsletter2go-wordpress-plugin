@@ -3,8 +3,8 @@ Contributors: newsletter2go
 Donate link: http://www.newsletter2go.com
 Tags: email, email marketing, emailing, email marketing software, newsletter, newsletter software, newsletter plugin, newsletter widget, content, content transfer, subscribers
 Requires PHP: 5.2.4
-Tested up to: 5.3
-Stable tag: 4.0.12
+Tested up to: 5.9
+Stable tag: 4.0.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ Wählen Sie in Ihrem Backend das Widget Newsletter2Go aus. Ist das Plugin instal
 4. Passen Sie Ihre Anmeldeformulare für den Newsletter Ihrem Design an.
 
 == Changelog ==
+
+= 4.0.13 =
+* update compatibility version
+* fix php warnings bug
 
 = 4.0.12 =
 * delete plugin options record at uninstall
