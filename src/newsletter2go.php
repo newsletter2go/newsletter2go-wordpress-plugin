@@ -4,7 +4,7 @@
   Plugin Name: Newsletter2Go
   Plugin URI: https://www.newsletter2go.co.uk/features/wordpress-newsletter-plugin/
   Description: Adds email marketing functionality to your E-commerce platform. Easily synchronize your contacts and send product newsletters
-  Version: 4.0.12
+  Version: 4.0.13
   Author: Newsletter2Go
   Author URI: https://www.newsletter2go.de/
  */
