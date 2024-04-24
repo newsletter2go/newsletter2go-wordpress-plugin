@@ -295,7 +295,7 @@ class N2Go_Gui
      */
     function resetStyles()
     {
-        $style = $_POST['style'];
+        $style = file_get_contents(plugins_url('/lib/newsletter2go_default.json', __FILE__));
         $this->save_option('n2go_widgetStyleConfig', $style);
         echo true;
         wp_die();
