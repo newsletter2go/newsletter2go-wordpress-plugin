@@ -136,8 +136,6 @@ class N2Go_Gui
         if (strlen($formUniqueCode) > 0 && !isset($forms[$formUniqueCode])) {
             $this->save_option('n2go_formUniqueCode', null);
             $formUniqueCode = null;
-        } else {
-            $form = $forms[$formUniqueCode];
         }
 
         require_once dirname(__FILE__) . '/adminView.php';
