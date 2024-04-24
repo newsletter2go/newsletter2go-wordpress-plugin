@@ -86,7 +86,7 @@ class N2Go_Gui
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->save_option('n2go_formUniqueCode', $_POST['formUniqueCode']);
+            $this->save_option('n2go_formUniqueCode', htmlspecialchars($_POST['formUniqueCode']));
 
             if (isset($_POST['widgetStyleConfig'])) {
                 $this->save_option('n2go_widgetStyleConfig', $_POST['widgetStyleConfig']);
