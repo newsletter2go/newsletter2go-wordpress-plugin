@@ -86,12 +86,12 @@ class N2Go_Gui
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->save_option('n2go_formUniqueCode', $_POST['formUniqueCode']);
+            $this->save_option('n2go_formUniqueCode', htmlspecialchars($_POST['formUniqueCode']));
 
-            $widgetStyleConfig = json_decode(stripcslashes($_POST['widgetStyleConfig']));
-            if (isset($widgetStyleConfig)) {
+            if (isset($_POST['widgetStyleConfig'])) {
                 $this->save_option('n2go_widgetStyleConfig', $_POST['widgetStyleConfig']);
             }
+
             if (isset($_POST['resetValues'])) {
                 $this->disconnect();
             }
@@ -136,8 +136,6 @@ class N2Go_Gui
         if (strlen($formUniqueCode) > 0 && !isset($forms[$formUniqueCode])) {
             $this->save_option('n2go_formUniqueCode', null);
             $formUniqueCode = null;
-        } else {
-            $form = $forms[$formUniqueCode];
         }
 
         require_once dirname(__FILE__) . '/adminView.php';
@@ -295,7 +293,7 @@ class N2Go_Gui
      */
     function resetStyles()
     {
-        $style = $_POST['style'];
+        $style = file_get_contents(plugins_url('/lib/newsletter2go_default.json', __FILE__));
         $this->save_option('n2go_widgetStyleConfig', $style);
         echo true;
         wp_die();
